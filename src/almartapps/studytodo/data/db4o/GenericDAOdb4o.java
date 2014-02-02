@@ -1,6 +1,6 @@
 package almartapps.studytodo.data.db4o;
 
-import almartapps.studytodo.data.interfaces.GenericDAO;
+import almartapps.studytodo.data.DAO.GenericDAO;
 
 public abstract class GenericDAOdb4o<T> implements GenericDAO<T> {
 	

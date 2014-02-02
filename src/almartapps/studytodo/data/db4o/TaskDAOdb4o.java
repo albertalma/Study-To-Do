@@ -2,7 +2,7 @@ package almartapps.studytodo.data.db4o;
 
 import java.util.List;
 
-import almartapps.studytodo.data.interfaces.TaskDAO;
+import almartapps.studytodo.data.DAO.TaskDAO;
 import almartapps.studytodo.model.Task;
 
 public class TaskDAOdb4o extends GenericDAOdb4o<Task> implements TaskDAO {

@@ -1,4 +1,4 @@
-package almartapps.studytodo.data.interfaces;
+package almartapps.studytodo.data.DAO;
 
 import java.util.List;
 
