@@ -11,15 +11,17 @@ import java.util.Date;
 
 public class Task {
 	
-	public String name;
+	private String name;
 	
-	public String description;
+	private String description;
 	
-	public Date dueDate;
+	private Date dueDate;
 	
-	public boolean isCompleted;
+	private boolean isCompleted;
 	
-	public TaskPriority priority;
+	private TaskPriority priority;
+	
+	private Subject subject;
 	
 	public Task() {
 		name = null;
@@ -36,5 +38,53 @@ public class Task {
 	public Task(String name, String description) {
 		this.name = name;
 		this.description = description;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public boolean isCompleted() {
+		return isCompleted;
+	}
+
+	public void setCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
+	}
+
+	public TaskPriority getPriority() {
+		return priority;
+	}
+
+	public void setPriority(TaskPriority priority) {
+		this.priority = priority;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	protected void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 }
