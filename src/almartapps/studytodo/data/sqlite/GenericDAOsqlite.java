@@ -1,6 +1,7 @@
 package almartapps.studytodo.data.sqlite;
 
 import almartapps.studytodo.data.DAO.GenericDAO;
+import almartapps.studytodo.data.sqlite.utils.DBHelper;
 import android.content.Context;
 
 public abstract class GenericDAOsqlite<T> implements GenericDAO<T> {

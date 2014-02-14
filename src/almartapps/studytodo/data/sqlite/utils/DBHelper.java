@@ -1,4 +1,4 @@
-package almartapps.studytodo.data.sqlite;
+package almartapps.studytodo.data.sqlite.utils;
 
 import almartapps.studytodo.data.sqlite.tables.TasksTable;
 import android.content.Context;

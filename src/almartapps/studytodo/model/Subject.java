@@ -87,10 +87,8 @@ public class Subject {
 		float grade = 0.0f;
 		for (Task task : tasks) {
 			if (task.isCompleted()) { //do not add non-completed tasks!
-				//FIXME how do we avoid using "instanceof"??
-				if (task instanceof EvaluableTask) {
-					grade += ((EvaluableTask)task).getGrade() *
-							 ((EvaluableTask)task).getPercentage();
+				if (task.isEvaluable()) {
+					grade += task.getGrade() * task.getPercentage();
 				}
 			}
 		}

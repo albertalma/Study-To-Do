@@ -28,7 +28,7 @@ public final class TasksTable {
 	public static final String DUE_DATE_COLUMN = "due_date";
 	
 	/**
-	 * Tasks table PRIORITY column (INTEGER)
+	 * Tasks table PRIORITY column (INTEGER, NOT NULL)
 	 */
 	public static final String PRIORITY_COLUMN = "priority";
 	
@@ -36,6 +36,11 @@ public final class TasksTable {
 	 * Tasks table COMPLETED column (BOOLEAN, NOT NULL)
 	 */
 	public static final String COMPLETED_COLUMN = "completed";
+	
+	/**
+	 * Tasks table EVALUABLE column (BOOLEA, NOT NULL)
+	 */
+	public static final String EVALUABLE_COLUMN = "evaluable";
 	
 	/**
 	 * Tasks table PERCENTAGE column (INTEGER)
@@ -53,8 +58,9 @@ public final class TasksTable {
 				TasksTable.NAME_COLUMN + " TEXT NOT NULL, " +
 				TasksTable.DESCRIPTION_COLUMN + " TEXT, " +
 				TasksTable.DUE_DATE_COLUMN + " DATETIME, " +
-				TasksTable.PRIORITY_COLUMN + " INTEGER, " +
-				TasksTable.COMPLETED_COLUMN + " BOOLEAN, " +
+				TasksTable.PRIORITY_COLUMN + " INTEGER NOT NULL, " +
+				TasksTable.COMPLETED_COLUMN + " BOOLEAN NOT NULL, " +
+				TasksTable.EVALUABLE_COLUMN + " BOOLEAN NOT NULL, " +
 				TasksTable.PERCENTAGE_COLUMN + " INTEGER, " +
 				TasksTable.GRADE_COLUMN + " REAL" +
 			")";
