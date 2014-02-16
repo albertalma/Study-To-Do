@@ -58,7 +58,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	private void initializeDatabase(SQLiteDatabase db) {
 		db.execSQL(TasksTable.CREATE_TASKS_TABLE);
-		//TODO access tables' CREATE statements
+		//TODO execute tables' CREATE statements
+		// WARNING! remember to do it in the right order!
 	}
 	
 	/**
@@ -68,7 +69,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * @param db the database instance to be cleared
 	 */
 	private void dropDatabase(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
+		db.execSQL(TasksTable.DROP_TASKS_TABLE);
+		//TODO execute tables' DROP statements
 	}
 
 }

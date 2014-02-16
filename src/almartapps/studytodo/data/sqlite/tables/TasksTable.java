@@ -53,16 +53,19 @@ public final class TasksTable {
 	public static final String GRADE_COLUMN = "grade";
 
 	public static final String CREATE_TASKS_TABLE = 
-			"CREATE TABLE IF NOT EXISTS " + TasksTable.TABLE_TASKS + " (" +
-				TasksTable.ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-				TasksTable.NAME_COLUMN + " TEXT NOT NULL, " +
-				TasksTable.DESCRIPTION_COLUMN + " TEXT, " +
-				TasksTable.DUE_DATE_COLUMN + " DATETIME, " +
-				TasksTable.PRIORITY_COLUMN + " INTEGER NOT NULL, " +
-				TasksTable.COMPLETED_COLUMN + " BOOLEAN NOT NULL, " +
-				TasksTable.EVALUABLE_COLUMN + " BOOLEAN NOT NULL, " +
-				TasksTable.PERCENTAGE_COLUMN + " INTEGER, " +
-				TasksTable.GRADE_COLUMN + " REAL" +
+			"CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " (" +
+				ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				NAME_COLUMN + " TEXT NOT NULL, " +
+				DESCRIPTION_COLUMN + " TEXT, " +
+				DUE_DATE_COLUMN + " DATETIME, " +
+				PRIORITY_COLUMN + " INTEGER NOT NULL, " +
+				COMPLETED_COLUMN + " BOOLEAN NOT NULL, " +
+				EVALUABLE_COLUMN + " BOOLEAN NOT NULL, " +
+				PERCENTAGE_COLUMN + " INTEGER, " +
+				GRADE_COLUMN + " REAL" +
 			")";
+	
+	public static final String DROP_TASKS_TABLE = 
+			"DROP TABLE IF EXISTS " + TABLE_TASKS;
 	
 }
