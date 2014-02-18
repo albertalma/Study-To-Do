@@ -22,10 +22,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * on the database. You cannot change the schema of the DB if this version
 	 * number is not changed too.
 	 * 
-	 * As of date 13/Feb/2014, version number is "0". Please change this comment
+	 * As of date 13/Feb/2014, version number is "1". Please change this comment
 	 * when needed!
 	 */
-	private static final int DATABASE_VERSION = 0;
+	private static final int DATABASE_VERSION = 1;
 	
 	private static DBHelper instance;
 	

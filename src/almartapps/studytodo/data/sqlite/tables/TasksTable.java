@@ -51,7 +51,14 @@ public final class TasksTable {
 	 * Tasks table GRADE column (REAL)
 	 */
 	public static final String GRADE_COLUMN = "grade";
-
+	
+	/**
+	 * Tasks table ALL columns. Utility structure to help reverse mapping from Cursors to Objects.
+	 */
+	public static final String [] ALL_COLUMNS = {ID_COLUMN, NAME_COLUMN, 
+				DESCRIPTION_COLUMN, DUE_DATE_COLUMN, PRIORITY_COLUMN, COMPLETED_COLUMN, 
+				EVALUABLE_COLUMN, PERCENTAGE_COLUMN, GRADE_COLUMN};
+	
 	public static final String CREATE_TASKS_TABLE = 
 			"CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " (" +
 				ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +

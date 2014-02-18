@@ -11,6 +11,8 @@ import java.util.Date;
 
 public class Task {
 	
+	private int id;
+	
 	private String name;
 	
 	private String description;
@@ -65,6 +67,21 @@ public class Task {
 		grade = 0.0f;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	/**
+	 * WARNING! The ID field of this class is just to help mapping to the database. It must never
+	 * be set anywhere in the application logic, as it is an autoincrement value, filled by
+	 * the database itself.
+	 * 
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}

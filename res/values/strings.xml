@@ -4,17 +4,17 @@
     <string name="app_name">StudyToDo</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    
+
     <!-- Action Bar -->
     <string name="action_new">New</string>
-    
+
     <!-- Tabs -->
     <string name="tasks">Tasks</string>
     <string name="courses">Courses</string>
-    
+
     <!-- Navigation Drawer -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    
+    <string name="title_activity_test">TestActivity</string>
 
 </resources>
