@@ -1,5 +1,6 @@
 package almartapps.studytodo.data.sqlite.utils;
 
+import almartapps.studytodo.data.sqlite.tables.AutoIncrementTable;
 import almartapps.studytodo.data.sqlite.tables.TasksTable;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -57,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * @param db the database instance to be initialized
 	 */
 	private void initializeDatabase(SQLiteDatabase db) {
+		db.execSQL(AutoIncrementTable.CREATE_AUTOINCREMENT_TABLE);
 		db.execSQL(TasksTable.CREATE_TASKS_TABLE);
 		//TODO execute tables' CREATE statements
 		// WARNING! remember to do it in the right order!
@@ -69,6 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * @param db the database instance to be cleared
 	 */
 	private void dropDatabase(SQLiteDatabase db) {
+		db.execSQL(AutoIncrementTable.DROP_AUTOINCREMENT_TABLE);
 		db.execSQL(TasksTable.DROP_TASKS_TABLE);
 		//TODO execute tables' DROP statements
 	}

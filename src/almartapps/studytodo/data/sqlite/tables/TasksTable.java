@@ -61,7 +61,7 @@ public final class TasksTable {
 	
 	public static final String CREATE_TASKS_TABLE = 
 			"CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " (" +
-				ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				ID_COLUMN + " INTEGER PRIMARY KEY, " +
 				NAME_COLUMN + " TEXT NOT NULL, " +
 				DESCRIPTION_COLUMN + " TEXT, " +
 				DUE_DATE_COLUMN + " DATETIME, " +
