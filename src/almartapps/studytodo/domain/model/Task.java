@@ -1,4 +1,4 @@
-package almartapps.studytodo.model;
+package almartapps.studytodo.domain.model;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Task {
 	
-	private int id;
+	private long id;
 	
 	private String name;
 	
@@ -67,7 +67,7 @@ public class Task {
 		grade = 0.0f;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
@@ -78,7 +78,7 @@ public class Task {
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

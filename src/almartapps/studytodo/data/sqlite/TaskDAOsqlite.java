@@ -8,7 +8,7 @@ import almartapps.studytodo.data.DAO.TaskDAO;
 import almartapps.studytodo.data.sqlite.tables.TasksTable;
 import almartapps.studytodo.data.sqlite.utils.MappingUtils;
 import almartapps.studytodo.data.sqlite.utils.SQLiteParseException;
-import almartapps.studytodo.model.Task;
+import almartapps.studytodo.domain.model.Task;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -43,7 +43,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 	}
 
 	@Override
-	public void insert(Task task) {
+	public Task insert(Task task) {
 		//get connection
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
@@ -83,26 +83,57 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 				+ " and description=" + (task.getDescription() != null ? task.getDescription() : "")
 				+ " and priority=" + task.getPriority()
 				+ ". No SQL statement");
-		db.insert(TasksTable.TABLE_TASKS, null, values);
+		long id = db.insert(TasksTable.TABLE_TASKS, null, values);
+		
+		//set the ID returned to the task
+		task.setId(id);
 		
 		//release connection
 		db.close();
+		
+		//return
+		return task;
 	}
 
 	@Override
-	public void delete(Task task) {
+	public boolean delete(Task task) {
 		//get connection
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
 		//delete object
-		String whereStatement = "WHERE _id = ?";
+		String whereStatement = "_id = ?";
 		String [] whereArgs = new String[]{String.valueOf(task.getId())};
 		Log.i(TAG, "deleting task with _id=" + task.getId() 
 				+ ". SQL WHERE clause is: " + whereStatement + ", " + task.getId());
-		db.delete(TasksTable.TABLE_TASKS, whereStatement, whereArgs);
+		int count = db.delete(TasksTable.TABLE_TASKS, whereStatement, whereArgs);
 		
 		//release connection
 		db.close();
+		
+		//return
+		return count > 0;
+	}
+	
+	/**
+	 * WARNING! This method will delete ALL the tasks in the table! Be careful
+	 * when using it!
+	 * @return the number of Tasks deleted (i.e. the number of rows deleted). 
+	 */
+	@Override
+	public int deleteAll() {
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//delete all objects
+		String whereClause = "1"; //this is the value we must pass to the delete() method to
+						//delete all rows and still get the count for it
+		int count = db.delete(TasksTable.TABLE_TASKS, whereClause, null);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return count;
 	}
 	
 	private List<Task> mapTasks(final Cursor cursor) {

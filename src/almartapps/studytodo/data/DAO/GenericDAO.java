@@ -13,13 +13,20 @@ public interface GenericDAO<T> {
 	/**
 	 * Inserts an object of a certain class in the database.
 	 * @param object the object to be inserted
+	 * @return the object that was inserted, with its ID set if it wasn't set
 	 */
-	public void insert(T object);
+	public T insert(T object);
 	
 	/**
 	 * Deletes an object of a certain class stored in the database.
 	 * @param object the object to be deleted
+	 * @return <code>true</code> if the object was deleted, <code>false</code> otherwise
 	 */
-	public void delete(T object);
+	public boolean delete(T object);
 	
+	/**
+	 * Deletes all objects of a certain class stored in the database.
+	 * @return the number of objects deleted
+	 */
+	public int deleteAll();
 }
