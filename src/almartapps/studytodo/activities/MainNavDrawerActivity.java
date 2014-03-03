@@ -1,6 +1,11 @@
 package almartapps.studytodo.activities;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import almartapps.studytodo.R;
+import almartapps.studytodo.adapters.NavigationDrawerAdapter;
 import almartapps.studytodo.fragments.CourseFragment;
 import almartapps.studytodo.fragments.TaskFragment;
 import almartapps.studytodo.fragments.TodayFragment;
@@ -34,7 +39,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_nav_drawer);
+		setContentView(R.layout.nav_drawer_main);
 
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -60,15 +65,25 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		// Set the drawer toggle as the DrawerListener
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		auxArray = new String[] { "Avui", "Tasques", "Assignatures" };
+		List<String> navigationDrawerItems = new ArrayList<String>();
+		navigationDrawerItems = setItemsInNavigationDrawer();
+		
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 		// Set the adapter for the list view
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.activity_list_item, android.R.id.text1,
-				auxArray));
+		mDrawerList.setAdapter(new NavigationDrawerAdapter(this,navigationDrawerItems));
 		// Set the list's click listener
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+	}
+
+	private List<String> setItemsInNavigationDrawer() {
+		List<String> navigationDrawerItems = new ArrayList<String>();
+		navigationDrawerItems.add("Avui");
+		navigationDrawerItems.add("Tasques");
+		navigationDrawerItems.add("Assignatures");
+		navigationDrawerItems.add("Horari");
+
+		return navigationDrawerItems;
 	}
 
 	@Override

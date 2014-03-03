@@ -1,9 +1,6 @@
 package almartapps.studytodo.activities;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.R.id;
-import almartapps.studytodo.R.layout;
-import almartapps.studytodo.R.menu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
