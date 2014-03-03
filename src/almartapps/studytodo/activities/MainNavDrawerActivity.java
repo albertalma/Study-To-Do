@@ -1,6 +1,5 @@
 package almartapps.studytodo.activities;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import almartapps.studytodo.R;
 import almartapps.studytodo.adapters.NavigationDrawerAdapter;
 import almartapps.studytodo.fragments.CourseFragment;
 import almartapps.studytodo.fragments.TaskFragment;
+import almartapps.studytodo.fragments.TimetableFragment;
 import almartapps.studytodo.fragments.TodayFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -23,7 +23,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainNavDrawerActivity extends ActionBarActivity {
@@ -33,7 +32,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 
-	private String[] auxArray;
+	List<String> navigationDrawerItems;
 	private ListView mDrawerList;
 
 	@Override
@@ -65,8 +64,8 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		// Set the drawer toggle as the DrawerListener
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		List<String> navigationDrawerItems = new ArrayList<String>();
-		navigationDrawerItems = setItemsInNavigationDrawer();
+		navigationDrawerItems = new ArrayList<String>();
+		setItemsInNavigationDrawer();
 		
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -76,14 +75,11 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 	}
 
-	private List<String> setItemsInNavigationDrawer() {
-		List<String> navigationDrawerItems = new ArrayList<String>();
-		navigationDrawerItems.add("Avui");
-		navigationDrawerItems.add("Tasques");
-		navigationDrawerItems.add("Assignatures");
-		navigationDrawerItems.add("Horari");
-
-		return navigationDrawerItems;
+	private void setItemsInNavigationDrawer() {
+		navigationDrawerItems.add(getString(R.string.today));
+		navigationDrawerItems.add(getString(R.string.tasks));
+		navigationDrawerItems.add(getString(R.string.courses));
+		navigationDrawerItems.add(getString(R.string.timetable));
 	}
 
 	@Override
@@ -140,6 +136,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 	private static final int TODAY = 0;
 	private static final int TASKS = 1;
 	private static final int COURSES = 2;
+	private static final int TIMETABLE = 3;
 
 	/** Swaps fragments in the main content view */
 	private void selectItem(int position) {
@@ -155,6 +152,9 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		case COURSES:
 			fragment = new CourseFragment();
 			break;
+		case TIMETABLE:
+			fragment = new TimetableFragment();
+			break;
 		}
 		if (fragment != null) {
 			Bundle args = new Bundle();
@@ -169,7 +169,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 			// Highlight the selected item, update the title, and close the
 			// drawer
 			mDrawerList.setItemChecked(position, true);
-			setTitle(auxArray[position]);
+			setTitle(navigationDrawerItems.get(position));
 			mDrawerLayout.closeDrawer(mDrawerList);
 		}
 	}

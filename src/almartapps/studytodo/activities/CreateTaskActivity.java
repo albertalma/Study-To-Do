@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class CreateTaskActivity extends ActionBarActivity {
 
@@ -15,16 +17,27 @@ public class CreateTaskActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_task);
-		
+		setSpinner();
 		ActionBar actionBar = getSupportActionBar();
 	    actionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	private void setSpinner() {
+		 String [] array_priority=new String[3];
+	        array_priority[0]=getString(R.string.high);
+	        array_priority[1]=getString(R.string.medium);
+	        array_priority[2]=getString(R.string.low);
+		Spinner s = (Spinner) findViewById(R.id.priority_spinner);
+        ArrayAdapter adapter = new ArrayAdapter(this,
+        android.R.layout.simple_spinner_item, array_priority);
+        s.setAdapter(adapter);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.action_bar_show_tasks, menu);
+	    inflater.inflate(R.menu.action_bar_save_tasks, menu);
 	    return super.onCreateOptionsMenu(menu);
 	}
 	
