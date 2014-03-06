@@ -13,6 +13,11 @@ public final class TasksTable {
 	public static final String ID_COLUMN = "_id";
 	
 	/**
+	 * Tasks table SUBJECT_KEY column (INTEGER, FK)
+	 */
+	public static final String SUBJECT_KEY_COLUMN = "subject_id";
+	
+	/**
 	 * Tasks table NAME column (TEXT, NOT NULL)
 	 */
 	public static final String NAME_COLUMN = "name";
@@ -62,6 +67,7 @@ public final class TasksTable {
 	public static final String CREATE_TASKS_TABLE = 
 			"CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " (" +
 				ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				SUBJECT_KEY_COLUMN + " INTEGER, " +
 				NAME_COLUMN + " TEXT NOT NULL, " +
 				DESCRIPTION_COLUMN + " TEXT, " +
 				DUE_DATE_COLUMN + " DATETIME, " +
@@ -69,7 +75,9 @@ public final class TasksTable {
 				COMPLETED_COLUMN + " BOOLEAN NOT NULL, " +
 				EVALUABLE_COLUMN + " BOOLEAN NOT NULL, " +
 				PERCENTAGE_COLUMN + " INTEGER, " +
-				GRADE_COLUMN + " REAL" +
+				GRADE_COLUMN + " REAL, " +
+				"FOREIGN KEY(" + SUBJECT_KEY_COLUMN + ") " +
+						"REFERENCES " + SubjectsTable.TABLE_SUBJECTS + "(" + SubjectsTable.ID_COLUMN + ")" + 
 			")";
 	
 	public static final String DROP_TASKS_TABLE = 

@@ -23,7 +23,7 @@ public class Task {
 	
 	private TaskPriority priority;
 	
-	private Subject subject;
+	private long subjectId;
 	
 	private boolean isEvaluable;
 	
@@ -35,30 +35,9 @@ public class Task {
 	private float grade;
 	
 	public Task() {
+		id = -1;
 		name = null;
 		description = null;
-		dueDate = null;
-		isCompleted = false;
-		priority = TaskPriority.low;
-		isEvaluable = false;
-		percentage = 0;
-		grade = 0.0f;
-	}
-	
-	public Task(String name) {
-		this.name = name;
-		description = null;
-		dueDate = null;
-		isCompleted = false;
-		priority = TaskPriority.low;
-		isEvaluable = false;
-		percentage = 0;
-		grade = 0.0f;
-	}
-	
-	public Task(String name, String description) {
-		this.name = name;
-		this.description = description;
 		dueDate = null;
 		isCompleted = false;
 		priority = TaskPriority.low;
@@ -122,14 +101,14 @@ public class Task {
 		this.priority = priority;
 	}
 
-	public Subject getSubject() {
-		return subject;
+	public long getSubjectId() {
+		return subjectId;
 	}
 
-	protected void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setSubjectId(long subjectId) {
+		this.subjectId = subjectId;
 	}
-	
+		
 	public boolean isEvaluable() {
 		return isEvaluable;
 	}
