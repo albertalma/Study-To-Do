@@ -25,7 +25,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 	}
 	
 	@Override
-	public Task getTask(long taskId) throws TaskNotExistsException {
+	public Task get(long taskId) throws TaskNotExistsException {
 		//get connection
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		

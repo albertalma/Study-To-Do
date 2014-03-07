@@ -5,8 +5,6 @@ import java.util.List;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.exceptions.SubjectNotExistsException;
 import almartapps.studytodo.data.sqlite.tables.SubjectsTable;
-import almartapps.studytodo.data.sqlite.tables.TasksTable;
-import almartapps.studytodo.data.sqlite.utils.MappingUtils;
 import almartapps.studytodo.domain.model.Subject;
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,7 +21,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 	}
 
 	@Override
-	public Subject getSubject(long subjectId) throws SubjectNotExistsException {
+	public Subject get(long subjectId) throws SubjectNotExistsException {
 		//get connection
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		

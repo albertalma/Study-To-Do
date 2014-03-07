@@ -1,17 +1,24 @@
 package almartapps.studytodo.domain.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class Course {
 
+	private long id;
+	
 	private String name;
 	
 	private Date startDate;
 	
 	private Date endDate;
 	
-	private List<Subject> subjects;
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	public String getName() {
 		return name;
@@ -35,29 +42,6 @@ public class Course {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	public List<Subject> getSubjects() {
-		return subjects;
-	}
-
-	protected void setSubjects(List<Subject> subjects) {
-		this.subjects = subjects;
-	}
-	
-	protected void addSubject(Subject subject) {
-		subjects.add(subject);
-	}
-
-	public float getAverageGrade() {
-		float averageGrade = 0.0f;
-		int n = 0;
-		for (Subject subject : subjects) {
-			averageGrade += subject.getGrade();
-			++n;
-		}
-		averageGrade /= (float)n;
-		return averageGrade;
 	}
 	
 }

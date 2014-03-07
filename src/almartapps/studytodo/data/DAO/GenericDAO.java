@@ -2,7 +2,17 @@ package almartapps.studytodo.data.DAO;
 
 import java.util.List;
 
+import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
+
 public interface GenericDAO<T> {
+	
+	/**
+	 * Retrieve a single object of a certain class, given its id.
+	 * @param id the id of the object to be fetched
+	 * @return the object demanded
+	 * @throws ObjectNotExistsException if the object is not inserted in the database
+	 */
+	public T get(long id) throws ObjectNotExistsException;
 	
 	/**
 	 * Retrieve all objects of a certain class.
