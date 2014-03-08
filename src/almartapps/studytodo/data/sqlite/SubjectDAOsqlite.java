@@ -38,7 +38,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		
 		//map result
 		cursor.moveToFirst();
-		Subject subject = mapSubject(cursor);
+		Subject subject = map(cursor);
 		
 		//release connection
 		db.close();
@@ -48,8 +48,22 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 	
 	@Override
 	public List<Subject> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String queryStatement = "SELECT * FROM " + SubjectsTable.TABLE_SUBJECTS;
+		Log.i(TAG, "getting all Subjects stored. SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Subject> subjects = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return subjects;
 	}
 
 	@Override
@@ -64,7 +78,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		ContentValues values = getContentValues(subject);
 		
 		//perform insert
-		Log.i(TAG, "inserting subject with name=" + subject.getName());
+		Log.i(TAG, "inserting Subject with name=" + subject.getName());
 		long id = db.insert(SubjectsTable.TABLE_SUBJECTS, null, values);
 		
 		//set the ID returned to the task
@@ -78,50 +92,59 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 	}
 
 	@Override
-	public boolean delete(Subject object) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(Subject subject) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//delete object
+		String whereStatement = "_id = ?";
+		String [] whereArgs = new String[]{String.valueOf(subject.getId())};
+		Log.i(TAG, "deleting Subject with _id=" + subject.getId() 
+				+ ". SQL WHERE clause is: " + whereStatement + ", " + subject.getId());
+		int count = db.delete(SubjectsTable.TABLE_SUBJECTS, whereStatement, whereArgs);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return count > 0;
 	}
 
 	@Override
 	public int deleteAll() {
-		// TODO Auto-generated method stub
-		return 0;
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//delete all objects
+		String whereClause = "1"; //this is the value we must pass to the delete() method to
+						//delete all rows and still get the count for it
+		Log.i(TAG, "deleting ALL Subjects (this is not a 'DROP TABLE' statement)");
+		int count = db.delete(SubjectsTable.TABLE_SUBJECTS, whereClause, null);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return count;
 	}
 	
-	private ContentValues getContentValues(Subject subject) {
+	@Override
+	protected ContentValues getContentValues(Subject subject) {
 		ContentValues values = new ContentValues();
-		
 		values.put(SubjectsTable.NAME_COLUMN, subject.getName());
-		//TODO getContentValues
-		//values.put(SubjectsTable., value)
-		
-		/*
-		values.put(TasksTable.SUBJECT_KEY_COLUMN, task.getSubjectId());
-		values.put(TasksTable.NAME_COLUMN, task.getName()); //not null
-		if (task.getDescription() != null) {
-			values.put(TasksTable.DESCRIPTION_COLUMN, task.getDescription());
-		} else {
-			values.putNull(TasksTable.DESCRIPTION_COLUMN);
-		}
-		if (task.getDueDate() != null) {
-			values.put(TasksTable.DUE_DATE_COLUMN, MappingUtils.formatDateToSQL(task.getDueDate()));
-		} else {
-			values.putNull(TasksTable.DUE_DATE_COLUMN);
-		}
-		values.put(TasksTable.PRIORITY_COLUMN, MappingUtils.mapPriorityToSQL(task.getPriority())); //not null
-		values.put(TasksTable.COMPLETED_COLUMN, task.isCompleted()); //not null
-		
-		 */
-		
+		values.put(SubjectsTable.COURSE_KEY_COLUMN, subject.getCourseId());
 		return values;
 	}
 	
-	private Subject mapSubject(Cursor cursor) {
-		//TODO mapSubject
+	@Override
+	protected Subject map(Cursor cursor) {
 		Subject subject = new Subject();
 		//id
 		subject.setId(cursor.getLong(0));
+		//course_id
+		subject.setCourseId(cursor.getLong(1));
+		//name
+		subject.setName(cursor.getString(2));
 		return subject;
 	}
 

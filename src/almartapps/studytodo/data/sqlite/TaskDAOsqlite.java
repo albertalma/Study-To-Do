@@ -1,7 +1,6 @@
 package almartapps.studytodo.data.sqlite;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import almartapps.studytodo.data.DAO.TaskDAO;
@@ -42,7 +41,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		
 		//map result
 		cursor.moveToFirst();
-		Task task = mapTask(cursor);
+		Task task = map(cursor);
 		
 		//release connection
 		db.close();
@@ -61,7 +60,8 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
 		
 		//map rows to tasks
-		List<Task> tasks = mapTasks(cursor);
+		cursor.moveToFirst();
+		List<Task> tasks = mapAll(cursor);
 		
 		//release connection
 		db.close();
@@ -98,9 +98,6 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 	
 	@Override
 	public void updateTask(Task task) {
-		//check existence
-		checkInserted(task);
-		
 		//get connection
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
@@ -119,9 +116,6 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 
 	@Override
 	public boolean delete(Task task) {
-		//check existence
-		checkInserted(task);
-		
 		//get connection
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
@@ -162,12 +156,8 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		return count;
 	}
 	
-	private void checkInserted(Task task) throws IllegalArgumentException {
-		if (task.getId() < 0)
-			throw new IllegalArgumentException("This task has not yet been inserted.");
-	}
-	
-	private ContentValues getContentValues(Task task) {
+	@Override
+	protected ContentValues getContentValues(Task task) {
 		//build a map with column names as keys and values
 		ContentValues values = new ContentValues();
 		
@@ -203,23 +193,8 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		return values;
 	}
 	
-	private List<Task> mapTasks(final Cursor cursor) {
-		List<Task> tasks = new ArrayList<Task>();
-		cursor.moveToFirst();
-		while (cursor.getCount() > 0 && !cursor.isAfterLast()) {
-			tasks.add(mapTask(cursor));
-			cursor.moveToNext();
-		}
-		return tasks;
-	}
-	
-	/**
-	 * Maps a row to a Task. The cursor passed must be pointing to a valid row.
-	 * 
-	 * @param cursor a Cursor pointing to the row to be mapped
-	 * @return the mapped Task
-	 */
-	private Task mapTask(final Cursor cursor) {
+	@Override
+	protected Task map(Cursor cursor) {
 		Task task = new Task();
 		//id, autoincrement
 		task.setId(cursor.getLong(0));

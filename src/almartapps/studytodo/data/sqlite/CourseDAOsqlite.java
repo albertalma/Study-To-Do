@@ -39,7 +39,7 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> {
 		
 		//map result
 		cursor.moveToFirst();
-		Course course = mapCourse(cursor);
+		Course course = map(cursor);
 		
 		//release connection
 		db.close();
@@ -49,8 +49,22 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> {
 	
 	@Override
 	public List<Course> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String queryStatement = "SELECT * FROM " + CoursesTable.TABLE_COURSES;
+		Log.i(TAG, "getting all Courses stored. SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Course> courses = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return courses;
 	}
 
 	@Override
@@ -84,17 +98,43 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> {
 
 	@Override
 	public boolean delete(Course course) {
-		// TODO Auto-generated method stub
-		return false;
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//delete object
+		String whereStatement = "_id = ?";
+		String [] whereArgs = new String[]{String.valueOf(course.getId())};
+		Log.i(TAG, "deleting course with _id=" + course.getId() 
+				+ ". SQL WHERE clause is: " + whereStatement + ", " + course.getId());
+		int count = db.delete(CoursesTable.TABLE_COURSES, whereStatement, whereArgs);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return count > 0;
 	}
 
 	@Override
 	public int deleteAll() {
-		// TODO Auto-generated method stub
-		return 0;
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//delete all objects
+		String whereClause = "1"; //this is the value we must pass to the delete() method to
+						//delete all rows and still get the count for it
+		Log.i(TAG, "deleting ALL Courses (this is not a 'DROP TABLE' statement)");
+		int count = db.delete(CoursesTable.TABLE_COURSES, whereClause, null);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return count;
 	}
 	
-	private ContentValues getContentValues(Course course) {
+	@Override
+	protected ContentValues getContentValues(Course course) {
 		ContentValues values = new ContentValues();
 		values.put(CoursesTable.NAME_COLUMN, course.getName());
 		values.put(CoursesTable.START_DATE_COLUMN, MappingUtils.formatDateToSQL(course.getStartDate()));
@@ -102,7 +142,8 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> {
 		return values;
 	}
 	
-	private Course mapCourse(Cursor cursor) {
+	@Override
+	protected Course map(Cursor cursor) {
 		Course course = new Course();
 		course.setId(cursor.getLong(0));
 		course.setName(cursor.getString(1));
