@@ -1,11 +1,11 @@
-package almartapps.studytodo.activities;
+package almartapps.studytodo.view.activities;
 
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.adapters.AppSectionsPagerAdapter;
-import almartapps.studytodo.fragments.CourseFragment;
-import almartapps.studytodo.fragments.TaskFragment;
-import almartapps.studytodo.listeners.TabListener;
+import almartapps.studytodo.view.adapters.AppSectionsPagerAdapter;
+import almartapps.studytodo.view.fragments.CourseFragment;
+import almartapps.studytodo.view.fragments.TaskFragment;
+import almartapps.studytodo.view.listeners.TabListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;

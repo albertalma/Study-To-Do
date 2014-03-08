@@ -1,8 +1,8 @@
-package almartapps.studytodo.adapters;
+package almartapps.studytodo.view.adapters;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.fragments.CourseFragment;
-import almartapps.studytodo.fragments.TaskFragment;
+import almartapps.studytodo.view.fragments.CourseFragment;
+import almartapps.studytodo.view.fragments.TaskFragment;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,7 +30,7 @@ public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
                 // a launchpad into the other demonstrations in this example application.
                 return new CourseFragment();
         }
-        //Ojo con esto habria que añadir un default!!!
+        //Ojo con esto habria que aï¿½adir un default!!!
 		return null;
     }
 

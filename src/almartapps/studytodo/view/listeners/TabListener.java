@@ -1,4 +1,4 @@
-package almartapps.studytodo.listeners;
+package almartapps.studytodo.view.listeners;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;

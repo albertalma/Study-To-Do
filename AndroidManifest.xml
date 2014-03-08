@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="almartapps.studytodo.activities.MainNavDrawerActivity"
+            android:name="almartapps.studytodo.view.activities.MainNavDrawerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
@@ -27,14 +27,14 @@
              -->
         </activity>
         <activity
-            android:name="almartapps.studytodo.activities.ShowCoursesActivity"
+            android:name="almartapps.studytodo.view.activities.ShowCoursesActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         </activity>
         <activity
-            android:name="almartapps.studytodo.activities.CreateTaskActivity"
+            android:name="almartapps.studytodo.view.activities.CreateTaskActivity"
             android:label="@string/app_name"
-            android:parentActivityName="almartapps.studytodo.activities.MainNavDrawerActivity"
+            android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
 
             <!-- Parent activity meta-data to support API level 7+ -->

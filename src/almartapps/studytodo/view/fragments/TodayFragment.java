@@ -1,4 +1,4 @@
-package almartapps.studytodo.fragments;
+package almartapps.studytodo.view.fragments;
 
 import almartapps.studytodo.R;
 import android.os.Bundle;

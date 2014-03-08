@@ -1,4 +1,4 @@
-package almartapps.studytodo.activities;
+package almartapps.studytodo.view.activities;
 
 import almartapps.studytodo.R;
 import almartapps.studytodo.R.id;

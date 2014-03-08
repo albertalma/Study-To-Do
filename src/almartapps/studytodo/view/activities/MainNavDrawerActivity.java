@@ -1,9 +1,9 @@
-package almartapps.studytodo.activities;
+package almartapps.studytodo.view.activities;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.fragments.CourseFragment;
-import almartapps.studytodo.fragments.TaskFragment;
-import almartapps.studytodo.fragments.TodayFragment;
+import almartapps.studytodo.view.fragments.CourseFragment;
+import almartapps.studytodo.view.fragments.TaskFragment;
+import almartapps.studytodo.view.fragments.TodayFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
