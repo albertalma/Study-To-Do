@@ -65,6 +65,28 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		
 		return subjects;
 	}
+	
+	@Override
+	public List<Subject> getSubjectsFromCourse(long courseId) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String queryStatement = "SELECT * FROM " + SubjectsTable.TABLE_SUBJECTS +
+				" WHERE " + SubjectsTable.COURSE_KEY_COLUMN + " = " + courseId;
+		Log.i(TAG, "getting all Subjects belonging to the course with id=" + courseId + 
+				". SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Subject> subjects = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return subjects;
+	}
 
 	@Override
 	public Subject insert(Subject subject) {
@@ -109,7 +131,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		//return
 		return count > 0;
 	}
-
+	
 	@Override
 	public int deleteAll() {
 		//get connection

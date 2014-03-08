@@ -56,7 +56,29 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		
 		//perform query
 		String queryStatement = "SELECT * FROM " + TasksTable.TABLE_TASKS;
-		Log.i(TAG, "getting all tasks stored. SQL statement is: " + queryStatement);
+		Log.i(TAG, "getting all Tasks stored. SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Task> tasks = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return tasks;
+	}
+	
+	@Override
+	public List<Task> getTasksFromSubject(long subjectId) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String queryStatement = "SELECT * FROM " + TasksTable.TABLE_TASKS +
+				" WHERE " + TasksTable.SUBJECT_KEY_COLUMN + " = " + subjectId;
+		Log.i(TAG, "getting all Tasks belonging to the Subject with id=" + subjectId + 
+				". SQL statement is: " + queryStatement);
 		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
 		
 		//map rows to tasks
