@@ -45,6 +45,38 @@ public class Task {
 		percentage = 0;
 		grade = 0.0f;
 	}
+	
+	/**
+	 * Initializes a Task. Name and task priority must not be null: an exception will
+	 * be thrown otherwise. All those attributes marked as optional are allowed to be null.
+	 * 
+	 * @param name the name of the Task
+	 * @param subjectId the {@link Subject} id of the Subject which the task belongs to
+	 * @param description (optional) a short description of the Task
+	 * @param dueDate (optional) the date for which the task is due
+	 * @param priority the task priority. Must be of type {@link TaskPriority}
+	 * @param isCompleted whether or not the task is completed
+	 * @param isEvaluable whether or not the task is evaluable
+	 * @param percentage the percentage that this task contributes to the overall subject grade. It is intended to be in the range [0,100]
+	 * @param grade the grade assigned to this task. It is intended to be in the range [0.0,10.0]
+	 * @throws IllegalArgumentException if either <code>name</code> or <code>priority</code> are <code>null</code>
+	 */
+	public Task(String name, long subjectId, String description, Date dueDate, TaskPriority priority, 
+			boolean isCompleted, boolean isEvaluable, int percentage, float grade) throws IllegalArgumentException {
+		if (name != null) {
+			this.name = name;
+		} else throw new IllegalArgumentException("name must not be null");
+		this.subjectId = subjectId;
+		this.description = description;
+		this.dueDate = dueDate;
+		if (priority != null) {
+			this.priority = priority;
+		} else throw new IllegalArgumentException("priority must not be null");
+		this.isCompleted = isCompleted;
+		this.isEvaluable = isEvaluable;
+		this.percentage = percentage;
+		this.grade = grade;
+	}
 
 	public long getId() {
 		return id;

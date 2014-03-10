@@ -1,6 +1,5 @@
 package almartapps.studytodo.domain.model;
 
-import java.util.List;
 
 public class Subject {
 
@@ -8,12 +7,24 @@ public class Subject {
 	
 	private String name;
 	
-	private List<Professor> professors;
-	
 	private long courseId;
 	
 	public Subject() {
 		this.name = "";
+	}
+	
+	/**
+	 * Initializes a Subject. Name must not be a <code>null</code> value.
+	 * 
+	 * @param name the name of the Subject
+	 * @param courseId the id of the {@link Course} that this Subject belongs to
+	 * @throws IllegalArgumentException if the <code>name</code> is <code>null</code>
+	 */
+	public Subject(String name, long courseId) {
+		if (name != null) {
+			this.name = name;
+		} else throw new IllegalArgumentException("name must not be null");
+		this.courseId = courseId;
 	}
 	
 	public long getId() {
@@ -30,18 +41,6 @@ public class Subject {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Professor> getProfessors() {
-		return professors;
-	}
-
-	public void setProfessors(List<Professor> professors) {
-		this.professors = professors;
-	}
-	
-	public void addProfessor(Professor professor) {
-		professors.add(professor);
 	}
 
 	public long getCourseId() {

@@ -3,6 +3,7 @@ package almartapps.studytodo.data.sqlite;
 import java.text.ParseException;
 import java.util.List;
 
+import almartapps.studytodo.data.DAO.CourseDAO;
 import almartapps.studytodo.data.exceptions.CourseNotExistsException;
 import almartapps.studytodo.data.sqlite.tables.CoursesTable;
 import almartapps.studytodo.data.sqlite.utils.MappingUtils;
@@ -13,7 +14,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-public class CourseDAOsqlite extends GenericDAOsqlite<Course> {
+public class CourseDAOsqlite extends GenericDAOsqlite<Course> implements CourseDAO {
 
 	private static final String TAG = "data.sqlite.CourseDAOsqlite";
 	

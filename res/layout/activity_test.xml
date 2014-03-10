@@ -6,33 +6,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".TestActivity" >
-
-    <TextView
-        android:id="@+id/test_content_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    tools:context=".TestActivity"
+    android:id="@+id/test_layout" >
     
-    <Button 
-        android:id="@+id/test_delete_all_button"
+    <TextView
+        android:id="@+id/test_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:text="@string/hello_world" />
+    
+    <Button
+        android:id="@+id/test_next_color_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="delete all tasks"/>
-    
-    <Button 
-        android:id="@+id/test_run_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/test_delete_all_button"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="run test"/>
+        android:layout_margin="20dp"
+        android:text="Next Color" />
 
 </RelativeLayout>
