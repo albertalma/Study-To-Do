@@ -1,4 +1,4 @@
-package almartapps.studytodo.model;
+package almartapps.studytodo.domain.model;
 
 import java.util.List;
 

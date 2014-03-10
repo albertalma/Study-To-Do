@@ -1,4 +1,4 @@
-package almartapps.studytodo.model;
+package almartapps.studytodo.domain.model;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Task {
 	
-	private int id;
+	private long id;
 	
 	private String name;
 	
@@ -23,7 +23,7 @@ public class Task {
 	
 	private TaskPriority priority;
 	
-	private Subject subject;
+	private long subjectId;
 	
 	private boolean isEvaluable;
 	
@@ -35,6 +35,7 @@ public class Task {
 	private float grade;
 	
 	public Task() {
+		id = -1;
 		name = null;
 		description = null;
 		dueDate = null;
@@ -44,30 +45,8 @@ public class Task {
 		percentage = 0;
 		grade = 0.0f;
 	}
-	
-	public Task(String name) {
-		this.name = name;
-		description = null;
-		dueDate = null;
-		isCompleted = false;
-		priority = TaskPriority.low;
-		isEvaluable = false;
-		percentage = 0;
-		grade = 0.0f;
-	}
-	
-	public Task(String name, String description) {
-		this.name = name;
-		this.description = description;
-		dueDate = null;
-		isCompleted = false;
-		priority = TaskPriority.low;
-		isEvaluable = false;
-		percentage = 0;
-		grade = 0.0f;
-	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
@@ -78,7 +57,7 @@ public class Task {
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -122,14 +101,14 @@ public class Task {
 		this.priority = priority;
 	}
 
-	public Subject getSubject() {
-		return subject;
+	public long getSubjectId() {
+		return subjectId;
 	}
 
-	protected void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setSubjectId(long subjectId) {
+		this.subjectId = subjectId;
 	}
-	
+		
 	public boolean isEvaluable() {
 		return isEvaluable;
 	}

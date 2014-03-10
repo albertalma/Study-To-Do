@@ -1,5 +1,7 @@
 package almartapps.studytodo.data.sqlite.utils;
 
+import almartapps.studytodo.data.sqlite.tables.CoursesTable;
+import almartapps.studytodo.data.sqlite.tables.SubjectsTable;
 import almartapps.studytodo.data.sqlite.tables.TasksTable;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,10 +24,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * on the database. You cannot change the schema of the DB if this version
 	 * number is not changed too.
 	 * 
-	 * As of date 13/Feb/2014, version number is "1". Please change this comment
+	 * As of date 28/Feb/2014, version number is "2". Please change this comment
 	 * when needed!
 	 */
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	private static DBHelper instance;
 	
@@ -48,7 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		 Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                  + newVersion + ", which will destroy all old data");
          dropDatabase(db);
-         onCreate(db);
+         initializeDatabase(db);
 	}
 	
 	/**
@@ -57,6 +59,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * @param db the database instance to be initialized
 	 */
 	private void initializeDatabase(SQLiteDatabase db) {
+		db.execSQL(CoursesTable.CREATE_COURSES_TABLE);
+		db.execSQL(SubjectsTable.CREATE_SUBJECTS_TABLE);
 		db.execSQL(TasksTable.CREATE_TASKS_TABLE);
 		//TODO execute tables' CREATE statements
 		// WARNING! remember to do it in the right order!
@@ -70,6 +74,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	private void dropDatabase(SQLiteDatabase db) {
 		db.execSQL(TasksTable.DROP_TASKS_TABLE);
+		db.execSQL(SubjectsTable.DROP_SUBJECTS_TABLE);
+		db.execSQL(CoursesTable.DROP_COURSES_TABLE);
 		//TODO execute tables' DROP statements
 	}
 

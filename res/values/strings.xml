@@ -35,4 +35,9 @@
     <string name="medium">Medium</string>
     <string name="low">Low</string>
 
+    <!-- Create Course -->
+    <string name="name">Name:</string>
+    <string name="start_date">Start date:</string>
+    <string name="end_date">End date:</string>
+
 </resources>

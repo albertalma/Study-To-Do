@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- README: colors described here are intended to Subject labels only.
+    	Other colors that may be needed throughout the app should not be
+    	placed here.
+    	
+    	The naming convention used for Subject colors is:
+    	     
+    	     "subject_{palette-name}_{number}"
+    	
+    	where the palette-name is the normalized name of the color palette
+    	and the number is a consecutive integer. Example: "subject_reds_1"
+    	
+    	Please place each color under its right palette and add it to its
+    	corresponding array, to ease the use within the application code.
+    -->
+    
+<!-- LIGHT GREENS -->
+    <color name="subject_light_greens_1">#338D55</color>
+    <color name="subject_light_greens_2">#34E872</color>
+    <color name="subject_light_greens_3">#2BFF00</color>
+    <color name="subject_light_greens_4">#BDE832</color>
+    <color name="subject_light_greens_5">#FFEF61</color>
+    
+    <array name="subject_light_greens">
+        <item>@color/subject_light_greens_1</item>
+        <item>@color/subject_light_greens_2</item>
+        <item>@color/subject_light_greens_3</item>
+        <item>@color/subject_light_greens_4</item>
+        <item>@color/subject_light_greens_5</item>
+    </array>
+
+<!-- ORANGES -->
+	<color name="subject_oranges_1">#FFFC65</color>
+	<color name="subject_oranges_2">#E8C534</color>
+	<color name="subject_oranges_3">#FFA200</color>
+	<color name="subject_oranges_4">#E87C32</color>
+	<color name="subject_oranges_5">#FF7A61</color>
+    
+	<array name="subject_oranges">
+	    <item>@color/subject_oranges_1</item>
+	    <item>@color/subject_oranges_2</item>
+	    <item>@color/subject_oranges_3</item>
+	    <item>@color/subject_oranges_4</item>
+	    <item>@color/subject_oranges_5</item>
+	</array>
+	
+<!-- REDS -->
+	<color name="subject_reds_1">#FF9865</color>
+	<color name="subject_reds_2">#E85227</color>
+	<color name="subject_reds_3">#FF1C00</color>
+	<color name="subject_reds_4">#E82224</color>
+	<color name="subject_reds_5">#FF6BA5</color>
+    
+	<array name="subject_reds">
+	    <item>@color/subject_reds_1</item>
+	    <item>@color/subject_reds_2</item>
+	    <item>@color/subject_reds_3</item>
+	    <item>@color/subject_reds_4</item>
+	    <item>@color/subject_reds_5</item>
+	</array>
+
+<!-- VIOLETS -->
+	<color name="subject_violets_1">#FF6585</color>
+	<color name="subject_violets_2">#E827B8</color>
+	<color name="subject_violets_3">#D600FF</color>
+	<color name="subject_violets_4">#922DE8</color>
+	<color name="subject_violets_5">#906BFF</color>
+    
+	<array name="subject_violets">
+	    <item>@color/subject_violets_1</item>
+	    <item>@color/subject_violets_2</item>
+	    <item>@color/subject_violets_3</item>
+	    <item>@color/subject_violets_4</item>
+	    <item>@color/subject_violets_5</item>
+	</array>
+
+<!-- DARK BLUES -->
+	<color name="subject_dark_blues_1">#7D52CF</color>
+	<color name="subject_dark_blues_2">#3D24D9</color>
+	<color name="subject_dark_blues_3">#000CC2</color>
+	<color name="subject_dark_blues_4">#2755D9</color>
+	<color name="subject_dark_blues_5">#578ECF</color>
+	
+	<array name="subject_dark_blues">
+	    <item>@color/subject_dark_blues_1</item>
+	    <item>@color/subject_dark_blues_2</item>
+	    <item>@color/subject_dark_blues_3</item>
+	    <item>@color/subject_dark_blues_4</item>
+	    <item>@color/subject_dark_blues_5</item>
+	</array>
+	
+<!-- LIGHT BLUES -->
+	<color name="subject_light_blues_1">#92A7FF</color>
+	<color name="subject_light_blues_2">#4D93E8</color>
+	<color name="subject_light_blues_3">#2DC1FF</color>
+	<color name="subject_light_blues_4">#53E2E8</color>
+	<color name="subject_light_blues_5">#98FFE8</color>
+	
+	<array name="subject_light_blues">
+	    <item>@color/subject_light_blues_1</item>
+	    <item>@color/subject_light_blues_2</item>
+	    <item>@color/subject_light_blues_3</item>
+	    <item>@color/subject_light_blues_4</item>
+	    <item>@color/subject_light_blues_5</item>
+	</array>
+	
+</resources>

@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import almartapps.studytodo.model.TaskPriority;
+import almartapps.studytodo.domain.model.TaskPriority;
 
 public class MappingUtils {
 
