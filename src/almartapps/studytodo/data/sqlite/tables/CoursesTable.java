@@ -28,7 +28,7 @@ public class CoursesTable {
 	public static final String END_DATE_COLUMN = "end_date";
 	
 	public static final String CREATE_COURSES_TABLE = 
-			"CREATE TABLE IF EXISTS " + TABLE_COURSES + " (" +
+			"CREATE TABLE IF NOT EXISTS " + TABLE_COURSES + " (" +
 				ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 				NAME_COLUMN + " TEXT NOT NULL, " +
 				START_DATE_COLUMN + " DATETIME, " +

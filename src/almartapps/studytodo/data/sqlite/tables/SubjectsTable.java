@@ -23,7 +23,7 @@ public class SubjectsTable {
 	public static final String NAME_COLUMN = "name";
 
 	public static final String CREATE_SUBJECTS_TABLE = 
-			"CREATE TABLE IF EXISTS " + TABLE_SUBJECTS + " (" +
+			"CREATE TABLE IF NOT EXISTS " + TABLE_SUBJECTS + " (" +
 				ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 				COURSE_KEY_COLUMN + " INTEGER, " +
 				NAME_COLUMN + " TEXT NOT NULL, " +
