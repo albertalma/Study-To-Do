@@ -1,6 +1,10 @@
 package almartapps.studytodo.view.activities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import almartapps.studytodo.R;
+import almartapps.studytodo.view.adapters.NavigationDrawerAdapter;
 import almartapps.studytodo.view.fragments.CourseFragment;
 import almartapps.studytodo.view.fragments.TaskFragment;
 import almartapps.studytodo.view.fragments.TodayFragment;
@@ -34,8 +38,9 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_nav_drawer);
-
+		setContentView(R.layout.nav_drawer_main);
+ 
+		putFragment(new TodayFragment(), 0);
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -64,19 +69,31 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 		// Set the adapter for the list view
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.activity_list_item, android.R.id.text1,
-				auxArray));
+		List<String> navigationDrawerItems = getNavigationDrawerItems();
+		NavigationDrawerAdapter navAdapter = new NavigationDrawerAdapter(this, navigationDrawerItems);
+		mDrawerList.setAdapter(navAdapter);
 		// Set the list's click listener
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.action_bar_show_tasks, menu);
-		return super.onCreateOptionsMenu(menu);
+	private void putFragment(Fragment fragment, int position) {
+		Bundle args = new Bundle();
+		args.putInt("position", position);
+		fragment.setArguments(args);
+		
+		// Insert the fragment by replacing any existing fragment
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		fragmentManager.beginTransaction()
+				.replace(R.id.content_frame, fragment).commit();
+	}
+
+	private List<String> getNavigationDrawerItems() {
+		List<String> result = new ArrayList<String>();
+		result.add(getString(R.string.today));
+		result.add(getString(R.string.tasks));
+		result.add(getString(R.string.courses));
+		result.add(getString(R.string.timetable));
+		return result;
 	}
 
 	@Override
@@ -84,7 +101,9 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		// Handle presses on the action bar items
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
-		} else {
+		}
+		return super.onOptionsItemSelected(item);
+		/*else {
 			switch (item.getItemId()) {
 			case R.id.action_new:
 				startCreateTaskActiviy();
@@ -92,7 +111,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 			default:
 				return super.onOptionsItemSelected(item);
 			}
-		}
+		}*/
 	}
 
 	@Override
@@ -106,11 +125,6 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
-	private void startCreateTaskActiviy() {
-		Intent createTaskIntent = new Intent(this, CreateTaskActivity.class);
-		startActivity(createTaskIntent);
 	}
 
 	private class DrawerItemClickListener implements
@@ -142,14 +156,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 			break;
 		}
 		if (fragment != null) {
-			Bundle args = new Bundle();
-			args.putInt("position", position);
-			fragment.setArguments(args);
-
-			// Insert the fragment by replacing any existing fragment
-			FragmentManager fragmentManager = getSupportFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.content_frame, fragment).commit();
+			putFragment(fragment, position);
 
 			// Highlight the selected item, update the title, and close the
 			// drawer

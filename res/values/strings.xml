@@ -7,6 +7,7 @@
 
     <!-- Action Bar -->
     <string name="action_new">New</string>
+    <string name="action_save">Save</string>
 
     <!-- Tabs -->
     <string name="tasks">Tasks</string>
@@ -16,5 +17,27 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_test">TestActivity</string>
+
+    <!-- Navigation Drawer Items -->
+    <string name="today">Today</string>
+    <string name="tasks">Tasks</string>
+    <string name="courses">Courses</string>
+    <string name="timetable">Timetable</string>
+
+    <!-- Create Task -->
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="priority">Priority</string>
+    <string name="percentage">Percentage</string>
+    <string name="tant">%</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+
+    <!-- Create Course -->
+    <string name="name">Name:</string>
+    <string name="start_date">Start date:</string>
+    <string name="end_date">End date:</string>
 
 </resources>

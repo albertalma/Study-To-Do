@@ -5,23 +5,34 @@ import java.util.Date;
 public class Course {
 
 	private long id;
-	
+
 	private String name;
-	
+
 	private Date startDate;
-	
+
 	private Date endDate;
-	
+
 	public long getId() {
 		return id;
 	}
-	
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
+	}
+
+	public Course() {
+		super();
+	}
+
+	public Course(String name, Date startDate, Date endDate) {
+		super();
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	public void setName(String name) {
@@ -43,5 +54,5 @@ public class Course {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
 }
