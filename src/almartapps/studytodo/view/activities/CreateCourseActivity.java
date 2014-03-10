@@ -15,16 +15,19 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 public class CreateCourseActivity extends ActionBarActivity {
 
 	private Context context;
+	private ActionBarActivity createCourseActivity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = this;
+		createCourseActivity = this;
 		setContentView(R.layout.course_create);
 
 		ActionBar actionBar = getSupportActionBar();
@@ -56,30 +59,48 @@ public class CreateCourseActivity extends ActionBarActivity {
 	}
 
 	private class createCourseTask extends AsyncTask<Void, Void, Boolean> {
+		
+		private String exception;
 
-		protected void onPostExecute(Boolean exceptionRaised) {
-			EditText courseName = (EditText) findViewById(R.id.course_name_edittext);
-			EditText startDateEditText = (EditText) findViewById(R.id.course_start_date_edittext);
-			EditText endDateEditText = (EditText) findViewById(R.id.course_end_date_edittext);
-			String name = courseName.getText().toString();
-			Date startDate = null;
-			Date endDate = null;
-			try {
-				startDate = new SimpleDateFormat("dd-MM-yyyy")
-						.parse(startDateEditText.getText().toString());
-				endDate = new SimpleDateFormat("dd-MM-yyyy")
-						.parse(endDateEditText.getText().toString());
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			Course course = new Course(name, startDate, endDate);
-			// TODO
+		private String getStringdateFromDatePicker(DatePicker datepickDatePicker) {
+			int day = datepickDatePicker.getDayOfMonth();
+			int month = datepickDatePicker.getMonth();
+			int year = datepickDatePicker.getYear();
+			return day + "-" + month + "-" + year;
 		}
 
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
-			// TODO Auto-generated method stub
-			return null;
+			EditText courseName = (EditText) findViewById(R.id.course_name_edittext);
+			DatePicker startDatepickDatePicker = (DatePicker) findViewById(R.id.course_start_date_datePicker);
+			DatePicker endDatepickDatePicker = (DatePicker) findViewById(R.id.course_end_date_datePicker);
+			String name = courseName.getText().toString();
+
+			String startDateString = getStringdateFromDatePicker(startDatepickDatePicker);
+			String endDateString = getStringdateFromDatePicker(endDatepickDatePicker);
+
+			Date startDate = null;
+			Date endDate = null;
+			try {
+				startDate = new SimpleDateFormat("dd-MM-yyyy")
+						.parse(startDateString);
+				endDate = new SimpleDateFormat("dd-MM-yyyy")
+						.parse(endDateString);
+			} catch (ParseException e) {
+				exception = e.getMessage();
+				return true;
+			}
+			Course course = new Course(name, startDate, endDate);
+			// TODO
+			return false;
+		}
+
+		protected void onPostExecute(Boolean exceptionRaised) {
+			if (exceptionRaised) {
+				
+			} else {
+				createCourseActivity.finish();
+			}
 		}
 	}
 
