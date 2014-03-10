@@ -29,7 +29,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 
-	private String[] auxArray;
+	private List<String> navigationDrawerItems;
 	private ListView mDrawerList;
 	private int navDrawerPosition;
 
@@ -38,7 +38,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nav_drawer_main);
 		navDrawerPosition = 0;
-		selectItem(navDrawerPosition);
+		
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -63,16 +63,17 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		// Set the drawer toggle as the DrawerListener
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		auxArray = new String[] { "Avui", "Tasques", "Assignatures" };
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 		// Set the adapter for the list view
-		List<String> navigationDrawerItems = getNavigationDrawerItems();
+		navigationDrawerItems = getNavigationDrawerItems();
 		NavigationDrawerAdapter navAdapter = new NavigationDrawerAdapter(this,
 				navigationDrawerItems);
 		mDrawerList.setAdapter(navAdapter);
 		// Set the list's click listener
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		
+		selectItem(navDrawerPosition);
 	}
 
 	private void putFragment(Fragment fragment, int position) {
@@ -171,7 +172,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 				mDrawerLayout.closeDrawer(mDrawerList);
 
 			}
-			setTitle(auxArray[position]);
+			setTitle(navigationDrawerItems.get(position));
 		}
 	}
 
