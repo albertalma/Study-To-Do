@@ -1,9 +1,7 @@
 package almartapps.studytodo.activities;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.data.DAO.TaskDAO;
-import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
-import almartapps.studytodo.model.Task;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -13,7 +11,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class CreateTaskActivity extends ActionBarActivity {
+public class CreateCourseActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +45,16 @@ public class CreateTaskActivity extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
-	        case R.id.action_save:
-	        	createTask();
+	        case R.id.action_new:
+	        	createCourse();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
 
-	private void createTask() {
-		Task task = null;
-		TaskDAO taskDAO = new TaskDAOsqlite(this);
-		//task = taskDAO.insert(task);
+	private void createCourse(){
+		
 	}
 
 }
