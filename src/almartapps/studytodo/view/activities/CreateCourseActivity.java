@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import almartapps.studytodo.R;
+import almartapps.studytodo.data.DAO.CourseDAO;
 import almartapps.studytodo.data.sqlite.CourseDAOsqlite;
 import almartapps.studytodo.domain.model.Course;
 import android.content.Context;
@@ -55,11 +56,11 @@ public class CreateCourseActivity extends ActionBarActivity {
 	}
 
 	private void createCourse() {
-		new createCourseTask().execute();
+		new CreateCourseTask().execute();
 	}
 
-	private class createCourseTask extends AsyncTask<Void, Void, Boolean> {
-		
+	private class CreateCourseTask extends AsyncTask<Void, Void, Boolean> {
+
 		private String exception;
 
 		private String getStringdateFromDatePicker(DatePicker datepickDatePicker) {
@@ -92,12 +93,14 @@ public class CreateCourseActivity extends ActionBarActivity {
 			}
 			Course course = new Course(name, startDate, endDate);
 			// TODO
+			CourseDAO courseDao = new CourseDAOsqlite(context);
+			courseDao.insert(course);
 			return false;
 		}
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-				
+
 			} else {
 				createCourseActivity.finish();
 			}
