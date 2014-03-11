@@ -26,7 +26,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.nav_drawer_item, parent, false);
+		View rowView = inflater.inflate(R.layout.course_item, parent, false);
 
 		TextView name = (TextView) rowView
 				.findViewById(R.id.course_name_textview);

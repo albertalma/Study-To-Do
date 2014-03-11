@@ -1,16 +1,14 @@
 package almartapps.studytodo.view.fragments;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.data.DAO.CourseDAO;
-import almartapps.studytodo.data.sqlite.CourseDAOsqlite;
+import almartapps.studytodo.data.DAO.SubjectDAO;
+import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.domain.model.Course;
-import almartapps.studytodo.view.activities.CreateCourseActivity;
-import almartapps.studytodo.view.adapters.CourseAdapter;
+import almartapps.studytodo.domain.model.Subject;
+import almartapps.studytodo.view.activities.CreateSubjectActivity;
+import almartapps.studytodo.view.adapters.SubjectAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -18,27 +16,24 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ListView;
 
-public class CourseFragment extends ListFragment {
+public class SubjectFragment extends ListFragment {
 	
 	private Context context;
-	private List<Course> courses;
+	private List<Subject> subjects;
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Course course = courses.get(position);
-		startShowSubjectFragment(course);
+		Subject subject = subjects.get(position);
+		//startShowSubjectFragment(subject);
 	}
 	
 	private void startShowSubjectFragment(Course course) {
@@ -48,11 +43,7 @@ public class CourseFragment extends ListFragment {
 		fragment.setArguments(args);
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction()
-        .addToBackStack("courseFragment")
-        .replace(R.id.content_frame, fragment)
-        .commit();
-		/*fragmentManager.beginTransaction()
-				.commit();*/
+				.replace(R.id.content_frame, fragment).commit();
 	}
 	
 	@Override
@@ -60,7 +51,7 @@ public class CourseFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllCoursesTask().execute();
+		new GetAllSubjectsFromCourseTask().execute(getArguments().getLong("courseID"));
 	}
 
 	@Override
@@ -75,15 +66,14 @@ public class CourseFragment extends ListFragment {
 		inflater.inflate(R.menu.action_bar_new, menu);
 	}
 
-	private class GetAllCoursesTask extends AsyncTask<Void, Void, Boolean> {
+	private class GetAllSubjectsFromCourseTask extends AsyncTask<Long, Void, Boolean> {
 
 		private String exception;
 
 		@Override
-		protected Boolean doInBackground(Void... arg0) {
-			CourseDAO courseDao = new CourseDAOsqlite(context);
-			// TODO
-			courses = courseDao.getAll();
+		protected Boolean doInBackground(Long... params) {
+			SubjectDAO subjectDAO = new SubjectDAOsqlite(context);
+			subjects = subjectDAO.getSubjectsFromCourse((Long) params[0]);
 			return false;
 		}
 
@@ -91,10 +81,6 @@ public class CourseFragment extends ListFragment {
 			if (exceptionRaised) {
 
 			} else {
-				Log.d("Course Fragment", "size: " + courses.size());
-				for (Course c: courses) {
-					Log.d("Course Fragment", c.getName());
-				}
 				setView();
 			}
 		}
@@ -105,7 +91,7 @@ public class CourseFragment extends ListFragment {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_new:
-			startCreateCourseActiyity();
+			startCreateSubjectActiyity();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -113,13 +99,14 @@ public class CourseFragment extends ListFragment {
 	}
 
 	public void setView() {
-		CourseAdapter courseAdapter = new CourseAdapter(context, courses);
-		setListAdapter(courseAdapter);
+		SubjectAdapter subjectAdapter = new SubjectAdapter(context, subjects);
+		setListAdapter(subjectAdapter);
 	}
 
-	private void startCreateCourseActiyity() {
+	private void startCreateSubjectActiyity() {
 		Intent intent = new Intent();
-		intent.setClass(getActivity(), CreateCourseActivity.class);
+		intent.putExtra("courseID", getArguments().getLong("courseID"));
+		intent.setClass(getActivity(), CreateSubjectActivity.class);
 		startActivity(intent);
 	}
 }
