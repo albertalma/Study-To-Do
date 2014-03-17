@@ -8,6 +8,7 @@ import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.domain.model.Course;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.view.activities.CreateSubjectActivity;
+import almartapps.studytodo.view.activities.CreateTaskActivity;
 import almartapps.studytodo.view.adapters.SubjectAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -85,28 +86,30 @@ public class SubjectFragment extends ListFragment {
 			}
 		}
 	}
+	
+	public void setView() {
+		SubjectAdapter subjectAdapter = new SubjectAdapter(context, subjects);
+		setListAdapter(subjectAdapter);
+	}
 
+	
+	//Calls to Action Bar
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_new:
-			startCreateSubjectActiyity();
+			startCreateTaskActiyity();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	public void setView() {
-		SubjectAdapter subjectAdapter = new SubjectAdapter(context, subjects);
-		setListAdapter(subjectAdapter);
-	}
 
-	private void startCreateSubjectActiyity() {
+	private void startCreateTaskActiyity() {
 		Intent intent = new Intent();
-		intent.putExtra("courseID", getArguments().getLong("courseID"));
-		intent.setClass(getActivity(), CreateSubjectActivity.class);
+		intent.setClass(getActivity(), CreateTaskActivity.class);
 		startActivity(intent);
 	}
 }

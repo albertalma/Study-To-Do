@@ -29,11 +29,12 @@
     <string name="description">Description</string>
     <string name="date">Date</string>
     <string name="priority">Priority</string>
-    <string name="percentage">Percentage</string>
+    <string name="percentage">Percentage: </string>
     <string name="tant">%</string>
     <string name="high">High</string>
     <string name="medium">Medium</string>
     <string name="low">Low</string>
+    <string name="subject">Subject</string>
 
     <!-- Create Course -->
     <string name="name">Name:</string>
