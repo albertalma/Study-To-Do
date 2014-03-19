@@ -34,17 +34,19 @@ public class SubjectFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Subject subject = subjects.get(position);
-		//startShowSubjectFragment(subject);
+		startShowTaskFragment(subject);
 	}
 	
-	private void startShowSubjectFragment(Course course) {
-		Fragment fragment = new SubjectFragment();
+	private void startShowTaskFragment(Subject subject) {
+		Fragment fragment = new TasksFromCourseFragment();
 		Bundle args = new Bundle();
-		args.putLong("courseID", course.getId());
+		args.putLong("subjectID", subject.getId());
 		fragment.setArguments(args);
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction()
-				.replace(R.id.content_frame, fragment).commit();
+        .addToBackStack("subjectFragment")
+        .replace(R.id.content_frame, fragment)
+        .commit();
 	}
 	
 	@Override

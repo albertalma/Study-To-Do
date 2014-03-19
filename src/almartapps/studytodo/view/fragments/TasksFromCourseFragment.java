@@ -7,6 +7,7 @@ import java.util.Map;
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
+import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
 import almartapps.studytodo.domain.model.Subject;
@@ -25,11 +26,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TaskFragment extends ListFragment {
+public class TasksFromCourseFragment extends ListFragment {
 	
 	private Context context;
 	private List<Task> tasks;
-	private Map<Long,Subject> subjects;
+	private Subject subject;
 	
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -48,23 +49,24 @@ public class TaskFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllTasksTask().execute();
+		new GetAllTasksFromSubjectTask().execute(getArguments().getLong("subjectID"));
 	}
     
-    private class GetAllTasksTask extends AsyncTask<Void, Void, Boolean> {
+    private class GetAllTasksFromSubjectTask extends AsyncTask<Long, Void, Boolean> {
 
 		private String exception;
 
 		@Override
-		protected Boolean doInBackground(Void... arg0) {
+		protected Boolean doInBackground(Long... params) {
 			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
-			List<Subject> subjectsList = subjectDao.getAll();
-			subjects = new HashMap<Long, Subject>();
-			for (Subject s : subjectsList) {
-				subjects.put(s.getId(), s);
+			try {
+				subject = subjectDao.get(params[0]);
+			} catch (ObjectNotExistsException e) {
+				exception = e.getMessage();
+				return true;
 			}
 			TaskDAO taskDao = new TaskDAOsqlite(context);
-			tasks = taskDao.getAll();
+			tasks = taskDao.getTasksFromSubject(params[0]);
 			return false;
 		}
 
@@ -78,7 +80,7 @@ public class TaskFragment extends ListFragment {
 	}
     
     public void setView() {
-		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subjects);
+		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subject);
 		setListAdapter(taskAdapter);
 	}
     

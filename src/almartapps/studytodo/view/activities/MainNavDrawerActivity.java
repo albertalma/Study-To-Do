@@ -31,13 +31,11 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 
 	private List<String> navigationDrawerItems;
 	private ListView mDrawerList;
-	private int navDrawerPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.nav_drawer_main);
-		navDrawerPosition = 0;
 		
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -72,8 +70,6 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		mDrawerList.setAdapter(navAdapter);
 		// Set the list's click listener
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-		
-		selectItem(navDrawerPosition);
 	}
 
 	private void putFragment(Fragment fragment, int position) {
@@ -90,7 +86,6 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		selectItem(navDrawerPosition);
 	}
 
 	private List<String> getNavigationDrawerItems() {
@@ -162,7 +157,6 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 			break;
 		}
 		if (fragment != null) {
-			navDrawerPosition = position;
 			putFragment(fragment, position);
 
 			// Highlight the selected item, update the title, and close the
