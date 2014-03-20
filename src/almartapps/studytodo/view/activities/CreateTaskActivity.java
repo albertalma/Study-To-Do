@@ -159,7 +159,8 @@ public class CreateTaskActivity extends ActionBarActivity {
 			if (percentage!= 0) isEvaluable = true;
 			int grade = 0;
 			//Task(String title, long subjectId, String description, Date dueDate, TaskPriority priority, boolean isCompleted, boolean isEvaluable, int percentage, float grade)
-			Task task = new Task(title, subjectId, description, dueDate, taskPriority, isCompleted, isEvaluable, percentage, grade);
+			//FIXME Create a Task with the 'place' field correctly set!! It is now "Barad Dûr" ... Sauron's home, sweet home.
+			Task task = new Task(title, subjectId, description, dueDate, "Barad Dûr", taskPriority, isCompleted, isEvaluable, percentage, grade);
 			TaskDAO taskDao = new TaskDAOsqlite(context);
 			taskDao.insert(task);
 			return false;

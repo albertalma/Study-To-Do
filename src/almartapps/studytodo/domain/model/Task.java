@@ -19,6 +19,8 @@ public class Task {
 	
 	private Date dueDate;
 	
+	private String place;
+	
 	private boolean isCompleted;
 	
 	private TaskPriority priority;
@@ -44,6 +46,7 @@ public class Task {
 		isEvaluable = false;
 		percentage = 0;
 		grade = 0.0f;
+		place = null;
 	}
 	
 	/**
@@ -61,7 +64,7 @@ public class Task {
 	 * @param grade the grade assigned to this task. It is intended to be in the range [0.0,10.0]
 	 * @throws IllegalArgumentException if either <code>name</code> or <code>priority</code> are <code>null</code>
 	 */
-	public Task(String name, long subjectId, String description, Date dueDate, TaskPriority priority, 
+	public Task(String name, long subjectId, String description, Date dueDate, String place, TaskPriority priority, 
 			boolean isCompleted, boolean isEvaluable, int percentage, float grade) throws IllegalArgumentException {
 		if (name != null) {
 			this.name = name;
@@ -69,6 +72,7 @@ public class Task {
 		this.subjectId = subjectId;
 		this.description = description;
 		this.dueDate = dueDate;
+		this.place = place;
 		if (priority != null) {
 			this.priority = priority;
 		} else throw new IllegalArgumentException("priority must not be null");
@@ -115,6 +119,14 @@ public class Task {
 
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
+	}
+	
+	public String getPlace() {
+		return place;
+	}
+	
+	public void setPlace(String place) {
+		this.place = place;
 	}
 
 	public boolean isCompleted() {

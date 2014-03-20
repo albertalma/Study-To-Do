@@ -195,6 +195,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		} else {
 			values.putNull(TasksTable.DUE_DATE_COLUMN);
 		}
+		values.put(TasksTable.PLACE_COLUMN, task.getPlace());
 		values.put(TasksTable.PRIORITY_COLUMN, MappingUtils.mapPriorityToSQL(task.getPriority())); //not null
 		values.put(TasksTable.COMPLETED_COLUMN, task.isCompleted()); //not null
 		values.put(TasksTable.EVALUABLE_COLUMN, task.isEvaluable()); //not null
@@ -236,21 +237,24 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 			}
 		}
 		else task.setDueDate(null);
+		//place
+		if (!cursor.isNull(5)) task.setPlace(cursor.getString(5));
+		else task.setPlace(null);
 		//priority, not null
 		try {
-			task.setPriority(MappingUtils.parseSQLPriority(cursor.getInt(5)));
+			task.setPriority(MappingUtils.parseSQLPriority(cursor.getInt(6)));
 		} catch (SQLiteParseException e) {
 			Log.e(TAG, e.getMessage());
 		}
 		//completed, not null
-		task.setCompleted(cursor.getInt(6) > 0);
+		task.setCompleted(cursor.getInt(7) > 0);
 		//evaluable, not null
-		task.setEvaluable(cursor.getInt(7) > 0);
+		task.setEvaluable(cursor.getInt(8) > 0);
 		if (task.isEvaluable()) {
 			//percentage
-			if (!cursor.isNull(8)) task.setPercentage(cursor.getInt(8));
+			if (!cursor.isNull(9)) task.setPercentage(cursor.getInt(9));
 			//grade
-			if (!cursor.isNull(9)) task.setGrade(cursor.getFloat(9));
+			if (!cursor.isNull(10)) task.setGrade(cursor.getFloat(10));
 		}
 		return task;
 	}
