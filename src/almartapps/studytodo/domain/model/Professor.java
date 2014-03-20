@@ -1,8 +1,9 @@
 package almartapps.studytodo.domain.model;
 
-import java.util.List;
 
 public class Professor {
+	
+	private long id;
 	
 	private String name;
 	
@@ -12,8 +13,14 @@ public class Professor {
 	
 	private String telephone;
 	
-	private List<Subject> taughtSubjects;
-
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -44,18 +51,6 @@ public class Professor {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
-	}
-
-	public List<Subject> getTaughtSubjects() {
-		return taughtSubjects;
-	}
-
-	protected void setTaughtSubjects(List<Subject> teachedSubjects) {
-		this.taughtSubjects = teachedSubjects;
-	}
-	
-	protected void addTaughtSubject(Subject subject) {
-		taughtSubjects.add(subject);
 	}
 	
 }
