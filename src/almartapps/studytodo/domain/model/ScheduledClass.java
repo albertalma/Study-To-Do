@@ -8,8 +8,21 @@ public class ScheduledClass {
 	
 	private Time endTime;
 	
-	private Subject subject;
+	private String place;
+	
+	private ClassType type;
+	
+	private long subjectId;
 
+	public ScheduledClass(WeekDay weekDay, Time startTime, Time endTime, String place, ClassType type, long subjectId) {
+		this.weekDay = weekDay;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.place = place;
+		this.type = type;
+		this.subjectId = subjectId;
+	}
+	
 	public WeekDay getWeekDay() {
 		return weekDay;
 	}
@@ -29,17 +42,33 @@ public class ScheduledClass {
 	public Time getEndTime() {
 		return endTime;
 	}
+	
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public ClassType getType() {
+		return type;
+	}
+
+	public void setType(ClassType type) {
+		this.type = type;
+	}
 
 	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 
-	public Subject getSubject() {
-		return subject;
+	public long getSubjectId() {
+		return subjectId;
 	}
 
-	protected void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setSubjectId(long subjectId) {
+		this.subjectId = subjectId;
 	}
 	
 }
