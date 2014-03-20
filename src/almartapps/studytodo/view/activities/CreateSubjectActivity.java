@@ -13,6 +13,7 @@ import almartapps.studytodo.domain.model.Course;
 import almartapps.studytodo.domain.model.Subject;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -72,7 +73,10 @@ public class CreateSubjectActivity extends ActionBarActivity {
 			Intent intent = getIntent();
 			Long courseID = intent.getLongExtra("courseID",0);
 			String name = courseName.getText().toString();
-			Subject subject = new Subject(name, courseID);
+			
+			//FIXME create Subject with correct color! ColorPicker should be used to get the color!
+			Subject subject = new Subject(name, Color.BLACK, courseID);
+			
 			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
 			subjectDao.insert(subject);
 			return false;

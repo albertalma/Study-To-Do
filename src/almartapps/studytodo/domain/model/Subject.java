@@ -9,6 +9,8 @@ public class Subject {
 	
 	private long courseId;
 	
+	private int color;
+	
 	public Subject() {
 		this.name = "";
 	}
@@ -20,11 +22,12 @@ public class Subject {
 	 * @param courseId the id of the {@link Course} that this Subject belongs to
 	 * @throws IllegalArgumentException if the <code>name</code> is <code>null</code>
 	 */
-	public Subject(String name, long courseId) {
+	public Subject(String name, int color, long courseId) {
 		if (name != null) {
 			this.name = name;
 		} else throw new IllegalArgumentException("name must not be null");
 		this.courseId = courseId;
+		this.color = color;
 	}
 	
 	public long getId() {
@@ -51,4 +54,12 @@ public class Subject {
 		this.courseId = courseId;
 	}
 	
+	public int getColor() {
+		return color;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
+	}
+
 }

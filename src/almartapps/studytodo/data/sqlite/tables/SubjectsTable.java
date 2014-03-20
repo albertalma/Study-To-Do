@@ -21,12 +21,18 @@ public class SubjectsTable {
 	 * Subjects table NAME column (TEXT, NOT NULL)
 	 */
 	public static final String NAME_COLUMN = "name";
+	
+	/**
+	 * Subjects table COLOR column (INTEGER, NOT NULL)
+	 */
+	public static final String COLOR_COLUMN = "color";
 
 	public static final String CREATE_SUBJECTS_TABLE = 
 			"CREATE TABLE IF NOT EXISTS " + TABLE_SUBJECTS + " (" +
 				ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 				COURSE_KEY_COLUMN + " INTEGER, " +
 				NAME_COLUMN + " TEXT NOT NULL, " +
+				COLOR_COLUMN + " INTEGER NOT NULL, " +
 				"FOREIGN KEY(" + COURSE_KEY_COLUMN + ") " +
 						"REFERENCES " + CoursesTable.TABLE_COURSES + "(" + CoursesTable.ID_COLUMN + ")" +
 			")";

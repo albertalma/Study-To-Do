@@ -155,6 +155,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		ContentValues values = new ContentValues();
 		values.put(SubjectsTable.NAME_COLUMN, subject.getName());
 		values.put(SubjectsTable.COURSE_KEY_COLUMN, subject.getCourseId());
+		values.put(SubjectsTable.COLOR_COLUMN, subject.getColor());
 		return values;
 	}
 	
@@ -167,6 +168,8 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		subject.setCourseId(cursor.getLong(1));
 		//name
 		subject.setName(cursor.getString(2));
+		//color
+		subject.setColor(cursor.getInt(3));
 		return subject;
 	}
 
