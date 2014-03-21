@@ -69,15 +69,47 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 	}
 
 	@Override
-	public Professor insert(Professor object) {
-		// TODO Auto-generated method stub
-		return null;
+	public Professor insert(Professor professor) {
+		if (professor.getName() == null)
+			throw new IllegalArgumentException("Argument 'name' was null, but a Professor must have a name.");
+
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//get mapping for values
+		ContentValues values = getContentValues(professor);
+		
+		//perform insert
+		Log.i(TAG, "inserting Professor with name=" + professor.getName());
+		long id = db.insert(ProfessorsTable.TABLE_PROFESSORS, null, values);
+		
+		//set the ID returned to the task
+		professor.setId(id);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return professor;
 	}
 
 	@Override
-	public boolean delete(Professor object) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(Professor professor) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//delete object
+		String whereStatement = "_id = ?";
+		String [] whereArgs = new String[]{String.valueOf(professor.getId())};
+		Log.i(TAG, "deleting Professor with _id=" + professor.getId() 
+				+ ". SQL WHERE clause is: " + whereStatement + ", " + professor.getId());
+		int count = db.delete(ProfessorsTable.TABLE_PROFESSORS, whereStatement, whereArgs);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return count > 0;
 	}
 
 	@Override
@@ -99,9 +131,22 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 	}
 
 	@Override
-	protected ContentValues getContentValues(Professor object) {
+	protected ContentValues getContentValues(Professor professor) {
 		ContentValues values = new ContentValues();
-		//TODO
+		values.put(ProfessorsTable.NAME_COLUMN, professor.getName());
+		if (professor.getEmailAddress() != null) {
+			values.put(ProfessorsTable.EMAIL_COLUMN, professor.getEmailAddress());
+		} else values.putNull(ProfessorsTable.EMAIL_COLUMN);
+		if (professor.getOfficeAddress() != null) {
+			values.put(ProfessorsTable.OFFICE_ADDRESS_COLUMN, professor.getOfficeAddress());
+		} else {
+			values.putNull(ProfessorsTable.OFFICE_ADDRESS_COLUMN);
+		}
+		if (professor.getTelephone() != null) {
+			values.put(ProfessorsTable.TELEPHONE_COLUMN, professor.getTelephone());
+		} else {
+			values.putNull(ProfessorsTable.TELEPHONE_COLUMN);
+		}
 		return values;
 	}
 
