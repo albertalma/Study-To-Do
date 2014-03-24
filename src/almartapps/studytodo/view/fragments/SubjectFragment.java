@@ -54,6 +54,7 @@ public class SubjectFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
+		getActivity().setTitle(context.getString(R.string.subjects));
 		new GetAllSubjectsFromCourseTask().execute(getArguments().getLong("courseID"));
 	}
 
@@ -101,7 +102,7 @@ public class SubjectFragment extends ListFragment {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_new:
-			startCreateTaskActiyity();
+			startCreateSubjectActiyity();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -109,9 +110,10 @@ public class SubjectFragment extends ListFragment {
 	}
 
 
-	private void startCreateTaskActiyity() {
+	private void startCreateSubjectActiyity() {
 		Intent intent = new Intent();
-		intent.setClass(getActivity(), CreateTaskActivity.class);
+		intent.setClass(getActivity(), CreateSubjectActivity.class);
+		intent.putExtra("courseID",getArguments().getLong("courseID"));
 		startActivity(intent);
 	}
 }

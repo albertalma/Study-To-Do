@@ -33,9 +33,8 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
 		Subject subject = getItem(position);
 		name.setText(subject.getName());
 		grade.setText("0");
-		// TODO define color to view
 		View color = (View) rowView.findViewById(R.id.subject_color_view);
-		//color.setBackground();
+		color.setBackgroundColor(subject.getColor());
 		return rowView;
 	}
 }

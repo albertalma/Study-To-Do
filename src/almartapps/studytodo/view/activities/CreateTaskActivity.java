@@ -14,6 +14,7 @@ import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
 import almartapps.studytodo.domain.model.TaskPriority;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -62,14 +63,22 @@ public class CreateTaskActivity extends ActionBarActivity {
 
 	private void setSubjectSpinner() {
 		Spinner s = (Spinner) findViewById(R.id.subject_spinner);
+		Intent subjectIntent = getIntent();
+		Long subjID = null;
+		if (subjectIntent != null) {
+			subjID = subjectIntent.getLongExtra("subjectID", 0);
+		}
 		String[] array_subjects = new String[subjects.size()];
+		int position = 0;
 		for (int i = 0; i < subjects.size(); ++i) {
+			if (subjID != null && subjID == subjects.get(i).getId()) position = i;
 			array_subjects[i] = subjects.get(i).getName();
 		}
 		ArrayAdapter adapter = new ArrayAdapter(this,
 				android.R.layout.simple_spinner_item, array_subjects);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		s.setAdapter(adapter);
+		s.setSelection(position);
 	}
 
 	private class GetAllSubjectsTask extends AsyncTask<Void, Void, Boolean> {

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TaskAdapter extends ArrayAdapter<Task> {
@@ -54,6 +55,9 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 		task_time_txt.setText(task.getDueDate().toString());
 		task_priority_txt.setText(task.getPriority().name());
 		task_percentage_txt.setText(String.valueOf(task.getPercentage()));
+		
+		RelativeLayout rLayout = (RelativeLayout) rowView.findViewById(R.id.task_relative_layout);
+		rLayout.setBackgroundColor(subject.getColor());
 		return rowView;
 	}
 }

@@ -80,6 +80,7 @@ public class TasksFromCourseFragment extends ListFragment {
 	}
     
     public void setView() {
+    	getActivity().setTitle(subject.getName());
 		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subject);
 		setListAdapter(taskAdapter);
 	}
@@ -99,6 +100,7 @@ public class TasksFromCourseFragment extends ListFragment {
     private void startCreateTaskActiyity() {
 		Intent intent = new Intent();
 		intent.setClass(getActivity(), CreateTaskActivity.class);
+		intent.putExtra("subjectID", subject.getId());
 		startActivity(intent);
 	}
 

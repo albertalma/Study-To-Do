@@ -23,6 +23,9 @@
     <string name="tasks">Tasks</string>
     <string name="courses">Courses</string>
     <string name="timetable">Timetable</string>
+    
+     <!-- Fragment Titles -->
+    <string name="subjects">Subjects</string>
 
     <!-- Create Task -->
     <string name="title">Title</string>
@@ -40,6 +43,9 @@
     <string name="name">Name:</string>
     <string name="start_date">Start date:</string>
     <string name="end_date">End date:</string>
+    
+    <!-- Create Subject -->
+    <string name="select_color">Select a color:</string>
     
     <!-- Color Picker -->
     <string name="pick_color_button">Pick color</string>
