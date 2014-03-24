@@ -2,6 +2,7 @@ package almartapps.studytodo.data.sqlite.utils;
 
 import almartapps.studytodo.data.sqlite.tables.CoursesTable;
 import almartapps.studytodo.data.sqlite.tables.ProfessorsTable;
+import almartapps.studytodo.data.sqlite.tables.ScheduledClassesTable;
 import almartapps.studytodo.data.sqlite.tables.SubjectsTable;
 import almartapps.studytodo.data.sqlite.tables.TasksTable;
 import android.content.Context;
@@ -64,9 +65,8 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(SubjectsTable.CREATE_SUBJECTS_TABLE);
 		db.execSQL(TasksTable.CREATE_TASKS_TABLE);
 		db.execSQL(ProfessorsTable.CREATE_PROFESSORS_TABLE);
+		db.execSQL(ScheduledClassesTable.CREATE_SCHEDULED_CLASSES_TABLE);
 		//TODO create TaughtSubject table
-		//TODO execute tables' CREATE statements
-		// WARNING! remember to do it in the right order!
 	}
 	
 	/**
@@ -78,11 +78,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	private void dropDatabase(SQLiteDatabase db) {
 		db.execSQL(TasksTable.DROP_TASKS_TABLE);
 		//TODO delete TaughtSubject table
-		//TODO delete ScheduledClass table
+		db.execSQL(ScheduledClassesTable.DROP_SCHEDULED_CLASSES_TABLE);
 		db.execSQL(SubjectsTable.DROP_SUBJECTS_TABLE);
-		db.execSQL(CoursesTable.DROP_COURSES_TABLE);
 		db.execSQL(ProfessorsTable.DROP_PROFESSORS_TABLE);
-		//TODO execute tables' DROP statements
+		db.execSQL(CoursesTable.DROP_COURSES_TABLE);
 	}
 
 }
