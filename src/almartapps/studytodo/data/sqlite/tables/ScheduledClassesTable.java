@@ -50,7 +50,7 @@ public class ScheduledClassesTable {
 				START_TIME_COLUMN + " DATETIME NOT NULL, " + 
 				END_TIME_COLUMN + " DATETIME NOT NULL, " +
 				PLACE_COLUMN + " TEXT, " +
-				TYPE_COLUMN + " INTEGER, NOT NULL, " +
+				TYPE_COLUMN + " INTEGER NOT NULL, " +
 				"FOREIGN KEY(" + SUBJECT_KEY_COLUMN + ") " +
 					"REFERENCES " + SubjectsTable.TABLE_SUBJECTS + "(" + SubjectsTable.ID_COLUMN + ")" +
 			")";
