@@ -54,4 +54,7 @@ public class ScheduledClassesTable {
 				"FOREIGN KEY(" + SUBJECT_KEY_COLUMN + ") " +
 					"REFERENCES " + SubjectsTable.TABLE_SUBJECTS + "(" + SubjectsTable.ID_COLUMN + ")" +
 			")";
+	
+	public static final String DROP_SCHEDULED_CLASSES_TABLE =
+			"DROP TABLE IF EXISTS " + TABLE_SCHEDULED_CLASS;
 }

@@ -2,8 +2,10 @@ package almartapps.studytodo.data.sqlite.utils;
 
 import almartapps.studytodo.data.sqlite.tables.CoursesTable;
 import almartapps.studytodo.data.sqlite.tables.ProfessorsTable;
+import almartapps.studytodo.data.sqlite.tables.ScheduledClassesTable;
 import almartapps.studytodo.data.sqlite.tables.SubjectsTable;
 import almartapps.studytodo.data.sqlite.tables.TasksTable;
+import almartapps.studytodo.data.sqlite.tables.TaughtSubjectTable;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -25,10 +27,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * on the database. You cannot change the schema of the DB if this version
 	 * number is not changed too.
 	 * 
-	 * As of date 20/Mar/2014, version number is "3". Please change this comment
+	 * As of date 24/Mar/2014, version number is "4". Please change this comment
 	 * when needed!
 	 */
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	
 	private static DBHelper instance;
 	
@@ -64,9 +66,8 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL(SubjectsTable.CREATE_SUBJECTS_TABLE);
 		db.execSQL(TasksTable.CREATE_TASKS_TABLE);
 		db.execSQL(ProfessorsTable.CREATE_PROFESSORS_TABLE);
-		//TODO create TaughtSubject table
-		//TODO execute tables' CREATE statements
-		// WARNING! remember to do it in the right order!
+		db.execSQL(ScheduledClassesTable.CREATE_SCHEDULED_CLASSES_TABLE);
+		db.execSQL(TaughtSubjectTable.CREATE_TAUGHT_SUBJECT_TABLE);
 	}
 	
 	/**
@@ -77,12 +78,11 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	private void dropDatabase(SQLiteDatabase db) {
 		db.execSQL(TasksTable.DROP_TASKS_TABLE);
-		//TODO delete TaughtSubject table
-		//TODO delete ScheduledClass table
+		db.execSQL(TaughtSubjectTable.DROP_TAUGHT_SUBJECT_TABLE);
+		db.execSQL(ScheduledClassesTable.DROP_SCHEDULED_CLASSES_TABLE);
 		db.execSQL(SubjectsTable.DROP_SUBJECTS_TABLE);
-		db.execSQL(CoursesTable.DROP_COURSES_TABLE);
 		db.execSQL(ProfessorsTable.DROP_PROFESSORS_TABLE);
-		//TODO execute tables' DROP statements
+		db.execSQL(CoursesTable.DROP_COURSES_TABLE);
 	}
 
 }

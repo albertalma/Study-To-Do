@@ -2,6 +2,8 @@ package almartapps.studytodo.domain.model;
 
 public class ScheduledClass {
 
+	private long id;
+	
 	private WeekDay weekDay;
 	
 	private Time startTime;
@@ -14,6 +16,8 @@ public class ScheduledClass {
 	
 	private long subjectId;
 
+	public ScheduledClass() { }
+	
 	public ScheduledClass(WeekDay weekDay, Time startTime, Time endTime, String place, ClassType type, long subjectId) {
 		this.weekDay = weekDay;
 		this.startTime = startTime;
@@ -21,6 +25,14 @@ public class ScheduledClass {
 		this.place = place;
 		this.type = type;
 		this.subjectId = subjectId;
+	}
+
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public WeekDay getWeekDay() {
