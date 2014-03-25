@@ -87,6 +87,42 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		
 		return subjects;
 	}
+	
+	@Override
+	public boolean assignProfessor(long subjectId, long professorId) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//get TaughtSubjectManager
+		TaughtSubjectManager manager = new TaughtSubjectManager(db);
+		
+		//insert assignment
+		boolean result = manager.insertAssignment(subjectId, professorId);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return result;
+	}
+	
+	@Override
+	public boolean removeProfessorAssignment(long subjectId, long professorId) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//get TaughtSubjectManager
+		TaughtSubjectManager manager = new TaughtSubjectManager(db);
+		
+		//insert assignment
+		boolean result = manager.deleteAssignment(subjectId, professorId);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return result;
+	}
 
 	@Override
 	public Subject insert(Subject subject) {

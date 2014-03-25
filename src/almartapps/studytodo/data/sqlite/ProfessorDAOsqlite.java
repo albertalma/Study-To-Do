@@ -129,6 +129,42 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		//return
 		return count;
 	}
+	
+	@Override
+	public boolean assignSubject(long professorId, long subjectId) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//get TaughtSubjectManager
+		TaughtSubjectManager manager = new TaughtSubjectManager(db);
+		
+		//insert assignment
+		boolean result = manager.insertAssignment(subjectId, professorId);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return result;
+	}
+	
+	@Override
+	public boolean removeSubjectAssignment(long professorId, long subjectId) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		//get TaughtSubjectManager
+		TaughtSubjectManager manager = new TaughtSubjectManager(db);
+		
+		//insert assignment
+		boolean result = manager.deleteAssignment(subjectId, professorId);
+		
+		//release connection
+		db.close();
+		
+		//return
+		return result;
+	}
 
 	@Override
 	protected ContentValues getContentValues(Professor professor) {

@@ -8,4 +8,8 @@ public interface SubjectDAO extends GenericDAO<Subject> {
 	
 	public List<Subject> getSubjectsFromCourse(long courseId);
 	
+	public boolean assignProfessor(long subjectId, long professorId);
+	
+	public boolean removeProfessorAssignment(long subjectId, long professorId);
+	
 }
