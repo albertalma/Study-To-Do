@@ -70,6 +70,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		mDrawerList.setAdapter(navAdapter);
 		// Set the list's click listener
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		putFragment(new TodayFragment(), 0);
 	}
 
 	private void putFragment(Fragment fragment, int position) {

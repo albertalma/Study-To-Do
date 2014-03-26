@@ -5,10 +5,8 @@ import java.util.List;
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
-import almartapps.studytodo.domain.model.Course;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.view.activities.CreateSubjectActivity;
-import almartapps.studytodo.view.activities.CreateTaskActivity;
 import almartapps.studytodo.view.adapters.SubjectAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +28,8 @@ public class SubjectFragment extends ListFragment {
 	private Context context;
 	private List<Subject> subjects;
 	
+	private Long courseID;
+	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
@@ -38,7 +38,7 @@ public class SubjectFragment extends ListFragment {
 	}
 	
 	private void startShowTaskFragment(Subject subject) {
-		Fragment fragment = new TasksFromCourseFragment();
+		Fragment fragment = new TasksFromSubjectFragment();
 		Bundle args = new Bundle();
 		args.putLong("subjectID", subject.getId());
 		fragment.setArguments(args);
@@ -55,7 +55,14 @@ public class SubjectFragment extends ListFragment {
 		setHasOptionsMenu(true);
 		context = getActivity();
 		getActivity().setTitle(context.getString(R.string.subjects));
-		new GetAllSubjectsFromCourseTask().execute(getArguments().getLong("courseID"));
+		courseID = getArguments().getLong("courseID");
+		new GetAllSubjectsFromCourseTask().execute(courseID);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		new GetAllSubjectsFromCourseTask().execute(courseID);
 	}
 
 	@Override
@@ -113,7 +120,7 @@ public class SubjectFragment extends ListFragment {
 	private void startCreateSubjectActiyity() {
 		Intent intent = new Intent();
 		intent.setClass(getActivity(), CreateSubjectActivity.class);
-		intent.putExtra("courseID",getArguments().getLong("courseID"));
+		intent.putExtra("courseID",courseID);
 		startActivity(intent);
 	}
 }

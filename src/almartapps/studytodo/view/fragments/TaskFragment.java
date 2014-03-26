@@ -51,6 +51,12 @@ public class TaskFragment extends ListFragment {
 		new GetAllTasksTask().execute();
 	}
     
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	new GetAllTasksTask().execute();
+    }
+    
     private class GetAllTasksTask extends AsyncTask<Void, Void, Boolean> {
 
 		private String exception;
