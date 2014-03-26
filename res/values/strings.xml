@@ -47,6 +47,12 @@
 
     <!-- Create Subject -->
     <string name="select_color">Select a color:</string>
+    
+    <!-- Create Professor -->
+    <string name="email">Email:</string>
+    <string name="office">Office:</string>
+    <string name="phone">Phone:</string>
+
 
     <!-- Color Picker -->
     <string name="pick_color_button">Pick color</string>

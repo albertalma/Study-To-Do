@@ -38,81 +38,16 @@ public class TasksFromSubjectFragment extends Fragment {
 		mTabHost = new FragmentTabHost(getActivity());
 		mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.contenido);
 		String tab = getResources().getString(R.string.to_do);
+		Bundle args = new Bundle();
+		args.putLong("subjectID", getArguments().getLong("subjectID"));
 		mTabHost.addTab(mTabHost.newTabSpec(tab).setIndicator(tab),
-				ToDoTasksFragment.class, null);
+				ToDoTasksFragment.class, args);
 		tab = getResources().getString(R.string.done);
 		mTabHost.addTab(mTabHost.newTabSpec(tab).setIndicator(tab),
-				DoneTasksFragment.class, null);
+				DoneTasksFragment.class, args);
 		tab = getResources().getString(R.string.teachers);
 		mTabHost.addTab(mTabHost.newTabSpec(tab).setIndicator(tab),
-				TeachersFromSubjectFragment.class, null);
+				ProfessorsFromSubjectFragment.class, args);
 		return mTabHost;
 	}
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// Inflate the menu items for use in the action bar
-		inflater.inflate(R.menu.action_bar_new, menu);
-	}
-
-	private void createTabs() {
-
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(true);
-		context = getActivity();
-		createTabs();
-		// new
-		// GetAllTasksFromSubjectTask().execute(getArguments().getLong("subjectID"));
-	}
-
-	private class GetAllTasksFromSubjectTask extends
-			AsyncTask<Long, Void, Boolean> {
-
-		private String exception;
-
-		@Override
-		protected Boolean doInBackground(Long... params) {
-			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
-			try {
-				subject = subjectDao.get(params[0]);
-			} catch (ObjectNotExistsException e) {
-				exception = e.getMessage();
-				return true;
-			}
-			TaskDAO taskDao = new TaskDAOsqlite(context);
-			tasks = taskDao.getTasksFromSubject(params[0]);
-			return false;
-		}
-
-		protected void onPostExecute(Boolean exceptionRaised) {
-			if (exceptionRaised) {
-
-			} else {
-			}
-		}
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		switch (item.getItemId()) {
-		case R.id.action_new:
-			startCreateTaskActiyity();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	private void startCreateTaskActiyity() {
-		Intent intent = new Intent();
-		intent.setClass(getActivity(), CreateTaskActivity.class);
-		intent.putExtra("subjectID", subject.getId());
-		startActivity(intent);
-	}
-
 }
