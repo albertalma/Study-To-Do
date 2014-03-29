@@ -3,6 +3,17 @@ package almartapps.studytodo.domain.model;
 
 public class Professor {
 	
+	public Professor() {}
+	
+	public Professor(String name, String emailAddress, String officeAddress,
+			String telephone) {
+		super();
+		this.name = name;
+		this.emailAddress = emailAddress;
+		this.officeAddress = officeAddress;
+		this.telephone = telephone;
+	}
+
 	private long id;
 	
 	private String name;

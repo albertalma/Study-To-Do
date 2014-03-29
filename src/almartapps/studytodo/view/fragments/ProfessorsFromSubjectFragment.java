@@ -1,18 +1,22 @@
 package almartapps.studytodo.view.fragments;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import almartapps.studytodo.R;
+import almartapps.studytodo.data.DAO.ProfessorDAO;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
 import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
+import almartapps.studytodo.data.sqlite.ProfessorDAOsqlite;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
+import almartapps.studytodo.domain.model.Professor;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
+import almartapps.studytodo.view.activities.CreateProfessorActivity;
 import almartapps.studytodo.view.activities.CreateTaskActivity;
+import almartapps.studytodo.view.adapters.ProfessorAdapter;
 import almartapps.studytodo.view.adapters.TaskAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -26,33 +30,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TasksFromCourseFragment extends ListFragment {
-	
+public class ProfessorsFromSubjectFragment extends ListFragment {
+
 	private Context context;
-	private List<Task> tasks;
+	private List<Professor> professors;
 	private Subject subject;
-	
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.show_list, container, false);
-    }
-    
-    @Override
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.show_list, container, false);
+	}
+
+	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu items for use in the action bar
 		inflater.inflate(R.menu.action_bar_new, menu);
 	}
-    
-    @Override
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllTasksFromSubjectTask().execute(getArguments().getLong("subjectID"));
+		new GetAllTasksFromSubjectTask().execute(getArguments().getLong(
+				"subjectID"));
 	}
-    
-    private class GetAllTasksFromSubjectTask extends AsyncTask<Long, Void, Boolean> {
+
+	private class GetAllTasksFromSubjectTask extends
+			AsyncTask<Long, Void, Boolean> {
 
 		private String exception;
 
@@ -65,8 +71,10 @@ public class TasksFromCourseFragment extends ListFragment {
 				exception = e.getMessage();
 				return true;
 			}
-			TaskDAO taskDao = new TaskDAOsqlite(context);
-			tasks = taskDao.getTasksFromSubject(params[0]);
+			ProfessorDAO professorDao = new ProfessorDAOsqlite(context);
+			//TO DO only for a subject
+			//professors = professorDao.getFromSubject((Long) params[0]);
+			professors = professorDao.getAll();
 			return false;
 		}
 
@@ -78,29 +86,27 @@ public class TasksFromCourseFragment extends ListFragment {
 			}
 		}
 	}
-    
-    public void setView() {
-    	getActivity().setTitle(subject.getName());
-		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subject);
-		setListAdapter(taskAdapter);
+
+	public void setView() {
+		ProfessorAdapter professorAdapter = new ProfessorAdapter(context, professors);
+		setListAdapter(professorAdapter);
 	}
-    
-    @Override
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_new:
-			startCreateTaskActiyity();
+			startCreateProfessorActiyity();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-    private void startCreateTaskActiyity() {
+	private void startCreateProfessorActiyity() {
 		Intent intent = new Intent();
-		intent.setClass(getActivity(), CreateTaskActivity.class);
-		intent.putExtra("subjectID", subject.getId());
+		intent.setClass(getActivity(), CreateProfessorActivity.class);
 		startActivity(intent);
 	}
 

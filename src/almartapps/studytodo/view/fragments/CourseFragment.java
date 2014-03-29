@@ -62,6 +62,12 @@ public class CourseFragment extends ListFragment {
 		context = getActivity();
 		new GetAllCoursesTask().execute();
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		new GetAllCoursesTask().execute();
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

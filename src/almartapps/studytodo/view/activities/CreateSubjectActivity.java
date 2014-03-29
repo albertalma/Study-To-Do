@@ -30,6 +30,7 @@ public class CreateSubjectActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		context = this;
 		createSubjectActivity = this;
+		color = getResources().getColor(R.color.dark_orange);
 		setContentView(R.layout.subject_create);
 		setColorPickerListener();
 		ActionBar actionBar = getSupportActionBar();
@@ -49,7 +50,6 @@ public class CreateSubjectActivity extends ActionBarActivity {
 	private void setColorPickerListener() {
 		View colorView = (View) findViewById(R.id.subject_color_view);
 		colorView.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				startColorPickerActivity();

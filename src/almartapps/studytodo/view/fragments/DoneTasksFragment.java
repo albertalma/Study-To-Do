@@ -1,12 +1,12 @@
 package almartapps.studytodo.view.fragments;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
+import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
 import almartapps.studytodo.domain.model.Subject;
@@ -25,52 +25,48 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TaskFragment extends ListFragment {
-	
+public class DoneTasksFragment extends ListFragment {
+
 	private Context context;
 	private List<Task> tasks;
-	private Map<Long,Subject> subjects;
-	
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.show_list, container, false);
-    }
-    
-    @Override
+	private Subject subject;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.show_list, container, false);
+	}
+
+	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu items for use in the action bar
 		inflater.inflate(R.menu.action_bar_new, menu);
 	}
-    
-    @Override
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllTasksTask().execute();
+		new GetAllTasksFromSubjectTask().execute(getArguments().getLong("subjectID"));
 	}
-    
-    @Override
-    public void onResume() {
-    	super.onResume();
-    	new GetAllTasksTask().execute();
-    }
-    
-    private class GetAllTasksTask extends AsyncTask<Void, Void, Boolean> {
+
+	private class GetAllTasksFromSubjectTask extends
+			AsyncTask<Long, Void, Boolean> {
 
 		private String exception;
 
 		@Override
-		protected Boolean doInBackground(Void... arg0) {
+		protected Boolean doInBackground(Long... params) {
 			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
-			List<Subject> subjectsList = subjectDao.getAll();
-			subjects = new HashMap<Long, Subject>();
-			for (Subject s : subjectsList) {
-				subjects.put(s.getId(), s);
+			try {
+				subject = subjectDao.get(params[0]);
+			} catch (ObjectNotExistsException e) {
+				exception = e.getMessage();
+				return true;
 			}
 			TaskDAO taskDao = new TaskDAOsqlite(context);
-			tasks = taskDao.getAll();
+			tasks = taskDao.getTasksFromSubject(params[0]);
 			return false;
 		}
 
@@ -82,13 +78,18 @@ public class TaskFragment extends ListFragment {
 			}
 		}
 	}
-    
-    public void setView() {
-		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subjects);
+
+	public void setView() {
+		List<Task> toDoTasks = new ArrayList<Task>();
+		for (Task t : tasks) {
+			if (t.isCompleted())
+				toDoTasks.add(t);
+		}
+		TaskAdapter taskAdapter = new TaskAdapter(context, toDoTasks, subject);
 		setListAdapter(taskAdapter);
 	}
-    
-    @Override
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
@@ -100,8 +101,9 @@ public class TaskFragment extends ListFragment {
 		}
 	}
 
-    private void startCreateTaskActiyity() {
+	private void startCreateTaskActiyity() {
 		Intent intent = new Intent();
+		intent.putExtra("subjectID", getArguments().getLong("subjectID"));
 		intent.setClass(getActivity(), CreateTaskActivity.class);
 		startActivity(intent);
 	}
