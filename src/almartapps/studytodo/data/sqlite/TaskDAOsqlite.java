@@ -1,7 +1,10 @@
 package almartapps.studytodo.data.sqlite;
 
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import almartapps.studytodo.data.DAO.TaskDAO;
 import almartapps.studytodo.data.exceptions.TaskNotExistsException;
@@ -57,6 +60,46 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		//perform query
 		String queryStatement = "SELECT * FROM " + TasksTable.TABLE_TASKS;
 		Log.i(TAG, "getting all Tasks stored. SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Task> tasks = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return tasks;
+	}
+	
+	@Override
+	public List<Task> getTasks(Date date) {
+		Calendar lowerCalendar = Calendar.getInstance(Locale.getDefault());
+		lowerCalendar.setTime(date);
+		lowerCalendar.set(Calendar.HOUR_OF_DAY, 0);
+		lowerCalendar.set(Calendar.MINUTE, 0);
+		
+		Calendar upperCalendar = Calendar.getInstance(Locale.getDefault());
+		upperCalendar.setTime(date);
+		upperCalendar.set(Calendar.HOUR_OF_DAY, 23);
+		upperCalendar.set(Calendar.MINUTE, 59);
+		
+		return getTasks(lowerCalendar.getTime(), upperCalendar.getTime());
+	}
+	
+	@Override
+	public List<Task> getTasks(Date lowerDate, Date upperDate) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String lowerFormattedDate = MappingUtils.formatDateToSQL(lowerDate);
+		String upperFormattedDate = MappingUtils.formatDateToSQL(lowerDate);
+		String queryStatement = "SELECT * FROM " + TasksTable.TABLE_TASKS +
+				" WHERE " + TasksTable.DUE_DATE_COLUMN + " > " + lowerFormattedDate + 
+				  " AND " + TasksTable.DUE_DATE_COLUMN + " < " + upperFormattedDate;
+		Log.i(TAG, "getting all Tasks on the date range [" + lowerFormattedDate + "," + upperFormattedDate + "]." +
+				" SQL statement is: " + queryStatement);
 		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
 		
 		//map rows to tasks

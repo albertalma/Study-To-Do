@@ -1,10 +1,15 @@
 package almartapps.studytodo.data.DAO;
 
+import java.util.Date;
 import java.util.List;
 
 import almartapps.studytodo.domain.model.Task;
 
 public interface TaskDAO extends GenericDAO<Task> {
+	
+	public List<Task> getTasks(Date date);
+	
+	public List<Task> getTasks(Date lowerDate, Date upperDate);
 	
 	public List<Task> getTasksFromSubject(long subjectId);
 	
