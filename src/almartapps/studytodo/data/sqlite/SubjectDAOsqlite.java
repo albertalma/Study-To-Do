@@ -5,6 +5,7 @@ import java.util.List;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.exceptions.SubjectNotExistsException;
 import almartapps.studytodo.data.sqlite.tables.SubjectsTable;
+import almartapps.studytodo.data.sqlite.tables.TaughtSubjectTable;
 import almartapps.studytodo.domain.model.Subject;
 import android.content.ContentValues;
 import android.content.Context;
@@ -54,6 +55,31 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		//perform query
 		String queryStatement = "SELECT * FROM " + SubjectsTable.TABLE_SUBJECTS;
 		Log.i(TAG, "getting all Subjects stored. SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Subject> subjects = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return subjects;
+	}
+	
+	@Override
+	public List<Subject> getSubjectsFromProfessor(long professorId) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String queryStatement =
+				"SELECT subj.* " +  
+				"FROM " + SubjectsTable.TABLE_SUBJECTS + " subj, " 
+						+ TaughtSubjectTable.TABLE_TAUGH_SUBJECT + " taught " + 
+				"WHERE subj." + SubjectsTable.ID_COLUMN + " = taught." + TaughtSubjectTable.SUBJECT_KEY_COLUMN +
+					" AND " + professorId + " = taught." + TaughtSubjectTable.PROFESSOR_KEY_COLUMN;
+		Log.i(TAG, "getting all Subjects from the Professor with id=" + professorId + ". SQL statement is: " + queryStatement);
 		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
 		
 		//map rows to tasks
