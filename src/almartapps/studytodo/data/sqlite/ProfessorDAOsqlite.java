@@ -7,6 +7,7 @@ import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
 import almartapps.studytodo.data.exceptions.TaskNotExistsException;
 import almartapps.studytodo.data.sqlite.tables.ProfessorsTable;
 import almartapps.studytodo.data.sqlite.tables.TasksTable;
+import almartapps.studytodo.data.sqlite.tables.TaughtSubjectTable;
 import almartapps.studytodo.domain.model.Professor;
 import android.content.ContentValues;
 import android.content.Context;
@@ -68,6 +69,31 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		return professors;
 	}
 
+	@Override
+	public List<Professor> getProfessorsFromSubject(long subjectId) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String queryStatement =
+				"SELECT prof.* " +  
+				"FROM " + ProfessorsTable.TABLE_PROFESSORS + " prof, " 
+						+ TaughtSubjectTable.TABLE_TAUGH_SUBJECT + " taught " + 
+				"WHERE prof." + ProfessorsTable.ID_COLUMN + " = taught." + TaughtSubjectTable.PROFESSOR_KEY_COLUMN +
+					" AND " + subjectId + " = taught." + TaughtSubjectTable.SUBJECT_KEY_COLUMN;
+		Log.i(TAG, "getting all Professors from the Subject with id=" + subjectId + ". SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Professor> professors = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return professors;
+	}
+	
 	@Override
 	public Professor insert(Professor professor) {
 		if (professor.getName() == null)
