@@ -76,13 +76,15 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 	public List<Task> getTasks(Date date) {
 		Calendar lowerCalendar = Calendar.getInstance(Locale.getDefault());
 		lowerCalendar.setTime(date);
-		lowerCalendar.set(Calendar.HOUR_OF_DAY, 0);
-		lowerCalendar.set(Calendar.MINUTE, 0);
+		lowerCalendar.add(Calendar.DATE, -1);
+		lowerCalendar.set(Calendar.HOUR_OF_DAY, 23);
+		lowerCalendar.set(Calendar.MINUTE, 59);
 		
 		Calendar upperCalendar = Calendar.getInstance(Locale.getDefault());
 		upperCalendar.setTime(date);
-		upperCalendar.set(Calendar.HOUR_OF_DAY, 23);
-		upperCalendar.set(Calendar.MINUTE, 59);
+		upperCalendar.add(Calendar.DATE, 1);
+		upperCalendar.set(Calendar.HOUR_OF_DAY, 0);
+		upperCalendar.set(Calendar.MINUTE, 0);
 		
 		return getTasks(lowerCalendar.getTime(), upperCalendar.getTime());
 	}
@@ -94,10 +96,10 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		
 		//perform query
 		String lowerFormattedDate = MappingUtils.formatDateToSQL(lowerDate);
-		String upperFormattedDate = MappingUtils.formatDateToSQL(lowerDate);
+		String upperFormattedDate = MappingUtils.formatDateToSQL(upperDate);
 		String queryStatement = "SELECT * FROM " + TasksTable.TABLE_TASKS +
-				" WHERE " + TasksTable.DUE_DATE_COLUMN + " > " + lowerFormattedDate + 
-				  " AND " + TasksTable.DUE_DATE_COLUMN + " < " + upperFormattedDate;
+				" WHERE " + TasksTable.DUE_DATE_COLUMN + " > datetime('" + lowerFormattedDate + "') " + 
+					"AND " + TasksTable.DUE_DATE_COLUMN + " < datetime('" + upperFormattedDate + "')";
 		Log.i(TAG, "getting all Tasks on the date range [" + lowerFormattedDate + "," + upperFormattedDate + "]." +
 				" SQL statement is: " + queryStatement);
 		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
