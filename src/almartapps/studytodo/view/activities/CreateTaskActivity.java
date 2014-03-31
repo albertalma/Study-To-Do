@@ -142,7 +142,7 @@ public class CreateTaskActivity extends ActionBarActivity {
 			EditText percentageEditText = (EditText) findViewById(R.id.percentage_editText);
 			Date dueDate = null;
 			try {
-				dueDate = new SimpleDateFormat("dd-MM-yyyy")
+				dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm")
 						.parse(dueDateEditText.getText().toString());
 			} catch (ParseException e) {
 				exception = e.getMessage();

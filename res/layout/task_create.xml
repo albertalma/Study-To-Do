@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/date_textView"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="datetime" />
 
     <TextView
         android:id="@+id/priority_textView"
