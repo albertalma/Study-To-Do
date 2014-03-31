@@ -1,14 +1,7 @@
 package almartapps.studytodo.view.activities;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import almartapps.studytodo.R;
-import almartapps.studytodo.data.DAO.CourseDAO;
-import almartapps.studytodo.data.sqlite.CourseDAOsqlite;
 import almartapps.studytodo.data.sqlite.ProfessorDAOsqlite;
-import almartapps.studytodo.domain.model.Course;
 import almartapps.studytodo.domain.model.Professor;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -18,7 +11,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 import android.widget.EditText;
 
 public class CreateProfessorActivity extends ActionBarActivity {
@@ -50,14 +42,14 @@ public class CreateProfessorActivity extends ActionBarActivity {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case R.id.action_save:
-			createCourse();
+			createProfessor();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	private void createCourse() {
+	private void createProfessor() {
 		new CreateProfessorTask().execute();
 	}
 
@@ -78,7 +70,10 @@ public class CreateProfessorActivity extends ActionBarActivity {
 			String phone= profPhone.getText().toString();
 			Professor professor = new Professor(name, email, office, phone);
 			ProfessorDAOsqlite professorDao = new ProfessorDAOsqlite(context);
-			professorDao.insert(professor);
+			professor = professorDao.insert(professor);
+			//TODO assign subject
+			long subjectId = 1234;
+			professorDao.assignSubject(professor.getId(), subjectId);
 			return false;
 		}
 
