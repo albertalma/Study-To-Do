@@ -4,4 +4,11 @@
         <item>@string/today_tasks_title</item>
         <item>@string/today_classes_title</item>
     </string-array>
+    
+    <string-array name="nav_drawer_titles">
+        <item>@string/today</item>
+        <item>@string/tasks</item>
+        <item>@string/courses</item>
+        <item>@string/timetable</item>
+    </string-array>
 </resources>

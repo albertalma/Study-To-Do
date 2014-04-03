@@ -1,6 +1,6 @@
 package almartapps.studytodo.view.activities;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import almartapps.studytodo.R;
@@ -90,11 +90,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 	}
 
 	private List<String> getNavigationDrawerItems() {
-		List<String> result = new ArrayList<String>();
-		result.add(getString(R.string.today));
-		result.add(getString(R.string.tasks));
-		result.add(getString(R.string.courses));
-		result.add(getString(R.string.timetable));
+		List<String> result = Arrays.asList(getResources().getStringArray(R.array.nav_drawer_titles)); 
 		return result;
 	}
 
