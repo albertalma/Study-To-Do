@@ -1,6 +1,7 @@
 package almartapps.studytodo.data.sqlite;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import almartapps.studytodo.data.DAO.CourseDAO;
@@ -46,6 +47,29 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> implements CourseD
 		db.close();
 		
 		return course;
+	}
+	
+	@Override
+	public List<Course> getCourse(Date date) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String formattedDate = MappingUtils.formatDateToSQL(date);
+		String queryStatement = "SELECT * FROM " + CoursesTable.TABLE_COURSES + 
+				" WHERE " + CoursesTable.START_DATE_COLUMN + " >= datetime('" + formattedDate + "') " +
+						"AND " + CoursesTable.END_DATE_COLUMN + " <= datetime('" + formattedDate + "')";
+		Log.i(TAG, "getting Courses that overlap with date=" + formattedDate + ". SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Course> courses = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return courses;
 	}
 	
 	@Override

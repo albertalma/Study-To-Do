@@ -21,8 +21,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 	private Map<Long, Subject> subjects;
 	private Subject subject;
 
-	public TaskAdapter(Context context, List<Task> items,
-			Map<Long, Subject> subjects) {
+	public TaskAdapter(Context context, List<Task> items, Map<Long, Subject> subjects) {
 		super(context, R.layout.task_item, items);
 		this.context = context;
 		this.subjects = subjects;

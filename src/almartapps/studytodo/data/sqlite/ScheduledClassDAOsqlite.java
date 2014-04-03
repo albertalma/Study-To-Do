@@ -1,6 +1,8 @@
 package almartapps.studytodo.data.sqlite;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import almartapps.studytodo.data.DAO.ScheduledClassDAO;
 import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
@@ -10,6 +12,7 @@ import almartapps.studytodo.data.sqlite.tables.TasksTable;
 import almartapps.studytodo.data.sqlite.utils.MappingUtils;
 import almartapps.studytodo.data.sqlite.utils.SQLiteParseException;
 import almartapps.studytodo.domain.model.ScheduledClass;
+import almartapps.studytodo.domain.model.WeekDay;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -58,6 +61,44 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		//perform query
 		String queryStatement = "SELECT * FROM " + ScheduledClassesTable.TABLE_SCHEDULED_CLASS;
 		Log.i(TAG, "getting all ScheduledClasses stored. SQL statement is: " + queryStatement);
+		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<ScheduledClass> classes = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return classes;
+	}
+	
+	@Override
+	public List<ScheduledClass> getScheduledClasses(WeekDay weekDay, Set<Long> subjectsIds) {
+		//first: dummy check
+		if (subjectsIds.size() <= 0)
+			return new ArrayList<ScheduledClass>();
+		
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query
+		String whereInClause = "(";
+		boolean first = true;
+		for (Long subjectId : subjectsIds) {
+			if (first) {
+				whereInClause = whereInClause + subjectId;
+				first = false;
+			}
+			else {
+				whereInClause = whereInClause + "," + subjectId;
+			}
+		}
+		whereInClause += ")";
+		String queryStatement = "SELECT * FROM " + ScheduledClassesTable.TABLE_SCHEDULED_CLASS +
+				" WHERE " + ScheduledClassesTable.SUBJECT_KEY_COLUMN + " IN " + whereInClause +
+				" ORDER BY " + ScheduledClassesTable.START_TIME_COLUMN;
+		Log.i(TAG, "getting ScheduledClasses in weekDay=" + weekDay + ". SQL statement is: " + queryStatement);
 		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
 		
 		//map rows to tasks

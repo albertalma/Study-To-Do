@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomViewPagerTabStrip">
+	    <attr name="indicatorColor" format="reference|color" />
+	    <attr name="titleColor" format="reference|color" />
+	</declare-styleable>
+</resources>

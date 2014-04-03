@@ -9,7 +9,7 @@
     <string name="action_new">New</string>
     <string name="action_save">Save</string>
 
-    <!-- Tabs -->
+    <!-- Subject Tabs -->
     <string name="to_do">To Do</string>
     <string name="done">Done</string>
     <string name="teachers">Teachers</string>
@@ -27,6 +27,10 @@
 
     <!-- Fragment Titles -->
     <string name="subjects">Subjects</string>
+    
+    <!-- Today Fragment Titles -->
+	<string name="today_classes_title">CLASSES</string>
+	<string name="today_tasks_title">TASKS</string>
 
     <!-- Create Task -->
     <string name="title">Title</string>

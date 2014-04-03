@@ -1,32 +1,39 @@
 package almartapps.studytodo.view.fragments;
 
-import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.data.DAO.SubjectDAO;
-import almartapps.studytodo.data.DAO.TaskDAO;
-import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
-import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
-import almartapps.studytodo.domain.model.Subject;
-import almartapps.studytodo.domain.model.Task;
-import almartapps.studytodo.view.adapters.TaskAdapter;
-import android.content.Context;
-import android.os.AsyncTask;
+import almartapps.studytodo.view.adapters.TodayPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TodayFragment extends ListFragment {
+public class TodayFragment extends Fragment {
 	
+	private static final String TAG = "view.fragments.TodayFragment";
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.today_fragment, container, false);
+	}
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		ViewPager viewPager = (ViewPager) view.findViewById(R.id.today_view_pager);
+		List<String> pageTitles = Arrays.asList(getResources().getStringArray(R.array.today_view_pager_titles));
+		viewPager.setAdapter(new TodayPagerAdapter(getChildFragmentManager(), pageTitles));
+	}
+	
+	/*
 	private Context context;
-	private Map<Long,Subject> subjects;
-	private List<Task> tasks;
+	private Map<Long,Subject> subjectsMap;
+	private List<Task> todayTasks;
+	private List<ScheduledClass> todayClasses;
 	
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -39,30 +46,47 @@ public class TodayFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllTodayTasksTask().execute();
+		new FetchTodayDataTask().execute();
 	}
     
-    private class GetAllTodayTasksTask extends AsyncTask<Void, Void, Boolean> {
+    private class FetchTodayDataTask extends AsyncTask<Void, Void, Boolean> {
 
-		private String exception;
+		private String exceptionMessage;
 
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
+			//get DAOs
 			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
-			List<Subject> subjectsList = subjectDao.getAll();
-			subjects = new HashMap<Long, Subject>();
-			for (Subject s : subjectsList) {
-				subjects.put(s.getId(), s);
-			}
-			Calendar c = Calendar.getInstance(); 
 			TaskDAO taskDao = new TaskDAOsqlite(context);
-			tasks = taskDao.getTasks(c.getTime());
+			TxTodayScheduledClasses classesTransaction = new TxTodayScheduledClasses(context);
+			
+			Calendar calendar = Calendar.getInstance();
+			List<Subject> subjectsList = null;
+			//fetch data
+			try {
+				subjectsList = subjectDao.getAll();
+				todayTasks = taskDao.getTasks(calendar.getTime());
+				todayClasses = classesTransaction.getTodayScheduledClasses();
+			} catch (Exception e) {
+				exceptionMessage = e.getMessage();
+				return true;
+			}
+			
+			//build subjects map
+			subjectsMap = new HashMap<Long, Subject>();
+			for (Subject s : subjectsList) {
+				subjectsMap.put(s.getId(), s);
+			}
+			
+			//merge tasks & classes
+			//TODO
+			
 			return false;
 		}
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-
+				Log.e(TAG, exceptionMessage);
 			} else {
 				setView();
 			}
@@ -70,8 +94,8 @@ public class TodayFragment extends ListFragment {
 	}
     
     public void setView() {
-		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subjects);
+		TaskAdapter taskAdapter = new TaskAdapter(context, todayTasks, subjectsMap);
 		setListAdapter(taskAdapter);
 	}
-    
+    */
 }
