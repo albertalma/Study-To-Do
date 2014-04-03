@@ -16,7 +16,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text|textCapSentences"
-        android:ems="10" >
+        android:ems="10"
+        style="@style/EditTextStudyToDoTheme" >
         <requestFocus />
     </EditText>
 
@@ -34,7 +35,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine|textCapSentences"
-        android:lines="4" />
+        android:lines="4"
+        style="@style/EditTextStudyToDoTheme" />
 	
     <LinearLayout 
         android:layout_width="match_parent"
@@ -54,7 +56,8 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="4"
 	        android:ems="10"
-	        android:inputType="datetime" />
+	        android:inputType="datetime"
+	        style="@style/EditTextStudyToDoTheme" />
     </LinearLayout>
     
     <LinearLayout 
@@ -73,7 +76,8 @@
 	        android:id="@+id/priority_spinner"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="4" />
+	        android:layout_weight="4"
+	        style="@style/SpinnerStudyToDoTheme" />
     </LinearLayout>
     
     <LinearLayout
@@ -95,7 +99,8 @@
             android:layout_weight="0.5333"
             android:gravity="right"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            style="@style/EditTextStudyToDoTheme" />
         <TextView
             android:id="@+id/textView6"
             android:layout_width="0dip"
@@ -123,7 +128,8 @@
 	        android:id="@+id/subject_spinner"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="4" />
+	        android:layout_weight="4"
+	        style="@style/SpinnerStudyToDoTheme" />
     </LinearLayout>
 
 </LinearLayout>
