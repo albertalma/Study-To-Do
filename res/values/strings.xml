@@ -5,14 +5,20 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+    <!-- Priorities -->
+    <string name="priority_high">High</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_low">Low</string>
+    
     <!-- Action Bar -->
     <string name="action_new">New</string>
     <string name="action_save">Save</string>
 
     <!-- Subject Tabs -->
-    <string name="to_do">To Do</string>
-    <string name="done">Done</string>
-    <string name="teachers">Teachers</string>
+    <string name="subject_tab_to_do">To Do</string>
+    <string name="subject_tab_done">Done</string>
+    <string name="subject_tab_teachers">Teachers</string>
+    <string name="subject_tab_classes">Classes</string>
 
     <!-- Navigation Drawer -->
     <string name="drawer_open">Open navigation drawer</string>
@@ -33,16 +39,13 @@
 	<string name="today_tasks_title">TASKS</string>
 
     <!-- Create Task -->
-    <string name="title">Title</string>
-    <string name="description">Description</string>
-    <string name="date">Date</string>
-    <string name="priority">Priority</string>
-    <string name="percentage">Percentage: </string>
-    <string name="tant">%</string>
-    <string name="high">High</string>
-    <string name="medium">Medium</string>
-    <string name="low">Low</string>
-    <string name="subject">Subject</string>
+    <string name="create_task_title">Title:</string>
+    <string name="create_task_description">Description:</string>
+    <string name="create_task_date">Date:</string>
+    <string name="create_task_priority">Priority:</string>
+    <string name="create_task_percentage">Percentage:</string>
+    <string name="create_task_percentage_mark">%</string>
+    <string name="create_task_subject">Subject:</string>
 
     <!-- Create Course -->
     <string name="name">Name:</string>

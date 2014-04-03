@@ -4,11 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import almartapps.studytodo.R;
+import almartapps.studytodo.view.activities.CreateTaskActivity;
 import almartapps.studytodo.view.adapters.TodayPagerAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,73 +35,33 @@ public class TodayFragment extends Fragment {
 		viewPager.setAdapter(new TodayPagerAdapter(getChildFragmentManager(), pageTitles));
 	}
 	
-	/*
-	private Context context;
-	private Map<Long,Subject> subjectsMap;
-	private List<Task> todayTasks;
-	private List<ScheduledClass> todayClasses;
-	
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.show_list, container, false);
-    }
-    
-    @Override
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		context = getActivity();
-		new FetchTodayDataTask().execute();
 	}
-    
-    private class FetchTodayDataTask extends AsyncTask<Void, Void, Boolean> {
-
-		private String exceptionMessage;
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-			//get DAOs
-			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
-			TaskDAO taskDao = new TaskDAOsqlite(context);
-			TxTodayScheduledClasses classesTransaction = new TxTodayScheduledClasses(context);
-			
-			Calendar calendar = Calendar.getInstance();
-			List<Subject> subjectsList = null;
-			//fetch data
-			try {
-				subjectsList = subjectDao.getAll();
-				todayTasks = taskDao.getTasks(calendar.getTime());
-				todayClasses = classesTransaction.getTodayScheduledClasses();
-			} catch (Exception e) {
-				exceptionMessage = e.getMessage();
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// Inflate the menu items for use in the action bar
+		inflater.inflate(R.menu.action_bar_new, menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_new:
+				startCreateTaskActiyity();
 				return true;
-			}
-			
-			//build subjects map
-			subjectsMap = new HashMap<Long, Subject>();
-			for (Subject s : subjectsList) {
-				subjectsMap.put(s.getId(), s);
-			}
-			
-			//merge tasks & classes
-			//TODO
-			
-			return false;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
+	}
 
-		protected void onPostExecute(Boolean exceptionRaised) {
-			if (exceptionRaised) {
-				Log.e(TAG, exceptionMessage);
-			} else {
-				setView();
-			}
-		}
+    private void startCreateTaskActiyity() {
+		Intent intent = new Intent();
+		intent.setClass(getActivity(), CreateTaskActivity.class);
+		startActivity(intent);
 	}
-    
-    public void setView() {
-		TaskAdapter taskAdapter = new TaskAdapter(context, todayTasks, subjectsMap);
-		setListAdapter(taskAdapter);
-	}
-    */
+	
 }

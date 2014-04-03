@@ -37,15 +37,15 @@ public class TasksFromSubjectFragment extends Fragment {
 			Bundle savedInstanceState) {
 		mTabHost = new FragmentTabHost(getActivity());
 		mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.contenido);
-		String tab = getResources().getString(R.string.to_do);
+		String tab = getResources().getString(R.string.subject_tab_to_do);
 		Bundle args = new Bundle();
 		args.putLong("subjectID", getArguments().getLong("subjectID"));
 		mTabHost.addTab(mTabHost.newTabSpec(tab).setIndicator(tab),
 				ToDoTasksFragment.class, args);
-		tab = getResources().getString(R.string.done);
+		tab = getResources().getString(R.string.subject_tab_done);
 		mTabHost.addTab(mTabHost.newTabSpec(tab).setIndicator(tab),
 				DoneTasksFragment.class, args);
-		tab = getResources().getString(R.string.teachers);
+		tab = getResources().getString(R.string.subject_tab_teachers);
 		mTabHost.addTab(mTabHost.newTabSpec(tab).setIndicator(tab),
 				ProfessorsFromSubjectFragment.class, args);
 		return mTabHost;

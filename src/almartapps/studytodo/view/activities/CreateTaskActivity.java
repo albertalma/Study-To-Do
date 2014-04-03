@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +28,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 public class CreateTaskActivity extends ActionBarActivity {
+	
+	private final String TAG = "view.activities.CreateTaskActivity";
 	
 	private CreateTaskActivity createTaskActivity;
 
@@ -50,15 +53,11 @@ public class CreateTaskActivity extends ActionBarActivity {
 	}
 
 	private void setSpinner() {
-		String[] array_priority = new String[3];
-		array_priority[0] = getString(R.string.high);
-		array_priority[1] = getString(R.string.medium);
-		array_priority[2] = getString(R.string.low);
-		Spinner s = (Spinner) findViewById(R.id.priority_spinner);
-		ArrayAdapter adapter = new ArrayAdapter(this,
-				android.R.layout.simple_spinner_item, array_priority);
+		String[] arrayPriority = getResources().getStringArray(R.array.priority_spinner_array);
+		Spinner spinner = (Spinner) findViewById(R.id.priority_spinner);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayPriority);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		s.setAdapter(adapter);
+		spinner.setAdapter(adapter);
 	}
 
 	private void setSubjectSpinner() {
@@ -68,14 +67,13 @@ public class CreateTaskActivity extends ActionBarActivity {
 		if (subjectIntent != null) {
 			subjID = subjectIntent.getLongExtra("subjectID", 0);
 		}
-		String[] array_subjects = new String[subjects.size()];
+		String[] arraySubjects = new String[subjects.size()];
 		int position = 0;
 		for (int i = 0; i < subjects.size(); ++i) {
 			if (subjID != null && subjID == subjects.get(i).getId()) position = i;
-			array_subjects[i] = subjects.get(i).getName();
+			arraySubjects[i] = subjects.get(i).getName();
 		}
-		ArrayAdapter adapter = new ArrayAdapter(this,
-				android.R.layout.simple_spinner_item, array_subjects);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arraySubjects);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		s.setAdapter(adapter);
 		s.setSelection(position);
@@ -83,17 +81,22 @@ public class CreateTaskActivity extends ActionBarActivity {
 
 	private class GetAllSubjectsTask extends AsyncTask<Void, Void, Boolean> {
 
-		private String exception;
+		private String exceptionMessage;
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			SubjectDAO subjectDAO = new SubjectDAOsqlite(context);
-			subjects = subjectDAO.getAll();
+			try {
+				subjects = subjectDAO.getAll();
+			} catch (Exception e) {
+				exceptionMessage = e.getMessage();
+			}
 			return false;
 		}
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
+				Log.e(TAG, exceptionMessage);
 			} else {
 				setView();
 			}
@@ -137,27 +140,21 @@ public class CreateTaskActivity extends ActionBarActivity {
 			long subjectId = subjects.get(subjectPosition).getId();
 			EditText descriptionEditText = (EditText) findViewById(R.id.description_editText);
 			String description = descriptionEditText.getText().toString();
-			EditText dueDateEditText = (EditText) findViewById(R.id.date_editText);
+			
 			Spinner spinPriority = (Spinner) findViewById(R.id.priority_spinner);
 			EditText percentageEditText = (EditText) findViewById(R.id.percentage_editText);
-			Date dueDate = null;
-			try {
-				dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm")
-						.parse(dueDateEditText.getText().toString());
-			} catch (ParseException e) {
-				exception = e.getMessage();
-				return true;
-			}
+			Date dueDate = retrieveDueDate();
+			
 			TaskPriority taskPriority = null;
 			switch(spinPriority.getSelectedItemPosition()){
 			case 0:
-				taskPriority = taskPriority.low;
+				taskPriority = TaskPriority.high;
 				break;
 			case 1:
-				taskPriority = taskPriority.medium;
+				taskPriority = TaskPriority.medium;
 				break;
 			case 2:
-				taskPriority = taskPriority.high;
+				taskPriority = TaskPriority.low;
 				break;
 			}
 			boolean isCompleted = false;
@@ -175,12 +172,24 @@ public class CreateTaskActivity extends ActionBarActivity {
 			return false;
 		}
 
+		@Override
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
 
 			} else {
 				createTaskActivity.finish();
 			}
+		}
+		
+		private Date retrieveDueDate() {
+			EditText dueDateEditText = (EditText) findViewById(R.id.date_editText);
+			Date dueDate = null;
+			try {
+				dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dueDateEditText.getText().toString());
+			} catch (ParseException e) {
+				Log.e(TAG, e.getMessage());
+			}
+			return dueDate;
 		}
 	}
 

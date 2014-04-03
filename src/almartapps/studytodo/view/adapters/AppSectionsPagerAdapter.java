@@ -35,7 +35,7 @@ public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return new ProfessorsFromSubjectFragment();
         }
-        //Ojo con esto habria que añadir un default!!!
+        //Ojo con esto habria que aï¿½adir un default!!!
 		return null;
     }
 
@@ -47,11 +47,11 @@ public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position, Resources res) {
     	 switch (position) {
 	         case 0:
-	             return res.getString(R.string.to_do);
+	             return res.getString(R.string.subject_tab_to_do);
 	         case 1:
-	        	 return res.getString(R.string.done);
+	        	 return res.getString(R.string.subject_tab_done);
 	         case 2: 
-	        	 return res.getString(R.string.teachers);
+	        	 return res.getString(R.string.subject_tab_teachers);
     	 }
 		return null;
     }

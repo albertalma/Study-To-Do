@@ -6,6 +6,7 @@ import java.util.Map;
 import almartapps.studytodo.R;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
+import almartapps.studytodo.view.utils.TextColorPicker;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -55,6 +56,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 		if (subjects != null)
 			subject = subjects.get(subjectId);
 		assig_name_txt.setText(subject.getName());
+		assig_name_txt.setTextColor(TextColorPicker.pickTextColorFromBackground(subject.getColor()));
 		task_name_txt.setText(task.getName());
 		task_time_txt.setText(task.getDueDate().toString());
 		task_priority_txt.setText(task.getPriority().name());
