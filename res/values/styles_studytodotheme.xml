@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="EditTextStudyToDoTheme" parent="android:Widget.EditText">
+	  <item name="android:background">@drawable/studytodotheme_edit_text_holo_light</item>
+	  <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="AutoCompleteTextViewStudyToDoTheme" parent="android:Widget.AutoCompleteTextView">
+      <item name="android:dropDownSelector">@drawable/studytodotheme_list_selector_holo_light</item>
+	  <item name="android:background">@drawable/studytodotheme_edit_text_holo_light</item>
+	  <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="CheckBoxStudyToDoTheme" parent="android:Widget.CompoundButton.CheckBox">
+      <item name="android:button">@drawable/studytodotheme_btn_check_holo_light</item>
+  </style>
+
+  <style name="RadioButtonStudyToDoTheme" parent="android:Widget.CompoundButton.RadioButton">
+      <item name="android:button">@drawable/studytodotheme_btn_radio_holo_light</item>
+  </style>
+
+  <style name="ButtonStudyToDoTheme" parent="android:Widget.Button">
+	  <item name="android:background">@drawable/studytodotheme_btn_default_holo_light</item>
+	  <item name="android:minHeight">48dip</item>
+	  <item name="android:minWidth">64dip</item>
+	  <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="ImageButtonStudyToDoTheme" parent="android:Widget.ImageButton">
+	  <item name="android:background">@drawable/studytodotheme_btn_default_holo_light</item>
+  </style>
+
+  <style name="SpinnerStudyToDoTheme" parent="android:Widget.Spinner">
+      <item name="android:background">@drawable/studytodotheme_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/studytodotheme_list_selector_holo_light</item>
+  </style>
+
+  <style name="SpinnerDropDownItemStudyToDoTheme" parent="android:Widget.DropDownItem.Spinner">
+      <item name="android:checkMark">@drawable/studytodotheme_btn_radio_holo_light</item>
+  </style>
+  <style name="TabStudyToDoTheme">
+      <item name="android:gravity">center_horizontal</item>
+      <item name="android:paddingLeft">16dip</item>
+      <item name="android:paddingRight">16dip</item>
+      <item name="android:background">@drawable/studytodotheme_tab_indicator_holo</item>
+      <item name="android:layout_width">0dip</item>
+      <item name="android:layout_weight">1</item>
+      <item name="android:minWidth">80dip</item>
+  </style>
+
+  <style name="TabTextStudyToDoTheme">
+	  <item name="android:textColor">#000000</item>
+      <item name="android:textSize">12sp</item>
+      <item name="android:textStyle">bold</item>
+      <!-- v14 <item name="android:textAllCaps">true</item> -->
+      <item name="android:ellipsize">marquee</item>
+      <item name="android:maxLines">2</item>
+      <item name="android:maxWidth">180dip</item>
+  </style>
+
+  <style name="ProgressBarStudyToDoTheme" parent="android:Widget.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/studytodotheme_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/studytodotheme_progress_indeterminate_horizontal_holo_light</item>
+      <item name="android:minHeight">16dip</item>
+      <item name="android:maxHeight">16dip</item>
+  </style>
+
+  <style name="SeekBarStudyToDoTheme" parent="android:Widget.SeekBar">
+      <item name="android:progressDrawable">@drawable/studytodotheme_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/studytodotheme_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:minHeight">13dip</item>
+      <item name="android:maxHeight">13dip</item>
+      <item name="android:thumb">@drawable/studytodotheme_scrubber_control_selector_holo_light</item>
+      <item name="android:thumbOffset">16dip</item>
+      <item name="android:paddingLeft">16dip</item>
+      <item name="android:paddingRight">16dip</item>
+  </style>
+
+  <style name="RatingBarStudyToDoTheme" parent="android:Widget.RatingBar">
+      <item name="android:progressDrawable">@drawable/studytodotheme_ratingbar_full_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/studytodotheme_ratingbar_full_holo_light</item>
+  </style>
+
+  <style name="RatingBarBigStudyToDoTheme">
+      <item name="android:progressDrawable">@drawable/studytodotheme_ratingbar_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/studytodotheme_ratingbar_holo_light</item>
+      <item name="android:minHeight">35dip</item>
+      <item name="android:maxHeight">35dip</item>
+  </style>
+
+  <style name="RatingBarSmallStudyToDoTheme">
+      <item name="android:progressDrawable">@drawable/studytodotheme_ratingbar_small_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/studytodotheme_ratingbar_small_holo_light</item>
+      <item name="android:minHeight">16dip</item>
+      <item name="android:maxHeight">16dip</item>
+  </style>
+
+  <style name="ToggleStudyToDoTheme" parent="android:Widget.Button.Toggle">
+      <item name="android:background">@drawable/studytodotheme_btn_toggle_holo_light</item>
+      <item name="android:minHeight">48dip</item>
+	  <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="ListViewStudyToDoTheme" parent="android:Widget.ListView">
+      <item name="android:listSelector">@drawable/studytodotheme_list_selector_holo_light</item>
+  </style>
+
+  <style name="ListViewStudyToDoTheme.White" parent="android:Widget.ListView.White">
+      <item name="android:listSelector">@drawable/studytodotheme_list_selector_holo_light</item>
+  </style>
+
+  <style name="SpinnerItemStudyToDoTheme" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+      <item name="android:textColor">#000000</item>
+  </style>
+
+</resources>

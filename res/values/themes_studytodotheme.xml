@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="StudyToDoTheme" parent="@style/_StudyToDoTheme"/>
+
+  <style name="_StudyToDoTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <item name="android:editTextStyle">@style/EditTextStudyToDoTheme</item>
+
+    <item name="android:textColorHighlight">#99fd6706</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewStudyToDoTheme</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxStudyToDoTheme</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonStudyToDoTheme</item>
+
+    <item name="android:buttonStyle">@style/ButtonStudyToDoTheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonStudyToDoTheme</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerStudyToDoTheme</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemStudyToDoTheme</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarStudyToDoTheme</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarStudyToDoTheme</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarStudyToDoTheme</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigStudyToDoTheme</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallStudyToDoTheme</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleStudyToDoTheme</item>
+
+    <item name="android:listViewStyle">@style/ListViewStudyToDoTheme</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewStudyToDoTheme.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemStudyToDoTheme</item>
+
+  </style>
+
+</resources>

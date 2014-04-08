@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="StudyToDoTheme" parent="@style/_StudyToDoTheme"/>
+
+  <style name="_StudyToDoTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <item name="android:editTextBackground">@drawable/studytodotheme_edit_text_holo_light</item>
+
+    <item name="android:textColorHighlight">#99fd6706</item>
+    <item name="android:textSelectHandleLeft">@drawable/studytodotheme_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/studytodotheme_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/studytodotheme_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewStudyToDoTheme</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/studytodotheme_btn_check_holo_light</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/studytodotheme_btn_radio_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonStudyToDoTheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonStudyToDoTheme</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerStudyToDoTheme</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarStudyToDoTheme</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarStudyToDoTheme</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarStudyToDoTheme</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigStudyToDoTheme</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallStudyToDoTheme</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleStudyToDoTheme</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/studytodotheme_list_selector_holo_light</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/studytodotheme_activated_background_holo_light</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/studytodotheme_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>
