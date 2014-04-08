@@ -46,6 +46,7 @@
     <string name="create_task_percentage">Percentage:</string>
     <string name="create_task_percentage_mark">%</string>
     <string name="create_task_subject">Subject:</string>
+    <string name="create_task_place">Place:</string>
 
     <!-- Create Course -->
     <string name="name">Name:</string>
@@ -63,5 +64,13 @@
 
     <!-- Color Picker -->
     <string name="pick_color_button">Pick color</string>
+    
+    <!-- Timetable -->
+        <string name="monday">Monday</string>
+        <string name="tuesday">Tuesday</string>
+        <string name="wednesday">Wednesday</string>
+        <string name="thursday">Thursday</string>
+        <string name="friday">Friday</string>
+    
 
 </resources>

@@ -27,46 +27,22 @@
         <activity
             android:name="almartapps.studytodo.view.activities.CreateTaskActivity"
             android:label="@string/app_name"
-            android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-
-            <!-- Parent activity meta-data to support API level 7+ -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="almartapps.studytodo.activities.MainNavDrawerActivity" />
         </activity>
         <activity
             android:name="almartapps.studytodo.view.activities.CreateCourseActivity"
             android:label="@string/app_name"
-            android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-
-            <!-- Parent activity meta-data to support API level 7+ -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="almartapps.studytodo.activities.MainNavDrawerActivity" />
         </activity>
         <activity
             android:name="almartapps.studytodo.view.activities.CreateSubjectActivity"
             android:label="@string/app_name"
-            android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-
-            <!-- Parent activity meta-data to support API level 7+ -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="almartapps.studytodo.activities.MainNavDrawerActivity" />
         </activity>
         <activity
             android:name="almartapps.studytodo.view.activities.CreateProfessorActivity"
             android:label="@string/app_name"
-            android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-
-            <!-- Parent activity meta-data to support API level 7+ -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="almartapps.studytodo.activities.MainNavDrawerActivity" />
         </activity>
         <activity
             android:name="almartapps.studytodo.view.activities.ColorPickerActivity"

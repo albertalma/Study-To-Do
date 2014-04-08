@@ -34,7 +34,6 @@ public class CreateSubjectActivity extends ActionBarActivity {
 		setContentView(R.layout.subject_create);
 		setColorPickerListener();
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

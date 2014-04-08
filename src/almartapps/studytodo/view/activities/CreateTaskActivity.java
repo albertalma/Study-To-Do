@@ -24,8 +24,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 public class CreateTaskActivity extends ActionBarActivity {
 	
@@ -41,7 +43,6 @@ public class CreateTaskActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		createTaskActivity = this;
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 		new GetAllSubjectsTask().execute();
 
 	}
@@ -135,6 +136,8 @@ public class CreateTaskActivity extends ActionBarActivity {
 		protected Boolean doInBackground(Void... arg0) {
 			EditText taskTitle = (EditText) findViewById(R.id.title_editText);
 			String title = taskTitle.getText().toString();
+			EditText taskPlace = (EditText) findViewById(R.id.place_editText);
+			String place = taskPlace.getText().toString();
 			Spinner spinSubject = (Spinner) findViewById(R.id.subject_spinner);
 			int subjectPosition = spinSubject.getSelectedItemPosition();
 			long subjectId = subjects.get(subjectPosition).getId();
@@ -164,9 +167,7 @@ public class CreateTaskActivity extends ActionBarActivity {
 			int percentage = Integer.valueOf(percentageString);
 			if (percentage!= 0) isEvaluable = true;
 			int grade = 0;
-			//Task(String title, long subjectId, String description, Date dueDate, TaskPriority priority, boolean isCompleted, boolean isEvaluable, int percentage, float grade)
-			//FIXME Create a Task with the 'place' field correctly set!! It is now "Barad Dûr" ... Sauron's home, sweet home.
-			Task task = new Task(title, subjectId, description, dueDate, "Barad Dûr", taskPriority, isCompleted, isEvaluable, percentage, grade);
+			Task task = new Task(title, subjectId, description, dueDate, place, taskPriority, isCompleted, isEvaluable, percentage, grade);
 			TaskDAO taskDao = new TaskDAOsqlite(context);
 			taskDao.insert(task);
 			return false;
@@ -181,11 +182,24 @@ public class CreateTaskActivity extends ActionBarActivity {
 			}
 		}
 		
+		private String getStringdateFromDateAndTimePicker(DatePicker datepickDatePicker, TimePicker timePicker) {
+			int day = datepickDatePicker.getDayOfMonth();
+			int month = datepickDatePicker.getMonth();
+			int year = datepickDatePicker.getYear();
+			timePicker.clearFocus();
+			int hour = timePicker.getCurrentHour();
+			int minute = timePicker.getCurrentMinute();
+			return day + "-" + month + "-" + year + " " + hour + ":" + minute;
+		}
+		
 		private Date retrieveDueDate() {
-			EditText dueDateEditText = (EditText) findViewById(R.id.date_editText);
+			DatePicker taskDatePicker = (DatePicker) findViewById(R.id.datePickerTask);
+			TimePicker taskTimePicker = (TimePicker) findViewById(R.id.timePickerTask);
+			String dateString = getStringdateFromDateAndTimePicker(taskDatePicker,taskTimePicker);
+
 			Date dueDate = null;
 			try {
-				dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dueDateEditText.getText().toString());
+				dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateString);
 			} catch (ParseException e) {
 				Log.e(TAG, e.getMessage());
 			}
