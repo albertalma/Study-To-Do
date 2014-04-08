@@ -12,12 +12,12 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/StudyToDoTheme" >
         <activity
             android:name="almartapps.studytodo.view.activities.MainNavDrawerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:theme="@style/StudyToDoTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +28,7 @@
             android:name="almartapps.studytodo.view.activities.CreateTaskActivity"
             android:label="@string/app_name"
             android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:theme="@style/StudyToDoTheme" >
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
@@ -39,7 +39,7 @@
             android:name="almartapps.studytodo.view.activities.CreateCourseActivity"
             android:label="@string/app_name"
             android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:theme="@style/StudyToDoTheme" >
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
@@ -50,7 +50,7 @@
             android:name="almartapps.studytodo.view.activities.CreateSubjectActivity"
             android:label="@string/app_name"
             android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:theme="@style/StudyToDoTheme" >
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
@@ -61,7 +61,7 @@
             android:name="almartapps.studytodo.view.activities.CreateProfessorActivity"
             android:label="@string/app_name"
             android:parentActivityName="almartapps.studytodo.view.activities.MainNavDrawerActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:theme="@style/StudyToDoTheme" >
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
@@ -70,7 +70,8 @@
         </activity>
         <activity
             android:name="almartapps.studytodo.view.activities.ColorPickerActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/StudyToDoTheme" >
         </activity>
     </application>
 
