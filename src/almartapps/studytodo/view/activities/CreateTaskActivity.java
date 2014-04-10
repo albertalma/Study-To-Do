@@ -43,6 +43,7 @@ public class CreateTaskActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		createTaskActivity = this;
 		ActionBar actionBar = getSupportActionBar();
+		actionBar.setHomeButtonEnabled(false);
 		new GetAllSubjectsTask().execute();
 
 	}

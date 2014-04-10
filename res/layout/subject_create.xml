@@ -16,33 +16,29 @@
             android:layout_height="wrap_content"
             android:text="@string/name" />
 
-        <EditText
-            android:id="@+id/subject_name_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:singleLine="true" >
-
-            <requestFocus />
-        </EditText>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical" >
 
-            <TextView
-                android:layout_gravity="center_vertical"
-                android:id="@+id/subject_color_textview"
+            <EditText
+                android:id="@+id/subject_name_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="@string/select_color" />
+                android:layout_weight="1"
+                android:ems="10"
+                android:singleLine="true" >
+
+                <requestFocus />
+            </EditText>
 
             <View
                 android:id="@+id/subject_color_view"
                 android:layout_width="0dip"
-                android:layout_height="50dp"
-                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1.5"
                 android:background="@color/dark_orange" />
         </LinearLayout>
     </LinearLayout>
