@@ -26,7 +26,6 @@ public class CreateProfessorActivity extends ActionBarActivity {
 		setContentView(R.layout.professor_create);
 
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

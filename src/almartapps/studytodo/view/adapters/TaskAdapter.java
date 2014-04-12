@@ -3,6 +3,8 @@ package almartapps.studytodo.view.adapters;
 import java.util.List;
 import java.util.Map;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
 import almartapps.studytodo.R;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
@@ -46,6 +48,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 				.findViewById(R.id.task_name);
 		TextView task_time_txt = (TextView) rowView
 				.findViewById(R.id.task_time);
+		TextView task_place_txt = (TextView) rowView
+				.findViewById(R.id.task_place);
 		TextView task_priority_txt = (TextView) rowView
 				.findViewById(R.id.task_priority);
 		TextView task_percentage_txt = (TextView) rowView
@@ -58,9 +62,11 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 		assig_name_txt.setText(subject.getName());
 		assig_name_txt.setTextColor(TextColorPicker.pickTextColorFromBackground(subject.getColor()));
 		task_name_txt.setText(task.getName());
-		task_time_txt.setText(task.getDueDate().toString());
+		PrettyTime prettytime = new PrettyTime();
+		task_time_txt.setText(prettytime.format(task.getDueDate()));
 		task_priority_txt.setText(task.getPriority().name());
 		task_percentage_txt.setText(String.valueOf(task.getPercentage()));
+		task_place_txt.setText(task.getPlace());
 
 		// setColor
 		RelativeLayout rLayout = (RelativeLayout) rowView
