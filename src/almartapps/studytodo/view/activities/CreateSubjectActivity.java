@@ -30,7 +30,7 @@ public class CreateSubjectActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		context = this;
 		createSubjectActivity = this;
-		color = getResources().getColor(R.color.dark_orange);
+		color = getResources().getColor(R.color.dark_blue);
 		setContentView(R.layout.subject_create);
 		setColorPickerListener();
 		ActionBar actionBar = getSupportActionBar();

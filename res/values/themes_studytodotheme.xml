@@ -9,7 +9,7 @@
 
     <item name="android:editTextStyle">@style/EditTextStudyToDoTheme</item>
 
-    <item name="android:textColorHighlight">#99fd6706</item>
+    <item name="android:textColorHighlight">#993192ff</item>
 
     <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewStudyToDoTheme</item>
 
