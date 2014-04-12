@@ -71,6 +71,9 @@
         <string name="wednesday">Wednesday</string>
         <string name="thursday">Thursday</string>
         <string name="friday">Friday</string>
+        
+        <!-- Task -->
+    <string name="completed">Completed</string>
     
 
 </resources>
