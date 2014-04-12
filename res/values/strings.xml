@@ -5,6 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    
     <!-- Priorities -->
     <string name="priority_high">High</string>
     <string name="priority_medium">Medium</string>
@@ -47,6 +50,7 @@
     <string name="create_task_percentage_mark">%</string>
     <string name="create_task_subject">Subject:</string>
     <string name="create_task_place">Place:</string>
+    <string name="create_task_is_evaluable">Evaluable:</string>
 
     <!-- Create Course -->
     <string name="name">Name:</string>
