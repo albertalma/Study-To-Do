@@ -1,9 +1,10 @@
 package almartapps.studytodo.view.activities;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
@@ -13,21 +14,26 @@ import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
 import almartapps.studytodo.domain.model.TaskPriority;
+import almartapps.studytodo.view.fragments.dialogs.TaskDatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class CreateTaskActivity extends ActionBarActivity {
+public class CreateTaskActivity extends ActionBarActivity implements OnDateSetListener {
 	
 	private final String TAG = "view.activities.CreateTaskActivity";
 	
@@ -35,11 +41,14 @@ public class CreateTaskActivity extends ActionBarActivity {
 
 	private List<Subject> subjects;
 	private Context context;
+	
+	private Date selectedDate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		createTaskActivity = this;
+		selectedDate = null;
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		new GetAllSubjectsTask().execute();
@@ -50,6 +59,7 @@ public class CreateTaskActivity extends ActionBarActivity {
 		setContentView(R.layout.task_create);
 		setSpinner();
 		setSubjectSpinner();
+		setDateEditTextListener();
 	}
 
 	private void setSpinner() {
@@ -77,6 +87,36 @@ public class CreateTaskActivity extends ActionBarActivity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		s.setAdapter(adapter);
 		s.setSelection(position);
+	}
+	
+	private void setDateEditTextListener() {
+		EditText dateEditText = (EditText) findViewById(R.id.date_editText);
+		dateEditText.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showDatePickerDialog();
+			}
+		});
+	}
+	
+	private void showDatePickerDialog() {
+		DialogFragment dateDialog = new TaskDatePickerDialog();
+		dateDialog.show(getSupportFragmentManager(), TAG);
+	}
+	
+	@Override
+	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+		//set selected date
+		Calendar calendar = Calendar.getInstance(Locale.getDefault());
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, monthOfYear);
+		calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+		selectedDate = calendar.getTime();
+		
+		//set edittext content
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		EditText dateEditText = (EditText) findViewById(R.id.date_editText);
+		dateEditText.setText(formatter.format(selectedDate));
 	}
 
 	private class GetAllSubjectsTask extends AsyncTask<Void, Void, Boolean> {
@@ -129,7 +169,7 @@ public class CreateTaskActivity extends ActionBarActivity {
 	
 	private class CreateTaskTask extends AsyncTask<Void, Void, Boolean> {
 
-		private String exception;
+		private String exceptionMessage;
 
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
@@ -143,7 +183,7 @@ public class CreateTaskActivity extends ActionBarActivity {
 			
 			Spinner spinPriority = (Spinner) findViewById(R.id.priority_spinner);
 			EditText percentageEditText = (EditText) findViewById(R.id.percentage_editText);
-			Date dueDate = retrieveDueDate();
+			Date dueDate = selectedDate;
 			
 			TaskPriority taskPriority = null;
 			switch(spinPriority.getSelectedItemPosition()){
@@ -175,21 +215,10 @@ public class CreateTaskActivity extends ActionBarActivity {
 		@Override
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-
+				Log.e(TAG, exceptionMessage);
 			} else {
 				createTaskActivity.finish();
 			}
-		}
-		
-		private Date retrieveDueDate() {
-			EditText dueDateEditText = (EditText) findViewById(R.id.date_editText);
-			Date dueDate = null;
-			try {
-				dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dueDateEditText.getText().toString());
-			} catch (ParseException e) {
-				Log.e(TAG, e.getMessage());
-			}
-			return dueDate;
 		}
 	}
 

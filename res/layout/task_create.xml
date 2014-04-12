@@ -1,131 +1,184 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="vertical" >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/create_task_title"
-        style="@style/FormLabel" />
-
-    <EditText
-        android:id="@+id/title_editText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|textCapSentences"
-        android:ems="10" >
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/description_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        style="@style/FormLabel"
-        android:text="@string/create_task_description" />
-
-    <EditText
-        android:id="@+id/description_editText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine|textCapSentences"
-        android:lines="4" />
+    android:layout_height="wrap_content">
+    
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="10dp"
+	    android:orientation="vertical" >
 	
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="@style/FormRow">
-        <TextView
-	        android:id="@+id/date_textView"
-	        android:layout_width="0dip"
+	    <TextView
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="2"
-	        style="@style/FormLabel.TextRight"
-	        android:text="@string/create_task_date" />
+	        android:text="@string/create_task_title"
+	        style="@style/FormLabel" />
+	
 	    <EditText
-	        android:id="@+id/date_editText"
-	        android:layout_width="0dip"
+	        android:id="@+id/title_editText"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="4"
+	        android:inputType="text|textCapSentences"
+	        android:ems="10" >
+	        <requestFocus />
+	    </EditText>
+	
+	    <TextView
+	        android:id="@+id/description_textView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="14dp"
+	        style="@style/FormLabel"
+	        android:text="@string/create_task_description" />
+	
+	    <EditText
+	        android:id="@+id/description_editText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
 	        android:ems="10"
-	        android:inputType="datetime" />
-    </LinearLayout>
+	        android:inputType="textMultiLine|textCapSentences"
+	        android:lines="4" />
+		
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/FormRow">
+	        <TextView
+		        android:id="@+id/subject_textView"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="2"
+		        style="@style/FormLabel.TextRight"
+		        android:text="@string/create_task_subject" />
+		    <Spinner
+		        android:id="@+id/subject_spinner"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="4" />
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/FormRow">
+	        <TextView
+		        android:id="@+id/date_textView"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="2"
+		        style="@style/FormLabel.TextRight"
+		        android:text="@string/create_task_date" />
+		    <EditText
+		        android:id="@+id/date_editText"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="4"
+		        android:ems="10"
+		        android:inputType="datetime" />
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/FormRow">
+	        <TextView
+		        android:id="@+id/priority_textView"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="2"
+		        style="@style/FormLabel.TextRight"
+		        android:text="@string/create_task_priority" />
+		    <Spinner
+		        android:id="@+id/priority_spinner"
+		        android:layout_width="0dip"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="4" />
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/FormRow">
+	        <TextView 
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="2"
+	            android:text="@string/create_task_place"
+	            style="@style/FormLabel.TextRight"/>
+	        <EditText 
+	            android:id="@+id/place_editText"
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="4"
+	            android:ems="10"
+	            android:inputType="text"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/FormRow">
+	        <TextView 
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="2"
+	            android:text="@string/create_task_is_evaluable"
+	            style="@style/FormLabel.TextRight"/>
+	        <RadioGroup 
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="4"
+	            android:orientation="horizontal">
+	            <RadioButton 
+	                android:id="@+id/is_evaluable_yes_radiobutton"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/yes"/>
+	            <RadioButton 
+	                android:id="@+id/is_evaluable_no_radiobutton"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/no"/>
+	        </RadioGroup>
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        style="@style/FormRow">
+	        <TextView
+	            android:id="@+id/percentage_textView"
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.3333"
+	            style="@style/FormLabel.TextRight"
+	            android:text="@string/create_task_percentage" />
+		    <EditText
+	            android:id="@+id/percentage_editText"
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.5333"
+	            android:gravity="right"
+	            android:ems="10"
+	            android:inputType="number" />
+	        <TextView
+	            android:id="@+id/textView6"
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0.1333"
+	            style="@style/FormLabel"
+	            android:textColor="@android:color/black"
+	            android:text="@string/create_task_percentage_mark"
+	            android:gravity="center_horizontal" />
+	    </LinearLayout>
+	
+	</LinearLayout>
     
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="@style/FormRow">
-        <TextView
-	        android:id="@+id/priority_textView"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="2"
-	        style="@style/FormLabel.TextRight"
-	        android:text="@string/create_task_priority" />
-	    <Spinner
-	        android:id="@+id/priority_spinner"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="4"
-	        style="@style/SpinnerStudyToDoTheme" />
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="@style/FormRow">
-        <TextView
-            android:id="@+id/percentage_textView"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3333"
-            style="@style/FormLabel.TextRight"
-            android:text="@string/create_task_percentage" />
-	    <EditText
-            android:id="@+id/percentage_editText"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5333"
-            android:gravity="right"
-            android:ems="10"
-            android:inputType="number" />
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1333"
-            style="@style/FormLabel"
-            android:textColor="@android:color/black"
-            android:text="@string/create_task_percentage_mark"
-            android:gravity="center_horizontal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="@style/FormRow">
-        <TextView
-	        android:id="@+id/subject_textView"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="2"
-	        style="@style/FormLabel.TextRight"
-	        android:text="@string/create_task_subject" />
-	    <Spinner
-	        android:id="@+id/subject_spinner"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="4"
-	        style="@style/SpinnerStudyToDoTheme" />
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
