@@ -5,9 +5,6 @@ bin/
 # ignore all target directories
 target/
 
-#ignore libs folder
-libs/
-
 # ignore all files ending with ~
 *~ 
 
