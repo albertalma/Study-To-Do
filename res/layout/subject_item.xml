@@ -1,36 +1,76 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:padding="5dp" >
 
     <View
-        android:id="@+id/subject_color_view"
-        android:layout_width="12dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray" />
+        android:id="@+id/shadow_above"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="@drawable/inverse_shadow" />
+
+    <View
+        android:id="@+id/shadow_right"
+        android:layout_width="2dip"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/shadow_below"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/shadow_above"
+        android:background="@drawable/shadow_right" />
+
+    <View
+        android:id="@+id/shadow_left"
+        android:layout_width="2dip"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/shadow_below"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/shadow_above"
+        android:background="@drawable/shadow_left" />
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical" >
+        android:layout_below="@+id/shadow_above"
+        android:layout_toLeftOf="@+id/shadow_right"
+        android:layout_toRightOf="@+id/shadow_left"
+        android:background="@android:color/white" >
 
-        <TextView
-            android:id="@+id/subject_name_textview"
+        <View
+            android:id="@+id/subject_color_view"
+            android:layout_width="12dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:orientation="vertical"
+            android:padding="10dp" >
 
-        <TextView
-            android:id="@+id/subject_grade_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/subject_name_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
+            <TextView
+                android:id="@+id/subject_grade_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <View
+        android:id="@+id/shadow_below"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_below="@+id/layout"
+        android:background="@drawable/shadow" >
+    </View>
+
+</RelativeLayout>
