@@ -22,12 +22,12 @@ public class TodayPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public Fragment getItem(int position) {
 		switch (position) {
-		case 0: //tasks
-			Fragment tasksFragment = new TodayTasksFragment();
-			return tasksFragment;
-		case 1: //classes
+		case 0: //classes
 			Fragment classesFragment = new TodayClassesFragment();
 			return classesFragment;
+		case 1: //tasks
+			Fragment tasksFragment = new TodayTasksFragment();
+			return tasksFragment;
 		}
 		return null;
 	}

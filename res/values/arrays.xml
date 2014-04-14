@@ -8,8 +8,8 @@
     </string-array>
     
     <string-array name="today_view_pager_titles">
-        <item>@string/today_tasks_title</item>
         <item>@string/today_classes_title</item>
+        <item>@string/today_tasks_title</item>
     </string-array>
     
     <string-array name="nav_drawer_titles">
