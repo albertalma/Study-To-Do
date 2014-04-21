@@ -3,74 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp" >
-
-    <View
-        android:id="@+id/shadow_above"
-        android:layout_width="fill_parent"
-        android:layout_height="5dip"
-        android:background="@drawable/inverse_shadow" />
-
-    <View
-        android:id="@+id/shadow_right"
-        android:layout_width="5dip"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/shadow_below"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/shadow_above"
-        android:background="@drawable/shadow_right" />
-
-    <View
-        android:id="@+id/shadow_left"
-        android:layout_width="5dip"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/shadow_below"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/shadow_above"
-        android:background="@drawable/shadow_left" />
-
-    <LinearLayout
-        android:id="@+id/layout"
+	
+    <RelativeLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/shadow_above"
-        android:layout_toLeftOf="@+id/shadow_right"
-        android:layout_toRightOf="@+id/shadow_left"
-        android:background="@android:color/white" >
-
-        <View
-            android:id="@+id/subject_color_view"
-            android:layout_width="12dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray" />
-
+    	android:layout_height="wrap_content"
+    	android:background="@drawable/shadow_blue"
+    	android:padding="5dp" >
+	
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp" >
-
-            <TextView
-                android:id="@+id/subject_name_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/subject_grade_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:id="@+id/shadow_below"
-        android:layout_width="fill_parent"
-        android:layout_height="5dip"
-        android:layout_below="@+id/layout"
-        android:background="@drawable/shadow" >
-    </View>
+	        android:id="@+id/layout"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:background="@android:color/white" >
+	
+	        <View
+	            android:id="@+id/subject_color_view"
+	            android:layout_width="12dp"
+	            android:layout_height="match_parent"
+	            android:background="@android:color/darker_gray" />
+	
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical"
+	            android:padding="10dp" >
+	
+	            <TextView
+	                android:id="@+id/subject_name_textview"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:text="Large Text"
+	                android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	            <TextView
+	                android:id="@+id/subject_grade_textview"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:text="Medium Text"
+	                android:textAppearance="?android:attr/textAppearanceMedium" />
+	        </LinearLayout>
+	    </LinearLayout>
+	
+	</RelativeLayout>
 
 </RelativeLayout>
