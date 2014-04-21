@@ -7,6 +7,12 @@ import almartapps.studytodo.domain.model.Task;
 
 public interface TaskDAO extends GenericDAO<Task> {
 	
+	public static int FLAG_SORT_BY = 1;
+	
+	public enum SortBy {
+		date, priority
+	}
+	
 	public List<Task> getTasks(Date date);
 	
 	public List<Task> getTasks(Date lowerDate, Date upperDate);
