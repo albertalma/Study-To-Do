@@ -4,6 +4,7 @@
     <color name="clear_blue">#3192ff</color>
     <color name="dark_blue">#0057e3</color>
     <color name="background_blue">#e5eefc</color>
+    <color name="background_blue_viewpager">#99bbf3</color>
     <color name="clear_shadow">#e5eefc</color>
     <color name="dark_shadow">#99bbf3</color>
 
