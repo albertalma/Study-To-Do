@@ -38,30 +38,7 @@ public class TodayFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(true);
-	}
-	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// Inflate the menu items for use in the action bar
-		inflater.inflate(R.menu.action_bar_new, menu);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.action_new:
-				startCreateTaskActiyity();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
-
-    private void startCreateTaskActiyity() {
-		Intent intent = new Intent();
-		intent.setClass(getActivity(), CreateTaskActivity.class);
-		startActivity(intent);
+		setHasOptionsMenu(false);
 	}
 	
 }

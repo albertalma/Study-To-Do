@@ -1,5 +1,8 @@
 package almartapps.studytodo.view.activities;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.sqlite.ProfessorDAOsqlite;
 import almartapps.studytodo.domain.model.Professor;
@@ -26,6 +29,10 @@ public class CreateProfessorActivity extends ActionBarActivity {
 		setContentView(R.layout.professor_create);
 
 		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setTitle(R.string.new_teacher);
+
+
 	}
 
 	@Override
@@ -33,6 +40,10 @@ public class CreateProfessorActivity extends ActionBarActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.action_bar_save, menu);
+		menu.findItem(R.id.action_save).setIcon(
+	 			   new IconDrawable(this, IconValue.fa_check)
+	 			   .colorRes(R.color.white)
+	 			   .actionBarSize());
 		return super.onCreateOptionsMenu(menu);
 	}
 

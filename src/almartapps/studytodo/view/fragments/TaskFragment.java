@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
@@ -41,6 +44,10 @@ public class TaskFragment extends ListFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu items for use in the action bar
 		inflater.inflate(R.menu.action_bar_new, menu);
+		menu.findItem(R.id.action_new).setIcon(
+ 			   new IconDrawable(getActivity(), IconValue.fa_plus)
+ 			   .colorRes(R.color.white)
+ 			   .actionBarSize());
 	}
     
     @Override

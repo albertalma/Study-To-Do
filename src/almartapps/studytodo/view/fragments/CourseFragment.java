@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.CourseDAO;
 import almartapps.studytodo.data.sqlite.CourseDAOsqlite;
@@ -30,31 +33,30 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class CourseFragment extends ListFragment {
-	
+
 	private Context context;
 	private List<Course> courses;
-	
+
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Course course = courses.get(position);
 		startShowSubjectFragment(course);
 	}
-	
+
 	private void startShowSubjectFragment(Course course) {
 		Fragment fragment = new SubjectFragment();
 		Bundle args = new Bundle();
 		args.putLong("courseID", course.getId());
 		fragment.setArguments(args);
 		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction()
-        .addToBackStack("courseFragment")
-        .replace(R.id.content_frame, fragment)
-        .commit();
-		/*fragmentManager.beginTransaction()
-				.commit();*/
+		fragmentManager.beginTransaction().addToBackStack("courseFragment")
+				.replace(R.id.content_frame, fragment).commit();
+		/*
+		 * fragmentManager.beginTransaction() .commit();
+		 */
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class CourseFragment extends ListFragment {
 		context = getActivity();
 		new GetAllCoursesTask().execute();
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -79,6 +81,9 @@ public class CourseFragment extends ListFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu items for use in the action bar
 		inflater.inflate(R.menu.action_bar_new, menu);
+		menu.findItem(R.id.action_new).setIcon(
+				new IconDrawable(getActivity(), IconValue.fa_plus).colorRes(
+						R.color.white).actionBarSize());
 	}
 
 	private class GetAllCoursesTask extends AsyncTask<Void, Void, Boolean> {
@@ -98,7 +103,7 @@ public class CourseFragment extends ListFragment {
 
 			} else {
 				Log.d("Course Fragment", "size: " + courses.size());
-				for (Course c: courses) {
+				for (Course c : courses) {
 					Log.d("Course Fragment", c.getName());
 				}
 				setView();

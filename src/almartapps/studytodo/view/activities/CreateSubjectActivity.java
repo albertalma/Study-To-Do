@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
 import com.larswerkman.holocolorpicker.ColorPicker;
 
 public class CreateSubjectActivity extends ActionBarActivity {
@@ -34,6 +36,10 @@ public class CreateSubjectActivity extends ActionBarActivity {
 		setContentView(R.layout.subject_create);
 		setColorPickerListener();
 		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setTitle(R.string.new_subject);
+
+
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -68,6 +74,10 @@ public class CreateSubjectActivity extends ActionBarActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.action_bar_save, menu);
+		menu.findItem(R.id.action_save).setIcon(
+	 			   new IconDrawable(this, IconValue.fa_check)
+	 			   .colorRes(R.color.white)
+	 			   .actionBarSize());
 		return super.onCreateOptionsMenu(menu);
 	}
 

@@ -2,6 +2,9 @@ package almartapps.studytodo.view.fragments;
 
 import java.util.List;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
@@ -75,6 +78,10 @@ public class SubjectFragment extends ListFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu items for use in the action bar
 		inflater.inflate(R.menu.action_bar_new, menu);
+		menu.findItem(R.id.action_new).setIcon(
+	 			   new IconDrawable(getActivity(), IconValue.fa_plus)
+	 			   .colorRes(R.color.white)
+	 			   .actionBarSize());
 	}
 
 	private class GetAllSubjectsFromCourseTask extends AsyncTask<Long, Void, Boolean> {

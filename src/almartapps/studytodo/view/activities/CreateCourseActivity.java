@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.CourseDAO;
 import almartapps.studytodo.data.sqlite.CourseDAOsqlite;
@@ -32,6 +35,8 @@ public class CreateCourseActivity extends ActionBarActivity {
 		setContentView(R.layout.course_create);
 
 		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setTitle(R.string.new_course);
 	}
 
 	@Override
@@ -39,6 +44,10 @@ public class CreateCourseActivity extends ActionBarActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.action_bar_save, menu);
+		menu.findItem(R.id.action_save).setIcon(
+	 			   new IconDrawable(this, IconValue.fa_check)
+	 			   .colorRes(R.color.white)
+	 			   .actionBarSize());
 		return super.onCreateOptionsMenu(menu);
 	}
 
