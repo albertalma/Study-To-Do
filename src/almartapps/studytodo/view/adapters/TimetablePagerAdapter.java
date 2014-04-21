@@ -23,25 +23,25 @@ public class TimetablePagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public Fragment getItem(int position) {
 		switch (position) {
-		case 0: //classes
+		case 0: //Monday
 			Fragment mondayFragment = new MondayFragment();
 			return mondayFragment;
-		case 1: //tasks
+		/*case 1: //Tuesday
+			Fragment tuesdayFragment = new TuesdayFragment();
+			return tuesdayFragment;
+		case 2: //Wednesday
+			Fragment wednesdayFragment = new WednesdayFragment();
+			return wednesdayFragment;
+		case 3: //Thursday
 			Fragment tasksFragment = new TodayTasksFragment();
 			return tasksFragment;
-		case 2: //classes
+		case 4: //Friday
 			Fragment classesFragment = new TodayClassesFragment();
 			return classesFragment;
-		/*case 3: //tasks
+		case 5: //Saturday
 			Fragment tasksFragment = new TodayTasksFragment();
 			return tasksFragment;
-		case 4: //classes
-			Fragment classesFragment = new TodayClassesFragment();
-			return classesFragment;
-		case 5: //tasks
-			Fragment tasksFragment = new TodayTasksFragment();
-			return tasksFragment;
-		case 6: //classes
+		case 6: //Sunday
 			Fragment classesFragment = new TodayClassesFragment();
 			return classesFragment;*/
 		}
