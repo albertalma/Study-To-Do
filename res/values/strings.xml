@@ -68,6 +68,11 @@
     <string name="office">Office:</string>
     <string name="phone">Phone:</string>
 
+    <!-- Create Class -->
+    <string name="from">From: </string>
+    <string name="to">To: </string>
+    <string name="day">Day: </string>
+
     <!-- Color Picker -->
     <string name="pick_color_button">Pick color</string>
 
