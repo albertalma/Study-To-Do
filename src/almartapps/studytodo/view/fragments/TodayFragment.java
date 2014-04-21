@@ -33,6 +33,7 @@ public class TodayFragment extends Fragment {
 		ViewPager viewPager = (ViewPager) view.findViewById(R.id.today_view_pager);
 		List<String> pageTitles = Arrays.asList(getResources().getStringArray(R.array.today_view_pager_titles));
 		viewPager.setAdapter(new TodayPagerAdapter(getChildFragmentManager(), pageTitles));
+		viewPager.setBackgroundResource(R.color.dark_background_blue);
 	}
 	
 	@Override

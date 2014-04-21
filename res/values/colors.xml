@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-     <color name="white">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#C0C0C0</color>
     <color name="clear_blue">#3192ff</color>
     <color name="dark_blue">#0057e3</color>
     <color name="background_blue">#e5eefc</color>
+    <color name="dark_background_blue">#b7d0f7</color>
     <color name="clear_shadow">#e5eefc</color>
     <color name="dark_shadow">#99bbf3</color>
 
