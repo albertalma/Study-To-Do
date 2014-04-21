@@ -27,6 +27,77 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 	}
 	
 	@Override
+	public List<Task> getTasksFromSubject(long subjectId) {
+		return complexTasksQuery(FLAG_SELECT_FROM_SUBJECT, subjectId, null, null, false, null);
+	}
+	
+	@Override
+	public List<Task> complexTasksQuery(int flags, long subjectId, Date lowerDate, Date upperDate, boolean isCompleted, SortBy sortBy) {
+		//get connection
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		//perform query		
+		String selection = getSelectionString(flags, subjectId, lowerDate, upperDate, isCompleted);
+		String orderBy = getOrderByString(flags, sortBy);
+		Cursor cursor = db.query(TasksTable.TABLE_TASKS, //table 
+								 null, 					 //null returns ALL columns (*)
+								 selection, 			 //WHERE statement
+								 null,			 		 //WHERE statement arguments (null, all values are already set)
+								 null, 					 //GROUP BY clause
+								 null, 				 	 //HAVING clause
+								 orderBy);				 //ORDER BY clause
+		
+		//map rows to tasks
+		cursor.moveToFirst();
+		List<Task> tasks = mapAll(cursor);
+		
+		//release connection
+		db.close();
+		
+		return tasks;
+	}
+	
+	private String getSelectionString(int flags, long subjectId, Date lowerDate, Date upperDate, boolean isCompleted) {
+		String selection = "";
+		boolean first = true;
+		if ((flags & FLAG_SELECT_FROM_SUBJECT) > 0) {
+			first = false;
+			selection += TasksTable.SUBJECT_KEY_COLUMN + " = " + subjectId;
+		}
+		if ((flags & FLAG_SELECT_DATE_RANGE) > 0) {
+			if (!first) selection += " AND ";
+			first = false;
+			String lowerFormattedDate = MappingUtils.formatDateToSQL(lowerDate);
+			String upperFormattedDate = MappingUtils.formatDateToSQL(upperDate);
+			selection += TasksTable.DUE_DATE_COLUMN + " > datetime('" + lowerFormattedDate + "') " + 
+				"AND " + TasksTable.DUE_DATE_COLUMN + " < datetime('" + upperFormattedDate + "')";
+		}
+		if ((flags & FLAG_SELECT_COMPLETED) > 0) {
+			if (!first) selection += " AND ";
+			first = false;
+			int completed = isCompleted ? 1 : 0;
+			selection += TasksTable.COMPLETED_COLUMN + " = " + completed;
+		}
+		return selection;
+	}
+	
+	private String getOrderByString(int flags, SortBy sortBy) {
+		if ((flags & FLAG_SORT_BY) > 0) {
+			switch (sortBy) {
+			case date_asc:
+				return (TasksTable.DUE_DATE_COLUMN + " ASC");
+			case date_desc:
+				return (TasksTable.DUE_DATE_COLUMN + " DESC");
+			case priority_asc:
+				return (TasksTable.PRIORITY_COLUMN + " ASC");
+			case priority_desc:
+				return (TasksTable.PRIORITY_COLUMN + " DESC");
+			}
+		}
+		return null;
+	}
+	
+	@Override
 	public Task get(long taskId) throws TaskNotExistsException {
 		//get connection
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -113,7 +184,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		
 		return tasks;
 	}
-	
+	/*
 	@Override
 	public List<Task> getTasksFromSubject(long subjectId) {
 		//get connection
@@ -135,7 +206,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		
 		return tasks;
 	}
-
+	*/
 	@Override
 	public Task insert(Task task) throws IllegalArgumentException {
 		if (task.getName() == null)

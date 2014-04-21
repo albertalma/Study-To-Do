@@ -77,7 +77,13 @@ public class TaskFragment extends ListFragment {
 				subjects.put(s.getId(), s);
 			}
 			TaskDAO taskDao = new TaskDAOsqlite(context);
-			tasks = taskDao.getAll();
+			/*FIXME tasks = taskDao.getAll();*/
+			tasks = taskDao.complexTasksQuery(TaskDAO.FLAG_SELECT_FROM_SUBJECT|TaskDAO.FLAG_SELECT_COMPLETED|TaskDAO.FLAG_SORT_BY, 
+												subjectsList.get(0).getId(), 
+												null, 
+												null, 
+												false, 
+												TaskDAO.SortBy.date_desc);
 			return false;
 		}
 
