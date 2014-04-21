@@ -7,12 +7,12 @@
     <View
         android:id="@+id/shadow_above"
         android:layout_width="fill_parent"
-        android:layout_height="2dip"
+        android:layout_height="5dip"
         android:background="@drawable/inverse_shadow" />
 
     <View
         android:id="@+id/shadow_right"
-        android:layout_width="2dip"
+        android:layout_width="5dip"
         android:layout_height="wrap_content"
         android:layout_above="@+id/shadow_below"
         android:layout_alignParentRight="true"
@@ -21,7 +21,7 @@
 
     <View
         android:id="@+id/shadow_left"
-        android:layout_width="2dip"
+        android:layout_width="5dip"
         android:layout_height="wrap_content"
         android:layout_above="@+id/shadow_below"
         android:layout_alignParentLeft="true"
@@ -68,7 +68,7 @@
     <View
         android:id="@+id/shadow_below"
         android:layout_width="fill_parent"
-        android:layout_height="2dip"
+        android:layout_height="5dip"
         android:layout_below="@+id/layout"
         android:background="@drawable/shadow" >
     </View>
