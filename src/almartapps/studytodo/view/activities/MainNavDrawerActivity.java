@@ -62,6 +62,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		mDrawerList.setBackgroundResource(R.color.white);
 
 		// Set the adapter for the list view
 		navigationDrawerItems = getNavigationDrawerItems();
