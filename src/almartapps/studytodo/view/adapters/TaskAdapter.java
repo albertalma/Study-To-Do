@@ -9,6 +9,7 @@ import almartapps.studytodo.R;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
 import almartapps.studytodo.view.utils.TextColorPicker;
+import almartapps.studytodo.view.utils.Utils;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -62,8 +63,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 		assig_name_txt.setText(subject.getName());
 		assig_name_txt.setTextColor(TextColorPicker.pickTextColorFromBackground(subject.getColor()));
 		task_name_txt.setText(task.getName());
-		PrettyTime prettytime = new PrettyTime();
-		task_time_txt.setText(prettytime.format(task.getDueDate()));
+		task_time_txt.setText(Utils.getPrettyDate(task.getDueDate()));
 		task_priority_txt.setText(task.getPriority().name());
 		task_percentage_txt.setText(String.valueOf(task.getPercentage()));
 		task_place_txt.setText(task.getPlace());

@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <string-array name="priority_spinner_array">
         <item>@string/priority_high</item>
         <item>@string/priority_medium</item>
         <item>@string/priority_low</item>
     </string-array>
-    
     <string-array name="today_view_pager_titles">
         <item>@string/today_classes_title</item>
         <item>@string/today_tasks_title</item>
     </string-array>
-    
+    <string-array name="timetable_view_pager_titles">
+        <item>@string/monday</item>
+        <item>@string/tuesday</item>
+        <item>@string/wednesday</item>
+        <item>@string/thursday</item>
+        <item>@string/friday</item>
+        <item>@string/saturday</item>
+        <item>@string/sunday</item>
+    </string-array>
     <string-array name="nav_drawer_titles">
         <item>@string/today</item>
         <item>@string/tasks</item>
@@ -32,5 +39,5 @@
         <item>@string/sort_by_priority_asc_icon</item>
         <item>@string/sort_by_priority_desc_icon</item>
     </string-array>
-    
+
 </resources>

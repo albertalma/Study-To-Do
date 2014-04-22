@@ -7,74 +7,53 @@ import java.util.Map;
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
+import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
-import almartapps.studytodo.view.activities.CreateTaskActivity;
-import almartapps.studytodo.view.adapters.TaskAdapter;
-import almartapps.studytodo.view.fragments.dialogs.SortByAlertDialog;
+import almartapps.studytodo.view.utils.Utils;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.ListFragment;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.TextView;
+//github.com/albertalma/Study-To-Do.git
+//github.com/albertalma/Study-To-Do.git
+//github.com/albertalma/Study-To-Do.git
 
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify.IconValue;
-
-public class TaskFragment extends ListFragment {
-	
-	private final String TAG = "TaskFragment";
+public class TaskFragment extends Fragment {
 	
 	private Context context;
-	private List<Task> tasks;
+	private Task task;
 	private Map<Long,Subject> subjects;
 	
     @Override
     public View onCreateView(LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.show_list, container, false);
+        return inflater.inflate(R.layout.task_item_expanded, container, false);
     }
-    
-    @Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// Inflate the menu items for use in the action bar
-		inflater.inflate(R.menu.action_bar_tasks, menu);
-		MenuItem sortItem = menu.findItem(R.id.action_sort_by);
-		sortItem.setIcon(
-				new IconDrawable(getActivity(), IconValue.fa_sort_amount_desc)
-				.colorRes(R.color.white)
-				.actionBarSize());
-		menu.findItem(R.id.action_new).setIcon(
- 			   new IconDrawable(getActivity(), IconValue.fa_plus)
- 			   .colorRes(R.color.white)
- 			   .actionBarSize());
-	}
     
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(true);
+		setHasOptionsMenu(false);
 		context = getActivity();
-		new GetAllTasksTask().execute();
 	}
     
     @Override
     public void onResume() {
     	super.onResume();
-    	new GetAllTasksTask().execute();
+    	new GetTaskTask().execute();
     }
     
-    private class GetAllTasksTask extends AsyncTask<Void, Void, Boolean> {
+    private class GetTaskTask extends AsyncTask<Void, Void, Boolean> {
 
 		private String exception;
 
@@ -88,16 +67,17 @@ public class TaskFragment extends ListFragment {
 			}
 			TaskDAO taskDao = new TaskDAOsqlite(context);
 			try {
-				tasks = taskDao.complexTasksQuery(TaskDAO.FLAG_SORT_BY,	-1, null, null, true, TaskDAO.SortBy.date_desc);
-			} catch (Exception e) {
-				exception = e.getMessage();
+				task = taskDao.get(getArguments().getLong("taskID"));
+			} catch (ObjectNotExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			return false;
 		}
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-				Log.e(TAG, exception);
+				//Log.e(TAG, exception);
 			} else {
 				setView();
 			}
@@ -105,33 +85,22 @@ public class TaskFragment extends ListFragment {
 	}
     
     public void setView() {
-		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subjects);
-		setListAdapter(taskAdapter);
+    	ActionBarActivity activity = (ActionBarActivity) getActivity();
+    	ActionBar actionBar = activity.getSupportActionBar();
+    	Subject subject = subjects.get(task.getSubjectId());
+    	actionBar.setTitle(subject.getName());
+		TextView title = (TextView) getView().findViewById(R.id.title);
+		TextView mark = (TextView) getView().findViewById(R.id.nota);
+		TextView date = (TextView) getView().findViewById(R.id.date);
+		TextView place = (TextView) getView().findViewById(R.id.place);
+		TextView description = (TextView) getView().findViewById(R.id.description);
+		CheckBox completed = (CheckBox) getView().findViewById(R.id.completed);
+		title.setText(task.getName());
+		mark.setText(String.valueOf(task.getGrade()));
+		date.setText(Utils.getPrettyDate(task.getDueDate()));
+		place.setText(task.getPlace());
+		description.setText(task.getDescription());
+		completed.setChecked(task.isCompleted());
 	}
-    
-    @Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.action_new:
-				startCreateTaskActiyity();
-				return true;
-			case R.id.action_sort_by:
-				showSortByDialog();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
-
-    private void startCreateTaskActiyity() {
-		Intent intent = new Intent();
-		intent.setClass(getActivity(), CreateTaskActivity.class);
-		startActivity(intent);
-	}
-    
-    private void showSortByDialog() {
-    	DialogFragment sortByDialog = new SortByAlertDialog();
-		sortByDialog.show(getChildFragmentManager(), TAG);
-    }
 
 }

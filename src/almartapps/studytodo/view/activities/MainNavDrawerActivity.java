@@ -6,7 +6,7 @@ import java.util.List;
 import almartapps.studytodo.R;
 import almartapps.studytodo.view.adapters.NavigationDrawerAdapter;
 import almartapps.studytodo.view.fragments.CourseFragment;
-import almartapps.studytodo.view.fragments.TaskFragment;
+import almartapps.studytodo.view.fragments.TasksFragment;
 import almartapps.studytodo.view.fragments.TimetableFragment;
 import almartapps.studytodo.view.fragments.TodayFragment;
 import android.content.res.Configuration;
@@ -145,7 +145,7 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 			fragment = new TodayFragment();
 			break;
 		case TASKS:
-			fragment = new TaskFragment();
+			fragment = new TasksFragment();
 			break;
 		case COURSES:
 			fragment = new CourseFragment();

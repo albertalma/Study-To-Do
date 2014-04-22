@@ -342,7 +342,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		//name, not null
 		task.setName(cursor.getString(2));
 		//description
-		if (!cursor.isNull(3)) task.setDescription(cursor.getString(2));
+		if (!cursor.isNull(3)) task.setDescription(cursor.getString(3));
 		else task.setDescription(null);
 		//due date
 		if (!cursor.isNull(4)) {
