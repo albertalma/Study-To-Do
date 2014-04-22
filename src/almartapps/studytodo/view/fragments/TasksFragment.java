@@ -10,7 +10,6 @@ import com.joanzapata.android.iconify.Iconify.IconValue;
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
-import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
 import almartapps.studytodo.domain.model.Course;
@@ -18,7 +17,6 @@ import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
 import almartapps.studytodo.view.activities.CreateTaskActivity;
 import almartapps.studytodo.view.adapters.TaskAdapter;
-import almartapps.studytodo.view.utils.Utils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -26,44 +24,71 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.TextView;
 
-public class TaskFragment extends Fragment {
+public class TasksFragment extends ListFragment {
 	
 	private Context context;
-	private Task task;
+	private List<Task> tasks;
 	private Map<Long,Subject> subjects;
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Task task = tasks.get(position);
+		startShowTaskFragment(task);
+	}
+
+	private void startShowTaskFragment(Task task) {
+		Fragment fragment = new TaskFragment();
+		Bundle args = new Bundle();
+		args.putLong("taskID", task.getId());
+		fragment.setArguments(args);
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction().addToBackStack("tasksFragment")
+				.replace(R.id.content_frame, fragment).commit();
+		/*
+		 * fragmentManager.beginTransaction() .commit();
+		 */
+	}
 	
     @Override
     public View onCreateView(LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.task_item_expanded, container, false);
+        return inflater.inflate(R.layout.show_list, container, false);
     }
+    
+    @Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// Inflate the menu items for use in the action bar
+		inflater.inflate(R.menu.action_bar_new, menu);
+		menu.findItem(R.id.action_new).setIcon(
+ 			   new IconDrawable(getActivity(), IconValue.fa_plus)
+ 			   .colorRes(R.color.white)
+ 			   .actionBarSize());
+	}
     
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(false);
+		setHasOptionsMenu(true);
 		context = getActivity();
+		new GetAllTasksTask().execute();
 	}
     
     @Override
     public void onResume() {
     	super.onResume();
-    	new GetTaskTask().execute();
+    	new GetAllTasksTask().execute();
     }
     
-    private class GetTaskTask extends AsyncTask<Void, Void, Boolean> {
+    private class GetAllTasksTask extends AsyncTask<Void, Void, Boolean> {
 
 		private String exception;
 
@@ -76,12 +101,13 @@ public class TaskFragment extends Fragment {
 				subjects.put(s.getId(), s);
 			}
 			TaskDAO taskDao = new TaskDAOsqlite(context);
-			try {
-				task = taskDao.get(getArguments().getLong("taskID"));
-			} catch (ObjectNotExistsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			/*FIXME tasks = taskDao.getAll();*/
+			tasks = taskDao.complexTasksQuery(TaskDAO.FLAG_SELECT_FROM_SUBJECT|TaskDAO.FLAG_SELECT_COMPLETED|TaskDAO.FLAG_SORT_BY, 
+												subjectsList.get(0).getId(), 
+												null, 
+												null, 
+												false, 
+												TaskDAO.SortBy.date_desc);
 			return false;
 		}
 
@@ -95,22 +121,8 @@ public class TaskFragment extends Fragment {
 	}
     
     public void setView() {
-    	ActionBarActivity activity = (ActionBarActivity) getActivity();
-    	ActionBar actionBar = activity.getSupportActionBar();
-    	Subject subject = subjects.get(task.getSubjectId());
-    	actionBar.setTitle(subject.getName());
-		TextView title = (TextView) getView().findViewById(R.id.title);
-		TextView mark = (TextView) getView().findViewById(R.id.nota);
-		TextView date = (TextView) getView().findViewById(R.id.date);
-		TextView place = (TextView) getView().findViewById(R.id.place);
-		TextView description = (TextView) getView().findViewById(R.id.description);
-		CheckBox completed = (CheckBox) getView().findViewById(R.id.completed);
-		title.setText(task.getName());
-		mark.setText(String.valueOf(task.getGrade()));
-		date.setText(Utils.getPrettyDate(task.getDueDate()));
-		place.setText(task.getPlace());
-		description.setText(task.getDescription());
-		completed.setChecked(task.isCompleted());
+		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subjects);
+		setListAdapter(taskAdapter);
 	}
     
     @Override
