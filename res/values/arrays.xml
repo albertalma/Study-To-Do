@@ -19,4 +19,18 @@
         <item>@string/timetable</item>
     </string-array>
     
+    <string-array name="sort_by_menu_options">
+        <item>@string/sort_by_date_asc</item>
+        <item>@string/sort_by_date_desc</item>
+        <item>@string/sort_by_priority_asc</item>
+        <item>@string/sort_by_priority_desc</item>
+    </string-array>
+    
+    <string-array name="sort_by_menu_icons">
+        <item>@string/sort_by_date_asc_icon</item>
+        <item>@string/sort_by_date_desc_icon</item>
+        <item>@string/sort_by_priority_asc_icon</item>
+        <item>@string/sort_by_priority_desc_icon</item>
+    </string-array>
+    
 </resources>

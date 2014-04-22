@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:studytodo="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_sort_by"
+        android:title="@string/action_sort"
+        studytodo:showAsAction="always">
+    </item>
+    <item android:id="@+id/action_new"
+          android:title="@string/action_new"
+          studytodo:showAsAction="always"/>
+</menu>
