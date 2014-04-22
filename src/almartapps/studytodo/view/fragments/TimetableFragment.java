@@ -29,6 +29,7 @@ public class TimetableFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu items for use in the action bar
+		
 		inflater.inflate(R.menu.action_bar_new, menu);
 		menu.findItem(R.id.action_new).setIcon(
 				new IconDrawable(getActivity(), IconValue.fa_plus).colorRes(
