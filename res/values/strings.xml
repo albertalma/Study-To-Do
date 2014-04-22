@@ -72,7 +72,7 @@
     <string name="from">From: </string>
     <string name="to">To: </string>
     <string name="day">Day: </string>
-       <string name="new_class">New Class</string>
+    <string name="new_class">New Class</string>
 
     <!-- Color Picker -->
     <string name="pick_color_button">Pick color</string>
