@@ -1,31 +1,19 @@
 package almartapps.studytodo.view.fragments;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify.IconValue;
 
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.ProfessorDAO;
-import almartapps.studytodo.data.DAO.SubjectDAO;
-import almartapps.studytodo.data.DAO.TaskDAO;
-import almartapps.studytodo.data.exceptions.ObjectNotExistsException;
 import almartapps.studytodo.data.sqlite.ProfessorDAOsqlite;
-import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
-import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
 import almartapps.studytodo.domain.model.Professor;
-import almartapps.studytodo.domain.model.Subject;
-import almartapps.studytodo.domain.model.Task;
 import almartapps.studytodo.view.activities.CreateProfessorActivity;
-import almartapps.studytodo.view.activities.CreateTaskActivity;
 import almartapps.studytodo.view.adapters.ProfessorAdapter;
-import almartapps.studytodo.view.adapters.TaskAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,11 +21,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 public class ProfessorsFromSubjectFragment extends ListFragment {
 
+	private final String TAG = "ProfessorsFromSubjectFragment";
+	
 	private Context context;
 	private List<Professor> professors;
-	private Subject subject;
+	private long subjectId;
+	private String subjectName;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,34 +54,36 @@ public class ProfessorsFromSubjectFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllTasksFromSubjectTask().execute(getArguments().getLong(
-				"subjectID"));
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		subjectId = getArguments().getLong("subjectID");
+		subjectName = getArguments().getString("subjectName");
+		Log.d(TAG, "subjectId=" + subjectId);
+		new GetAllProfessorsFromSubjectTask(subjectId).execute();
 	}
 
-	private class GetAllTasksFromSubjectTask extends
-			AsyncTask<Long, Void, Boolean> {
+	private class GetAllProfessorsFromSubjectTask extends AsyncTask<Long, Void, Boolean> {
 
 		private String exception;
-
+		private long subjectId;
+		
+		public GetAllProfessorsFromSubjectTask(long subjectId) {
+			this.subjectId = subjectId;
+		}
+		
 		@Override
 		protected Boolean doInBackground(Long... params) {
-			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
-			try {
-				subject = subjectDao.get(params[0]);
-			} catch (ObjectNotExistsException e) {
-				exception = e.getMessage();
-				return true;
-			}
 			ProfessorDAO professorDao = new ProfessorDAOsqlite(context);
-			//TO DO only for a subject
-			//professors = professorDao.getFromSubject((Long) params[0]);
-			professors = professorDao.getAll();
+			professors = professorDao.getProfessorsFromSubject(subjectId);
 			return false;
 		}
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-
+				Log.e(TAG, exception);
 			} else {
 				setView();
 			}
@@ -101,7 +97,6 @@ public class ProfessorsFromSubjectFragment extends ListFragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_new:
 			startCreateProfessorActiyity();
@@ -114,6 +109,8 @@ public class ProfessorsFromSubjectFragment extends ListFragment {
 	private void startCreateProfessorActiyity() {
 		Intent intent = new Intent();
 		intent.setClass(getActivity(), CreateProfessorActivity.class);
+		intent.putExtra(CreateProfessorActivity.EXTRA_SUBJECT_ID, subjectId);
+		intent.putExtra(CreateProfessorActivity.EXTRA_SUBJECT_NAME, subjectName);
 		startActivity(intent);
 	}
 

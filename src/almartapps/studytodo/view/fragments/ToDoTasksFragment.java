@@ -99,7 +99,6 @@ public class ToDoTasksFragment extends ListFragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_new:
 			startCreateTaskActiyity();

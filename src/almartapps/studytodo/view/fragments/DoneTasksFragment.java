@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,8 +26,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 public class DoneTasksFragment extends ListFragment {
 
+	private final String TAG = "DoneTasksFragment";
+	
 	private Context context;
 	private List<Task> tasks;
 	private Subject subject;
@@ -41,6 +47,10 @@ public class DoneTasksFragment extends ListFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu items for use in the action bar
 		inflater.inflate(R.menu.action_bar_new, menu);
+		menu.findItem(R.id.action_new).setIcon(
+	 			   new IconDrawable(getActivity(), IconValue.fa_plus)
+	 			   .colorRes(R.color.white)
+	 			   .actionBarSize());
 	}
 
 	@Override
@@ -51,8 +61,7 @@ public class DoneTasksFragment extends ListFragment {
 		new GetAllTasksFromSubjectTask().execute(getArguments().getLong("subjectID"));
 	}
 
-	private class GetAllTasksFromSubjectTask extends
-			AsyncTask<Long, Void, Boolean> {
+	private class GetAllTasksFromSubjectTask extends AsyncTask<Long, Void, Boolean> {
 
 		private String exception;
 
@@ -72,7 +81,7 @@ public class DoneTasksFragment extends ListFragment {
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-
+				Log.e(TAG, exception);
 			} else {
 				setView();
 			}
@@ -91,7 +100,6 @@ public class DoneTasksFragment extends ListFragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_new:
 			startCreateTaskActiyity();

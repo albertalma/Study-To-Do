@@ -1,12 +1,6 @@
 package almartapps.studytodo.view.fragments;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify.IconValue;
 
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.CourseDAO;
@@ -21,6 +15,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,14 +24,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ListView;
+
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
 
 public class CourseFragment extends ListFragment {
 
+	private final String TAG = "CourseFragment";
+	
 	private Context context;
 	private List<Course> courses;
+	
+	private String actionBarTitle;
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -45,9 +46,10 @@ public class CourseFragment extends ListFragment {
 	}
 
 	private void startShowSubjectFragment(Course course) {
-		Fragment fragment = new SubjectFragment();
+		Fragment fragment = new SubjectsFromCourseFragment();
 		Bundle args = new Bundle();
 		args.putLong("courseID", course.getId());
+		args.putString("courseName", course.getName());
 		fragment.setArguments(args);
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction().addToBackStack("courseFragment")
@@ -62,7 +64,7 @@ public class CourseFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllCoursesTask().execute();
+		actionBarTitle = context.getString(R.id.courses);
 	}
 
 	@Override
@@ -70,7 +72,7 @@ public class CourseFragment extends ListFragment {
 		super.onResume();
 		new GetAllCoursesTask().execute();
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -93,19 +95,18 @@ public class CourseFragment extends ListFragment {
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
 			CourseDAO courseDao = new CourseDAOsqlite(context);
-			// TODO
-			courses = courseDao.getAll();
+			try {
+				courses = courseDao.getAll();
+			} catch (Exception e) {
+				exception = e.getMessage();
+			}
 			return false;
 		}
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-
+				Log.e(TAG, exception);
 			} else {
-				Log.d("Course Fragment", "size: " + courses.size());
-				for (Course c : courses) {
-					Log.d("Course Fragment", c.getName());
-				}
 				setView();
 			}
 		}
@@ -113,7 +114,6 @@ public class CourseFragment extends ListFragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_new:
 			startCreateCourseActiyity();

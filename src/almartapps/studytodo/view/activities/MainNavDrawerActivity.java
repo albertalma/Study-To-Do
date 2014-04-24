@@ -102,11 +102,6 @@ public class MainNavDrawerActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-		/*
-		 * else { switch (item.getItemId()) { case R.id.action_new:
-		 * startCreateTaskActiviy(); return true; default: return
-		 * super.onOptionsItemSelected(item); } }
-		 */
 	}
 
 	@Override

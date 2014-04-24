@@ -10,59 +10,91 @@
         android:orientation="vertical"
         android:padding="15dp" >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            
+            <IconTextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:textColor="@color/grey"
+	            android:text="{fa-book}" />
+	        
+	        <TextView
+	            android:id="@+id/professor_subject_textview"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/grey"
+	            android:text="Subject Name"
+	            android:paddingLeft="10dp"
+	            android:textAppearance="@android:style/TextAppearance.Large" />
+            
+        </LinearLayout>
+        
         <TextView
             android:id="@+id/professor_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/name" />
+            android:text="@string/name"
+            android:paddingTop="15dp" />
 
         <EditText
             android:id="@+id/professor_name_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:inputType="textCapWords">
+            <requestFocus />
+        </EditText>
 
         <TextView
             android:id="@+id/professor_email_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email" />
+            android:text="@string/email"
+            android:paddingTop="5dp" />
 
         <EditText
             android:id="@+id/professor_email_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/professor_office_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/office" />
+            android:text="@string/office"
+            android:paddingTop="5dp" />
 
         <EditText
             android:id="@+id/professor_office_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/professor_phone_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone" />
+            android:text="@string/phone"
+            android:paddingTop="5dp" />
 
         <EditText
             android:id="@+id/professor_phone_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="phone"
             android:singleLine="true" >
 
-            <requestFocus />
         </EditText>
     </LinearLayout>
 
