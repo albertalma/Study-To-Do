@@ -13,12 +13,12 @@ import android.support.v4.app.FragmentPagerAdapter;
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
  * sections of the app.
  */
-public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
+public class SubjectPagerAdapter extends FragmentPagerAdapter {
 		
 	static final int NUM_ITEMS = 3;
 	private List<String> pageTitles;
 	
-    public AppSectionsPagerAdapter(FragmentManager fm, List<String> pageTitles) {
+    public SubjectPagerAdapter(FragmentManager fm, List<String> pageTitles) {
         super(fm);
         this.pageTitles = pageTitles;
     }

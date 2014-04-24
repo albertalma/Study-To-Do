@@ -1,0 +1,23 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/subject_view_pager"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" >
+        
+        <almartapps.studytodo.view.widgets.CustomViewPagerTabStrip
+            xmlns:custom="http://schemas.android.com/apk/res/almartapps.studytodo"
+        	android:id="@+id/subject_view_pager_tab_strip"
+        	android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="top"
+            custom:indicatorColor="@color/clear_blue"
+            custom:titleColor="@color/dark_blue" />
+            
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>

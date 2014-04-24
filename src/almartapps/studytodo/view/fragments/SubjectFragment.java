@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.view.adapters.AppSectionsPagerAdapter;
+import almartapps.studytodo.view.adapters.SubjectPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -39,7 +39,7 @@ public class SubjectFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		List<String> pageTitles = Arrays.asList(getResources().getStringArray(R.array.subject_view_pager_titles));
 		ViewPager viewPager = (ViewPager) view.findViewById(R.id.subject_view_pager);
-		viewPager.setAdapter(new AppSectionsPagerAdapter(getChildFragmentManager(), pageTitles));
+		viewPager.setAdapter(new SubjectPagerAdapter(getChildFragmentManager(), pageTitles));
 		viewPager.setBackgroundResource(R.color.dark_background_blue);
 	}
 	
