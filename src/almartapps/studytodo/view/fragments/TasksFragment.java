@@ -86,7 +86,6 @@ public class TasksFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllTasksTask().execute();
 	}
     
     @Override
