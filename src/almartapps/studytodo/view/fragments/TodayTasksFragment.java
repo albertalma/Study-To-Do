@@ -17,12 +17,15 @@ import almartapps.studytodo.view.utils.OnPostExecuteCallback;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
 public class TodayTasksFragment extends ListFragment {
 
@@ -32,6 +35,26 @@ public class TodayTasksFragment extends ListFragment {
 	
 	private List<Task> tasks;
 	private Map<Long,Subject> subjectsMap;
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Task task = tasks.get(position);
+		startShowTaskFragment(task);
+	}
+
+	private void startShowTaskFragment(Task task) {
+		Fragment fragment = new TaskFragment();
+		Bundle args = new Bundle();
+		args.putLong("taskID", task.getId());
+		fragment.setArguments(args);
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction().addToBackStack("tasksFragment")
+				.replace(R.id.content_frame, fragment).commit();
+		/*
+		 * fragmentManager.beginTransaction() .commit();
+		 */
+	}
 	
 	
 	@Override

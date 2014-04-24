@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp" >
-	
-    <RelativeLayout 
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shadow_blue"
         android:padding="5dp" >
-        
+
         <RelativeLayout
 	        android:id="@+id/task_relative_layout"
 	        android:layout_width="match_parent"
@@ -180,6 +180,7 @@
 	        
 	    </RelativeLayout>
         
+
     </RelativeLayout>
 
 </RelativeLayout>

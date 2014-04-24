@@ -22,6 +22,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,12 +31,33 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 public class ToDoTasksFragment extends ListFragment {
 
 	private Context context;
 	private List<Task> tasks;
 	private Subject subject;
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Task task = tasks.get(position);
+		startShowTaskFragment(task);
+	}
+
+	private void startShowTaskFragment(Task task) {
+		Fragment fragment = new TaskFragment();
+		Bundle args = new Bundle();
+		args.putLong("taskID", task.getId());
+		fragment.setArguments(args);
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction().addToBackStack("tasksFragment")
+				.replace(R.id.content_frame, fragment).commit();
+		/*
+		 * fragmentManager.beginTransaction() .commit();
+		 */
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,9 +70,8 @@ public class ToDoTasksFragment extends ListFragment {
 		// Inflate the menu items for use in the action bar
 		inflater.inflate(R.menu.action_bar_new, menu);
 		menu.findItem(R.id.action_new).setIcon(
-	 			   new IconDrawable(getActivity(), IconValue.fa_plus)
-	 			   .colorRes(R.color.white)
-	 			   .actionBarSize());
+				new IconDrawable(getActivity(), IconValue.fa_plus).colorRes(
+						R.color.white).actionBarSize());
 	}
 
 	@Override
@@ -57,7 +79,8 @@ public class ToDoTasksFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllTasksFromSubjectTask().execute(((SubjectFragment)getParentFragment()).getSubjectId());
+		new GetAllTasksFromSubjectTask()
+				.execute(((SubjectFragment) getParentFragment()).getSubjectId());
 	}
 
 	private class GetAllTasksFromSubjectTask extends
@@ -91,7 +114,8 @@ public class ToDoTasksFragment extends ListFragment {
 	public void setView() {
 		List<Task> toDoTasks = new ArrayList<Task>();
 		for (Task t : tasks) {
-			if (!t.isCompleted()) toDoTasks.add(t);
+			if (!t.isCompleted())
+				toDoTasks.add(t);
 		}
 		TaskAdapter taskAdapter = new TaskAdapter(context, toDoTasks, subject);
 		setListAdapter(taskAdapter);
@@ -110,7 +134,8 @@ public class ToDoTasksFragment extends ListFragment {
 
 	private void startCreateTaskActiyity() {
 		Intent intent = new Intent();
-		intent.putExtra("subjectID", ((SubjectFragment)getParentFragment()).getSubjectId());
+		intent.putExtra("subjectID",
+				((SubjectFragment) getParentFragment()).getSubjectId());
 		intent.setClass(getActivity(), CreateTaskActivity.class);
 		startActivity(intent);
 	}

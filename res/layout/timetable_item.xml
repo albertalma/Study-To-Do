@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:text="{fa-map-marker}"
                         android:layout_marginRight="5dp"
-                        android:textColor="@color/grey" />
+                        android:textColor="@color/dark_grey" />
 
                     <TextView
                         android:id="@+id/place"
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:text="A6206"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/grey" />
+                        android:textColor="@color/dark_grey" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
