@@ -8,6 +8,7 @@ import almartapps.studytodo.data.sqlite.utils.DBHelper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 public abstract class GenericDAOsqlite<T> implements GenericDAO<T> {
 	
@@ -64,6 +65,12 @@ public abstract class GenericDAOsqlite<T> implements GenericDAO<T> {
 			cursor.moveToNext();
 		}
 		return objects;
+	}
+	
+	protected void closeDb(SQLiteDatabase db) {
+		if (db != null && db.isOpen()) {
+			db.close();
+		}
 	}
 	
 }

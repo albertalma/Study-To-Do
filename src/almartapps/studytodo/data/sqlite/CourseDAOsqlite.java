@@ -42,9 +42,10 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> implements CourseD
 		//map result
 		cursor.moveToFirst();
 		Course course = map(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return course;
 	}
@@ -65,9 +66,10 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> implements CourseD
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Course> courses = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return courses;
 	}
@@ -85,9 +87,10 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> implements CourseD
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Course> courses = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return courses;
 	}
@@ -115,7 +118,7 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> implements CourseD
 		course.setId(id);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return course;
@@ -134,7 +137,8 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> implements CourseD
 		int count = db.delete(CoursesTable.TABLE_COURSES, whereStatement, whereArgs);
 		
 		//release connection
-		db.close();
+		closeDb(db);
+		
 		
 		//return
 		return count > 0;
@@ -152,7 +156,7 @@ public class CourseDAOsqlite extends GenericDAOsqlite<Course> implements CourseD
 		int count = db.delete(CoursesTable.TABLE_COURSES, whereClause, null);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count;

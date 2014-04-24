@@ -14,21 +14,22 @@ import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
 import almartapps.studytodo.view.utils.Utils;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-//github.com/albertalma/Study-To-Do.git
-//github.com/albertalma/Study-To-Do.git
-//github.com/albertalma/Study-To-Do.git
 
 public class TaskFragment extends Fragment {
+	
+	private final String TAG = "TaskFragment";
 	
 	private Context context;
 	private Task task;
@@ -43,7 +44,7 @@ public class TaskFragment extends Fragment {
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(false);
+		setHasOptionsMenu(false); 
 		context = getActivity();
 	}
     
@@ -69,15 +70,14 @@ public class TaskFragment extends Fragment {
 			try {
 				task = taskDao.get(getArguments().getLong("taskID"));
 			} catch (ObjectNotExistsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				exception = e.getMessage();
 			}
 			return false;
 		}
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-				//Log.e(TAG, exception);
+				Log.e(TAG, exception);
 			} else {
 				setView();
 			}
@@ -89,17 +89,22 @@ public class TaskFragment extends Fragment {
     	ActionBar actionBar = activity.getSupportActionBar();
     	Subject subject = subjects.get(task.getSubjectId());
     	actionBar.setTitle(subject.getName());
+    	
 		TextView title = (TextView) getView().findViewById(R.id.title);
 		TextView mark = (TextView) getView().findViewById(R.id.nota);
 		TextView date = (TextView) getView().findViewById(R.id.date);
 		TextView place = (TextView) getView().findViewById(R.id.place);
 		TextView description = (TextView) getView().findViewById(R.id.description);
+		TextView percent = (TextView) getView().findViewById(R.id.percent);
 		CheckBox completed = (CheckBox) getView().findViewById(R.id.completed);
 		title.setText(task.getName());
 		mark.setText(String.valueOf(task.getGrade()));
 		date.setText(Utils.getPrettyDate(task.getDueDate()));
 		place.setText(task.getPlace());
-		description.setText(task.getDescription());
+		if (task.getDescription() != null && (!task.getDescription().equals(""))) {
+			description.setText(task.getDescription());
+			description.setTextColor(Color.BLACK);
+		}
 		completed.setChecked(task.isCompleted());
 	}
 

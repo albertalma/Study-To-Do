@@ -46,9 +46,10 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		//map result
 		cursor.moveToFirst();
 		ScheduledClass scheduledClass= map(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return scheduledClass;
 	}
@@ -66,9 +67,10 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<ScheduledClass> classes = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return classes;
 	}
@@ -105,9 +107,10 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<ScheduledClass> classes = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return classes;
 	}
@@ -127,9 +130,10 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<ScheduledClass> scheduledClasses = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return scheduledClasses;
 	}
@@ -159,7 +163,7 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		scheduledClass.setId(id);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return scheduledClass;
@@ -178,7 +182,7 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		int count = db.delete(ScheduledClassesTable.TABLE_SCHEDULED_CLASS, whereStatement, whereArgs);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count > 0;
@@ -196,7 +200,7 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		int count = db.delete(ScheduledClassesTable.TABLE_SCHEDULED_CLASS, whereClause, null);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count;

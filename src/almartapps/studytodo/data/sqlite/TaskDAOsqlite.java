@@ -50,9 +50,10 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Task> tasks = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return tasks;
 	}
@@ -116,9 +117,10 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		//map result
 		cursor.moveToFirst();
 		Task task = map(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return task;
 	}
@@ -136,9 +138,10 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Task> tasks = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return tasks;
 	}
@@ -178,9 +181,10 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Task> tasks = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return tasks;
 	}
@@ -202,7 +206,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		List<Task> tasks = mapAll(cursor);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return tasks;
 	}
@@ -228,7 +232,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		task.setId(id);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return task;
@@ -249,7 +253,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		db.update(TasksTable.TABLE_TASKS, values, whereClause, whereArgs);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 	}
 
 	@Override
@@ -265,7 +269,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		int count = db.delete(TasksTable.TABLE_TASKS, whereStatement, whereArgs);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count > 0;
@@ -288,7 +292,7 @@ public class TaskDAOsqlite extends GenericDAOsqlite<Task> implements TaskDAO {
 		int count = db.delete(TasksTable.TABLE_TASKS, whereClause, null);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count;

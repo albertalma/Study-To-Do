@@ -99,6 +99,12 @@
     <string name="sunday">Sunday</string>
 
     <!-- Task -->
+    <string name="priority">Priority:</string>
     <string name="completed">Completed</string>
-
+    <string name="completed_dots">Completed:</string>
+    <string name="completed_icon_yes">{fa-check}</string>
+    <string name="completed_icon_no">{fa-times}</string>
+    <string name="percent_mark"> %</string>
+	<string name="no_task_description">This task has no description</string>
+    
 </resources>

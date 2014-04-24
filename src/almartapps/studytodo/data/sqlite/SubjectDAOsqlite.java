@@ -40,9 +40,10 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		//map result
 		cursor.moveToFirst();
 		Subject subject = map(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return subject;
 	}
@@ -60,9 +61,10 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Subject> subjects = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return subjects;
 	}
@@ -85,9 +87,10 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Subject> subjects = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return subjects;
 	}
@@ -107,9 +110,10 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Subject> subjects = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return subjects;
 	}
@@ -126,7 +130,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		boolean result = manager.insertAssignment(subjectId, professorId);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return result;
@@ -144,7 +148,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		boolean result = manager.deleteAssignment(subjectId, professorId);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return result;
@@ -169,7 +173,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		subject.setId(id);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return subject;
@@ -188,7 +192,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		int count = db.delete(SubjectsTable.TABLE_SUBJECTS, whereStatement, whereArgs);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count > 0;
@@ -206,7 +210,7 @@ public class SubjectDAOsqlite extends GenericDAOsqlite<Subject> implements Subje
 		int count = db.delete(SubjectsTable.TABLE_SUBJECTS, whereClause, null);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count;

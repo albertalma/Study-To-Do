@@ -42,9 +42,10 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		//map result
 		cursor.moveToFirst();
 		Professor professor = map(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return professor;
 	}
@@ -62,9 +63,10 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Professor> professors = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return professors;
 	}
@@ -87,9 +89,10 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		//map rows to tasks
 		cursor.moveToFirst();
 		List<Professor> professors = mapAll(cursor);
+		cursor.close();
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		return professors;
 	}
@@ -113,7 +116,7 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		professor.setId(id);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return professor;
@@ -132,7 +135,7 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		int count = db.delete(ProfessorsTable.TABLE_PROFESSORS, whereStatement, whereArgs);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count > 0;
@@ -150,7 +153,7 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		int count = db.delete(ProfessorsTable.TABLE_PROFESSORS, whereClause, null);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return count;
@@ -168,7 +171,7 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		boolean result = manager.insertAssignment(subjectId, professorId);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return result;
@@ -186,7 +189,7 @@ public class ProfessorDAOsqlite extends GenericDAOsqlite<Professor> implements P
 		boolean result = manager.deleteAssignment(subjectId, professorId);
 		
 		//release connection
-		db.close();
+		closeDb(db);
 		
 		//return
 		return result;
