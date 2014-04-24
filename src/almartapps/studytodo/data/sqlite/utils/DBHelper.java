@@ -32,14 +32,14 @@ public class DBHelper extends SQLiteOpenHelper {
 	 */
 	private static final int DATABASE_VERSION = 4;
 	
-	private static DBHelper instance;
+	private static DBHelper instance = null;
 	
 	private DBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
-	public static DBHelper getInstance(Context context) {
-		if (instance == null) instance = new DBHelper(context);
+	public static synchronized DBHelper getInstance(Context context) {
+		if (instance == null) instance = new DBHelper(context.getApplicationContext());
 		return instance;
 	}
 	
