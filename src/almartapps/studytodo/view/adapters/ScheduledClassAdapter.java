@@ -50,8 +50,14 @@ public class ScheduledClassAdapter extends ArrayAdapter<ScheduledClass> {
 		color.setBackgroundColor(subject.getColor());
 		Time startTime = scheduledClass.getStartTime();
 		Time endTime = scheduledClass.getEndTime();
-		String startTimeString = startTime.getHour() + ":" + startTime.getMinute();
-		String endTimeString = endTime.getHour() + ":" + endTime.getMinute();
+		int minute = startTime.getMinute();
+		String startTimeString = startTime.getHour() + ":";
+		if (minute < 10) startTimeString += "0";
+		startTimeString += startTime.getMinute();
+		String endTimeString = endTime.getHour() + ":";
+		minute = endTime.getMinute();
+		if (minute < 10) endTimeString += "0";
+		endTimeString += endTime.getMinute();
 		Log.d("ClassAdapter", "starttime: " + startTimeString);
 		Log.d("ClassAdapter", "endtime: " + endTimeString);
 		startTimeTextView.setText(startTimeString);

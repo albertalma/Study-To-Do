@@ -47,7 +47,6 @@ public class MondayFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity();
-		new GetAllMondayClassTask().execute();
 	}
 
 	@Override
