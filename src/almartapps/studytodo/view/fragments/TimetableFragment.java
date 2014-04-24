@@ -8,7 +8,7 @@ import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify.IconValue;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.view.activities.CreateClassActivity;
+import almartapps.studytodo.view.activities.CreateScheduledClassActivity;
 import almartapps.studytodo.view.activities.CreateTaskActivity;
 import almartapps.studytodo.view.adapters.TimetablePagerAdapter;
 import almartapps.studytodo.view.adapters.TodayPagerAdapter;
@@ -49,7 +49,7 @@ public class TimetableFragment extends Fragment {
 
     private void startCreateClassActiyity() {
 		Intent intent = new Intent();
-		intent.setClass(getActivity(), CreateClassActivity.class);
+		intent.setClass(getActivity(), CreateScheduledClassActivity.class);
 		startActivity(intent);
 	}
 

@@ -1,100 +1,97 @@
 package almartapps.studytodo.view.fragments.timetable;
 
-import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import almartapps.studytodo.R;
+import almartapps.studytodo.data.DAO.ScheduledClassDAO;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
+import almartapps.studytodo.data.sqlite.ScheduledClassDAOsqlite;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
+import almartapps.studytodo.domain.model.ScheduledClass;
 import almartapps.studytodo.domain.model.Subject;
-import almartapps.studytodo.domain.model.Task;
+import almartapps.studytodo.domain.model.WeekDay;
+import almartapps.studytodo.view.adapters.ScheduledClassAdapter;
 import almartapps.studytodo.view.adapters.TaskAdapter;
-import almartapps.studytodo.view.utils.OnPostExecuteCallback;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 
 public class MondayFragment extends ListFragment {
 
 	private static final String TAG = "view.fragments.TodayTasksFragment";
-	
+
 	private Context context;
-	
-	private List<Task> tasks;
-	private Map<Long,Subject> subjectsMap;
-	
-	
+
+	private List<ScheduledClass> scheduledClassList;
+	private Map<Long,Subject> subjects;
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.show_list, container, false);
 	}
-	
+
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		context = getActivity();
-		new FetchTodayTasksTask(new OnPostExecuteCallback() {
+		new GetAllMondayClassTask().execute();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		new GetAllMondayClassTask().execute();
+	}
+	
+	 private class GetAllMondayClassTask extends AsyncTask<Void, Void, Boolean> {
+
+			private String exception;
+
 			@Override
-			public void onPostExecute() {
-				ListAdapter adapter = new TaskAdapter(context, tasks, subjectsMap);
-				setListAdapter(adapter);
+			protected Boolean doInBackground(Void... arg0) {
+				SubjectDAO subjectDao = new SubjectDAOsqlite(context);
+				List<Subject> subjectsList = subjectDao.getAll();
+				subjects = new HashMap<Long, Subject>();
+				Set<Long> subjectIds = new HashSet<Long>();
+				for (Subject s : subjectsList) {
+					subjects.put(s.getId(), s);
+					subjectIds.add(s.getId());
+				}
+				
+				ScheduledClassDAO scheduledClassDAO = new ScheduledClassDAOsqlite(context);
+				try {
+					scheduledClassList = scheduledClassDAO.getScheduledClasses(WeekDay.monday, subjectIds);
+				} catch (Exception e) {
+					exception = e.getMessage();
+				}
+				return false;
 			}
-		}).execute();
-	}
-		
-	private class FetchTodayTasksTask extends AsyncTask<Void, Void, Boolean> {
 
-		private String exceptionMessage;
-		private OnPostExecuteCallback callback;
-		
-		public FetchTodayTasksTask(OnPostExecuteCallback callback) {
-			this.callback = callback;
-		}
-		
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-			//get DAOs
-			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
-			TaskDAO taskDao = new TaskDAOsqlite(context);
-			
-			Calendar calendar = Calendar.getInstance();
-			List<Subject> subjectsList = null;
-			//fetch data
-			try {
-				subjectsList = subjectDao.getAll();
-				tasks = taskDao.getTasks(calendar.getTime());
-			} catch (Exception e) {
-				exceptionMessage = e.getMessage();
-				return true;
-			}
-			
-			//build subjects map
-			subjectsMap = new HashMap<Long, Subject>();
-			for (Subject subject : subjectsList) {
-				subjectsMap.put(subject.getId(), subject);
-			}
-			
-			return false;
-		}
+			protected void onPostExecute(Boolean exceptionRaised) {
+				if (exceptionRaised) {
 
-		protected void onPostExecute(Boolean exceptionRaised) {
-			if (exceptionRaised) {
-				Log.e(TAG, exceptionMessage);
-			}
-			else {
-				callback.onPostExecute();
+				} else {
+					setView();
+				}
 			}
 		}
-	}
 	    
+	    public void setView() {
+			ScheduledClassAdapter scheduledClassAdapter = new ScheduledClassAdapter(context, scheduledClassList, subjects);
+			setListAdapter(scheduledClassAdapter);
+		}
+
 }
