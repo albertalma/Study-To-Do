@@ -1,7 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@color/background_blue" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,7 +12,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
 
             <TextView
                 android:id="@+id/title"
@@ -20,6 +22,14 @@
                 android:layout_weight="1"
                 android:text="Primer Lliurament"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <IconTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="{fa-trophy}"
+                android:layout_marginRight="2dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/dark_blue" />
 
             <TextView
                 android:id="@+id/nota"
@@ -52,14 +62,14 @@
                         android:layout_marginRight="5dp"
                         android:padding="2dp"
                         android:text="{fa-clock-o}"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/dark_blue" />
 
                     <TextView
                         android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="de aqui a 3 días"
-                        android:textColor="@android:color/darker_gray" />
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -70,18 +80,18 @@
                         android:id="@+id/icon_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:layout_marginRight="5dp"
                         android:padding="2dp"
-                        android:layout_marginLeft="2dp"
                         android:text="{fa-map-marker}"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/dark_blue" />
 
                     <TextView
                         android:id="@+id/place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="A5205"
-                        android:textColor="@android:color/darker_gray" />
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -91,13 +101,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/completed" />
         </LinearLayout>
-        
+
         <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/image_drawer_icon"
-        android:background="@color/dark_blue" />
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/image_drawer_icon"
+            android:layout_marginTop="10dp"
+            android:background="@color/dark_blue" />
 
         <TextView
             android:id="@+id/description"

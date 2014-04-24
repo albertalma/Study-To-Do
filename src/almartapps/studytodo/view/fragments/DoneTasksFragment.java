@@ -17,6 +17,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify.IconValue;
@@ -36,6 +39,26 @@ public class DoneTasksFragment extends ListFragment {
 	private Context context;
 	private List<Task> tasks;
 	private Subject subject;
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Task task = tasks.get(position);
+		startShowTaskFragment(task);
+	}
+
+	private void startShowTaskFragment(Task task) {
+		Fragment fragment = new TaskFragment();
+		Bundle args = new Bundle();
+		args.putLong("taskID", task.getId());
+		fragment.setArguments(args);
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction().addToBackStack("tasksFragment")
+				.replace(R.id.content_frame, fragment).commit();
+		/*
+		 * fragmentManager.beginTransaction() .commit();
+		 */
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
