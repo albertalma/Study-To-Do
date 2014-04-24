@@ -20,7 +20,8 @@ public class ScheduledClassAdapter extends ArrayAdapter<ScheduledClass> {
 	private final Context context;
 	private Map<Long, Subject> subjects;
 
-	public ScheduledClassAdapter(Context context, List<ScheduledClass> items, Map<Long, Subject> subjects) {
+	public ScheduledClassAdapter(Context context, List<ScheduledClass> items,
+			Map<Long, Subject> subjects) {
 		super(context, R.layout.timetable_item, items);
 		this.context = context;
 		this.subjects = subjects;
@@ -34,8 +35,7 @@ public class ScheduledClassAdapter extends ArrayAdapter<ScheduledClass> {
 
 		TextView name = (TextView) rowView
 				.findViewById(R.id.subject_name_textview);
-		TextView place = (TextView) rowView
-				.findViewById(R.id.place);
+		TextView place = (TextView) rowView.findViewById(R.id.place);
 		TextView startTimeTextView = (TextView) rowView
 				.findViewById(R.id.start_time);
 		TextView endTimeTextView = (TextView) rowView
@@ -51,13 +51,25 @@ public class ScheduledClassAdapter extends ArrayAdapter<ScheduledClass> {
 		Time startTime = scheduledClass.getStartTime();
 		Time endTime = scheduledClass.getEndTime();
 		int minute = startTime.getMinute();
-		String startTimeString = startTime.getHour() + ":";
-		if (minute < 10) startTimeString += "0";
+		int hour = startTime.getHour();
+		String startTimeString = new String();
+		if (hour < 10)
+			startTimeString += "0";
+		startTimeString += startTime.getHour() + ":";
+		if (minute < 10)
+			startTimeString += "0";
 		startTimeString += startTime.getMinute();
-		String endTimeString = endTime.getHour() + ":";
+
+		hour = endTime.getHour();
+		String endTimeString = new String();
+		if (hour < 10)
+			endTimeString += "0";
+		endTimeString = endTime.getHour() + ":";
 		minute = endTime.getMinute();
-		if (minute < 10) endTimeString += "0";
+		if (minute < 10)
+			endTimeString += "0";
 		endTimeString += endTime.getMinute();
+
 		Log.d("ClassAdapter", "starttime: " + startTimeString);
 		Log.d("ClassAdapter", "endtime: " + endTimeString);
 		startTimeTextView.setText(startTimeString);
