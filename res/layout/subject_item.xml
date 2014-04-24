@@ -35,13 +35,30 @@
 	                android:layout_height="wrap_content"
 	                android:text="Large Text"
 	                android:textAppearance="?android:attr/textAppearanceLarge" />
-	
-	            <TextView
-	                android:id="@+id/subject_grade_textview"
-	                android:layout_width="match_parent"
+				
+	            <LinearLayout
+	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:text="Medium Text"
-	                android:textAppearance="?android:attr/textAppearanceMedium" />
+	                android:layout_gravity="right"
+	                android:orientation="horizontal" >
+	                
+	                <IconTextView
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="{fa-trophy}"
+	                    android:textColor="@color/grey"
+	                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+	                
+	                <TextView
+		                android:id="@+id/subject_grade_textview"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="5dp"
+		                android:text="Medium Text"
+		                android:textAppearance="?android:attr/textAppearanceMedium" />
+	                
+	            </LinearLayout>
+	            
 	        </LinearLayout>
 	    </LinearLayout>
 	
