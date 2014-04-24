@@ -23,10 +23,10 @@
 	<string name="sort_by_priority_asc">Sort by ascending priority</string>
 	<string name="sort_by_priority_desc">Sort by descending priority</string>
 	
-    <!-- Subject Tabs -->
-    <string name="subject_tab_to_do">To Do</string>
-    <string name="subject_tab_done">Done</string>
-    <string name="subject_tab_teachers">Teachers</string>
+    <!-- Subject View Pager Titles -->
+    <string name="subject_tab_to_do">TO DO</string>
+    <string name="subject_tab_done">DONE</string>
+    <string name="subject_tab_teachers">TEACHERS</string>
     <string name="subject_tab_classes">Classes</string>
 
     <!-- Navigation Drawer -->

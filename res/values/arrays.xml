@@ -29,6 +29,12 @@
         <item>@string/sunday</item>
     </string-array>
     
+    <string-array name="subject_view_pager_titles">
+        <item>@string/subject_tab_to_do</item>
+        <item>@string/subject_tab_done</item>
+        <item>@string/subject_tab_teachers</item>
+    </string-array>
+    
     <string-array name="nav_drawer_titles">
         <item>@string/today</item>
         <item>@string/tasks</item>

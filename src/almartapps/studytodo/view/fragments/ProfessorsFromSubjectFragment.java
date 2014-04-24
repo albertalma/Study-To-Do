@@ -59,9 +59,8 @@ public class ProfessorsFromSubjectFragment extends ListFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		subjectId = getArguments().getLong("subjectID");
-		subjectName = getArguments().getString("subjectName");
-		Log.d(TAG, "subjectId=" + subjectId);
+		subjectId = ((SubjectFragment)getParentFragment()).getSubjectId();
+		subjectName = ((SubjectFragment)getParentFragment()).getSubjectName();
 		new GetAllProfessorsFromSubjectTask(subjectId).execute();
 	}
 

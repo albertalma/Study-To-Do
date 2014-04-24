@@ -4,17 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import almartapps.studytodo.R;
-import almartapps.studytodo.view.activities.CreateTaskActivity;
 import almartapps.studytodo.view.adapters.TodayPagerAdapter;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 

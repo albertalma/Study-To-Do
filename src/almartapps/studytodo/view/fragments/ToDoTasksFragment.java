@@ -57,7 +57,7 @@ public class ToDoTasksFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		context = getActivity();
-		new GetAllTasksFromSubjectTask().execute(getArguments().getLong("subjectID"));
+		new GetAllTasksFromSubjectTask().execute(((SubjectFragment)getParentFragment()).getSubjectId());
 	}
 
 	private class GetAllTasksFromSubjectTask extends
@@ -110,7 +110,7 @@ public class ToDoTasksFragment extends ListFragment {
 
 	private void startCreateTaskActiyity() {
 		Intent intent = new Intent();
-		intent.putExtra("subjectID", getArguments().getLong("subjectID"));
+		intent.putExtra("subjectID", ((SubjectFragment)getParentFragment()).getSubjectId());
 		intent.setClass(getActivity(), CreateTaskActivity.class);
 		startActivity(intent);
 	}
