@@ -4,28 +4,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify.IconValue;
-
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
+import almartapps.studytodo.data.DAO.TaskDAO.SortBy;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
-import almartapps.studytodo.domain.model.Course;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
 import almartapps.studytodo.view.activities.CreateTaskActivity;
 import almartapps.studytodo.view.adapters.TaskAdapter;
-import almartapps.studytodo.view.fragments.dialogs.SortByAlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,11 +30,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
+
 public class TasksFragment extends ListFragment {
+	
+	private final String TAG = "TasksFragment";
 	
 	private Context context;
 	private List<Task> tasks;
 	private Map<Long,Subject> subjects;
+	
+	private SortBy sortBy = SortBy.date_desc;
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -107,9 +110,8 @@ public class TasksFragment extends ListFragment {
 				subjects.put(s.getId(), s);
 			}
 			TaskDAO taskDao = new TaskDAOsqlite(context);
-			/*FIXME tasks = taskDao.getAll();*/
 			try {
-				tasks = taskDao.complexTasksQuery(TaskDAO.FLAG_SORT_BY,	-1, null, null, true, TaskDAO.SortBy.date_desc);
+				tasks = taskDao.complexTasksQuery(TaskDAO.FLAG_SORT_BY,	-1, null, null, true, sortBy);
 			} catch (Exception e) {
 				exception = e.getMessage();
 			}
@@ -118,7 +120,7 @@ public class TasksFragment extends ListFragment {
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
-
+				Log.e(TAG, exception);
 			} else {
 				setView();
 			}
@@ -136,8 +138,21 @@ public class TasksFragment extends ListFragment {
 			case R.id.action_new:
 				startCreateTaskActiyity();
 				return true;
-			case R.id.action_sort_by:
-				showSortByDialog();
+			case R.id.action_sort_by_date_asc:
+				sortBy = SortBy.date_asc;
+				onSortChanged();
+				return true;
+			case R.id.action_sort_by_date_desc:
+				sortBy = SortBy.date_desc;
+				onSortChanged();
+				return true;
+			case R.id.action_sort_by_priority_asc:
+				sortBy = SortBy.priority_asc;
+				onSortChanged();
+				return true;
+			case R.id.action_sort_by_priority_desc:
+				sortBy = SortBy.priority_desc;
+				onSortChanged();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -150,9 +165,8 @@ public class TasksFragment extends ListFragment {
 		startActivity(intent);
 	}
     
-    private void showSortByDialog() {
-    	DialogFragment sortByDialog = new SortByAlertDialog();
-		sortByDialog.show(getChildFragmentManager(), "LOL");
+    private void onSortChanged() {
+    	new GetAllTasksTask().execute();
     }
 
 }
