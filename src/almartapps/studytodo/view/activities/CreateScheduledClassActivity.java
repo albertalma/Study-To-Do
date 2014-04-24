@@ -6,26 +6,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify.IconValue;
-
 import almartapps.studytodo.R;
 import almartapps.studytodo.data.DAO.ScheduledClassDAO;
 import almartapps.studytodo.data.DAO.SubjectDAO;
-import almartapps.studytodo.data.DAO.TaskDAO;
 import almartapps.studytodo.data.sqlite.ScheduledClassDAOsqlite;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
-import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
 import almartapps.studytodo.domain.model.ClassType;
 import almartapps.studytodo.domain.model.ScheduledClass;
 import almartapps.studytodo.domain.model.Subject;
-import almartapps.studytodo.domain.model.Task;
-import almartapps.studytodo.domain.model.TaskPriority;
 import almartapps.studytodo.domain.model.Time;
 import almartapps.studytodo.domain.model.WeekDay;
 import almartapps.studytodo.view.fragments.dialogs.HourPickerDialog;
-import almartapps.studytodo.view.fragments.dialogs.TaskDatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
@@ -40,10 +31,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+
+import com.joanzapata.android.iconify.IconDrawable;
+import com.joanzapata.android.iconify.Iconify.IconValue;
 
 public class CreateScheduledClassActivity extends ActionBarActivity implements OnTimeSetListener {
 
@@ -196,86 +189,101 @@ public class CreateScheduledClassActivity extends ActionBarActivity implements O
 	}
 
 	private void createScheduledClass() {
-		new CreateScheduledClassTask().execute();
+		//weekDay
+		WeekDay weekDay = null;
+		Spinner spinDay = (Spinner) findViewById(R.id.day_spinner);
+		switch (spinDay.getSelectedItemPosition()) {
+		case 0:
+			weekDay = WeekDay.monday;
+			break;
+		case 1:
+			weekDay = WeekDay.tuesday;
+			break;
+		case 2:
+			weekDay = WeekDay.wednesday;
+			break;
+		case 3:
+			weekDay = WeekDay.thursday;
+			break;
+		case 4:
+			weekDay = WeekDay.friday;
+			break;
+		case 5:
+			weekDay = WeekDay.saturday;
+			break;
+		case 6:
+			weekDay = WeekDay.sunday;
+			break;
+		}
+		
+		//startTime
+		EditText startTimeEditText = (EditText) findViewById(R.id.from_date_editText);
+		String startTimeString = startTimeEditText.getText().toString();
+		String[] time = startTimeString.split ( ":" );
+		int hour = Integer.parseInt ( time[0].trim() );
+		int min = Integer.parseInt ( time[1].trim() );
+		Time startTime = new Time(hour, min);
+		
+		//endTime
+		EditText endTimeEditText = (EditText) findViewById(R.id.to_date_editText);
+		String endTimeString = endTimeEditText.getText().toString();
+		time = endTimeString.split ( ":" );
+		hour = Integer.parseInt ( time[0].trim() );
+		min = Integer.parseInt ( time[1].trim() );
+		Time endTime = new Time(hour, min);
+		
+		//place
+		
+		EditText placeEditText = (EditText) findViewById(R.id.place_editText);
+		String place = placeEditText.getText().toString();
+		
+		//classtype
+		ClassType type = null;
+		Spinner spinType = (Spinner) findViewById(R.id.classtype_spinner);
+		switch (spinType.getSelectedItemPosition()) {
+		case 0:
+			type = ClassType.theory;
+			break;
+		case 1:
+			type = ClassType.laboratory;
+			break;
+		case 2:
+			type = ClassType.practice;
+			break;
+		case 3:
+			type = ClassType.problems;
+			break;
+		}
+		
+		//subjectId
+		Spinner spinSubject = (Spinner) findViewById(R.id.subject_spinner);
+		int subjectPosition = spinSubject.getSelectedItemPosition();
+		long subjectId = subjects.get(subjectPosition).getId();
+		new CreateScheduledClassTask(weekDay, startTime, endTime, place, type, subjectId).execute();
 	}
 
 	private class CreateScheduledClassTask extends AsyncTask<Void, Void, Boolean> {
 
 		private String exceptionMessage;
-
+		
+		private WeekDay weekDay;
+		private Time startTime;
+		private Time endTime;
+		private String place;
+		private ClassType type;
+		private long subjectId;
+		
+		public CreateScheduledClassTask(WeekDay weekDay, Time startTime, Time endTime, String place, ClassType type, long subjectId) {
+			this.endTime = endTime;
+			this.place = place;
+			this.startTime = startTime;
+			this.type = type;
+			this.weekDay = weekDay;
+			this.subjectId = subjectId;
+		}
+		
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
-			//weekDay
-			WeekDay weekDay = null;
-			Spinner spinDay = (Spinner) findViewById(R.id.day_spinner);
-			switch (spinDay.getSelectedItemPosition()) {
-			case 0:
-				weekDay = WeekDay.monday;
-				break;
-			case 1:
-				weekDay = WeekDay.tuesday;
-				break;
-			case 2:
-				weekDay = WeekDay.wednesday;
-				break;
-			case 3:
-				weekDay = WeekDay.thursday;
-				break;
-			case 4:
-				weekDay = WeekDay.friday;
-				break;
-			case 5:
-				weekDay = WeekDay.saturday;
-				break;
-			case 6:
-				weekDay = WeekDay.sunday;
-				break;
-			}
-			
-			//startTime
-			EditText startTimeEditText = (EditText) findViewById(R.id.from_date_editText);
-			String startTimeString = startTimeEditText.getText().toString();
-			String[] time = startTimeString.split ( ":" );
-			int hour = Integer.parseInt ( time[0].trim() );
-			int min = Integer.parseInt ( time[1].trim() );
-			Time startTime = new Time(hour, min);
-			
-			//endTime
-			EditText endTimeEditText = (EditText) findViewById(R.id.to_date_editText);
-			String endTimeString = endTimeEditText.getText().toString();
-			time = endTimeString.split ( ":" );
-			hour = Integer.parseInt ( time[0].trim() );
-			min = Integer.parseInt ( time[1].trim() );
-			Time endTime = new Time(hour, min);
-			
-			//place
-			
-			EditText placeEditText = (EditText) findViewById(R.id.place_editText);
-			String place = placeEditText.getText().toString();
-			
-			//classtype
-			ClassType type = null;
-			Spinner spinType = (Spinner) findViewById(R.id.classtype_spinner);
-			switch (spinType.getSelectedItemPosition()) {
-			case 0:
-				type = ClassType.theory;
-				break;
-			case 1:
-				type = ClassType.laboratory;
-				break;
-			case 2:
-				type = ClassType.practice;
-				break;
-			case 3:
-				type = ClassType.problems;
-				break;
-			}
-			
-			//subjectId
-			Spinner spinSubject = (Spinner) findViewById(R.id.subject_spinner);
-			int subjectPosition = spinSubject.getSelectedItemPosition();
-			long subjectId = subjects.get(subjectPosition).getId();
-			
 			//ScheduledClass Creation
 			ScheduledClass scheduledClass = new ScheduledClass(weekDay, startTime, endTime, place, type, subjectId);
 			ScheduledClassDAO scheduledClassDAO = new ScheduledClassDAOsqlite(context);

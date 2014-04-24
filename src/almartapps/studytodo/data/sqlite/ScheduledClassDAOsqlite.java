@@ -97,6 +97,7 @@ public class ScheduledClassDAOsqlite extends GenericDAOsqlite<ScheduledClass> im
 		whereInClause += ")";
 		String queryStatement = "SELECT * FROM " + ScheduledClassesTable.TABLE_SCHEDULED_CLASS +
 				" WHERE " + ScheduledClassesTable.SUBJECT_KEY_COLUMN + " IN " + whereInClause +
+				" AND " + ScheduledClassesTable.WEEK_DAY_COLUMN + " = " + MappingUtils.mapWeekDayToSQL(weekDay) +
 				" ORDER BY " + ScheduledClassesTable.START_TIME_COLUMN;
 		Log.i(TAG, "getting ScheduledClasses in weekDay=" + weekDay + ". SQL statement is: " + queryStatement);
 		Cursor cursor = db.rawQuery(queryStatement, new String[0]);
