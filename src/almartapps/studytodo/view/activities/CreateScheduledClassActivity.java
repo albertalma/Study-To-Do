@@ -10,13 +10,19 @@ import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify.IconValue;
 
 import almartapps.studytodo.R;
+import almartapps.studytodo.data.DAO.ScheduledClassDAO;
 import almartapps.studytodo.data.DAO.SubjectDAO;
 import almartapps.studytodo.data.DAO.TaskDAO;
+import almartapps.studytodo.data.sqlite.ScheduledClassDAOsqlite;
 import almartapps.studytodo.data.sqlite.SubjectDAOsqlite;
 import almartapps.studytodo.data.sqlite.TaskDAOsqlite;
+import almartapps.studytodo.domain.model.ClassType;
+import almartapps.studytodo.domain.model.ScheduledClass;
 import almartapps.studytodo.domain.model.Subject;
 import almartapps.studytodo.domain.model.Task;
 import almartapps.studytodo.domain.model.TaskPriority;
+import almartapps.studytodo.domain.model.Time;
+import almartapps.studytodo.domain.model.WeekDay;
 import almartapps.studytodo.view.fragments.dialogs.HourPickerDialog;
 import almartapps.studytodo.view.fragments.dialogs.TaskDatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -39,11 +45,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
-public class CreateClassActivity extends ActionBarActivity implements OnTimeSetListener {
+public class CreateScheduledClassActivity extends ActionBarActivity implements OnTimeSetListener {
 
 	private final String TAG = "view.activities.CreateTaskActivity";
 
-	private CreateClassActivity createTaskActivity;
+	private CreateScheduledClassActivity createTaskActivity;
 
 	private List<Subject> subjects;
 	private Context context;
@@ -65,11 +71,23 @@ public class CreateClassActivity extends ActionBarActivity implements OnTimeSetL
 	}
 
 	private void setView() {
-		setContentView(R.layout.class_create);
+		setContentView(R.layout.scheduledclass_create);
+		setClasstypeSpinner();
 		setSubjectSpinner();
 		setDaySpinner();
 		setDateFromEditTextListener();
 		setDateToEditTextListener();
+	}
+	
+
+	private void setClasstypeSpinner() {
+		String[] arrayPriority = getResources().getStringArray(
+				R.array.classtype_spinner_array);
+		Spinner spinner = (Spinner) findViewById(R.id.classtype_spinner);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, arrayPriority);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
 	}
 
 	private void setDaySpinner() {
@@ -170,66 +188,98 @@ public class CreateClassActivity extends ActionBarActivity implements OnTimeSetL
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case R.id.action_save:
-			createTask();
+			createScheduledClass();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	private void createTask() {
-		new CreateTaskTask().execute();
+	private void createScheduledClass() {
+		new CreateScheduledClassTask().execute();
 	}
 
-	private class CreateTaskTask extends AsyncTask<Void, Void, Boolean> {
+	private class CreateScheduledClassTask extends AsyncTask<Void, Void, Boolean> {
 
 		private String exceptionMessage;
 
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
-			EditText taskTitle = (EditText) findViewById(R.id.title_editText);
-			String title = taskTitle.getText().toString();
+			//weekDay
+			WeekDay weekDay = null;
+			Spinner spinDay = (Spinner) findViewById(R.id.day_spinner);
+			switch (spinDay.getSelectedItemPosition()) {
+			case 0:
+				weekDay = WeekDay.monday;
+				break;
+			case 1:
+				weekDay = WeekDay.tuesday;
+				break;
+			case 2:
+				weekDay = WeekDay.wednesday;
+				break;
+			case 3:
+				weekDay = WeekDay.thursday;
+				break;
+			case 4:
+				weekDay = WeekDay.friday;
+				break;
+			case 5:
+				weekDay = WeekDay.saturday;
+				break;
+			case 6:
+				weekDay = WeekDay.sunday;
+				break;
+			}
+			
+			//startTime
+			EditText startTimeEditText = (EditText) findViewById(R.id.from_date_editText);
+			String startTimeString = startTimeEditText.getText().toString();
+			String[] time = startTimeString.split ( ":" );
+			int hour = Integer.parseInt ( time[0].trim() );
+			int min = Integer.parseInt ( time[1].trim() );
+			Time startTime = new Time(hour, min);
+			
+			//endTime
+			EditText endTimeEditText = (EditText) findViewById(R.id.to_date_editText);
+			String endTimeString = endTimeEditText.getText().toString();
+			time = endTimeString.split ( ":" );
+			hour = Integer.parseInt ( time[0].trim() );
+			min = Integer.parseInt ( time[1].trim() );
+			Time endTime = new Time(hour, min);
+			
+			//place
+			
+			EditText placeEditText = (EditText) findViewById(R.id.place_editText);
+			String place = placeEditText.getText().toString();
+			
+			//classtype
+			ClassType type = null;
+			Spinner spinType = (Spinner) findViewById(R.id.classtype_spinner);
+			switch (spinType.getSelectedItemPosition()) {
+			case 0:
+				type = ClassType.theory;
+				break;
+			case 1:
+				type = ClassType.laboratory;
+				break;
+			case 2:
+				type = ClassType.practice;
+				break;
+			case 3:
+				type = ClassType.problems;
+				break;
+			}
+			
+			//subjectId
 			Spinner spinSubject = (Spinner) findViewById(R.id.subject_spinner);
 			int subjectPosition = spinSubject.getSelectedItemPosition();
 			long subjectId = subjects.get(subjectPosition).getId();
-			EditText descriptionEditText = (EditText) findViewById(R.id.description_editText);
-			String description = descriptionEditText.getText().toString();
-
-			Spinner spinPriority = (Spinner) findViewById(R.id.priority_spinner);
-			EditText percentageEditText = (EditText) findViewById(R.id.percentage_editText);
-			Date dueDate = selectedDate;
-
-			TaskPriority taskPriority = null;
-			switch (spinPriority.getSelectedItemPosition()) {
-			case 0:
-				taskPriority = TaskPriority.high;
-				break;
-			case 1:
-				taskPriority = TaskPriority.medium;
-				break;
-			case 2:
-				taskPriority = TaskPriority.low;
-				break;
-			}
-			boolean isCompleted = false;
-			boolean isEvaluable = false;
-			String percentageString = percentageEditText.getText().toString();
-			if (percentageString.equals(""))
-				percentageString = "0";
-			int percentage = Integer.valueOf(percentageString);
-			if (percentage != 0)
-				isEvaluable = true;
-			int grade = 0;
-			// Task(String title, long subjectId, String description, Date
-			// dueDate, TaskPriority priority, boolean isCompleted, boolean
-			// isEvaluable, int percentage, float grade)
-			// FIXME Create a Task with the 'place' field correctly set!! It is
-			// now "Barad Dûr" ... Sauron's home, sweet home.
-			Task task = new Task(title, subjectId, description, dueDate,
-					"Barad Dûr", taskPriority, isCompleted, isEvaluable,
-					percentage, grade);
-			TaskDAO taskDao = new TaskDAOsqlite(context);
-			taskDao.insert(task);
+			
+			//ScheduledClass Creation
+			ScheduledClass scheduledClass = new ScheduledClass(weekDay, startTime, endTime, place, type, subjectId);
+			ScheduledClassDAO scheduledClassDAO = new ScheduledClassDAOsqlite(context);
+			scheduledClassDAO.insert(scheduledClass);
 			return false;
 		}
 

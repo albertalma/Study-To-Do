@@ -16,18 +16,12 @@
     <string name="action_new">New</string>
     <string name="action_save">Save</string>
     <string name="action_sort">Sort</string>
-    
+
     <!-- Action Bar Sort By Options -->
 	<string name="sort_by_date_asc">Sort by ascending date</string>
 	<string name="sort_by_date_desc">Sort by descending date</string>
 	<string name="sort_by_priority_asc">Sort by ascending priority</string>
 	<string name="sort_by_priority_desc">Sort by descending priority</string>
-	
-	<!-- Action Bar Sort By Icons -->
-	<string name="sort_by_date_asc_icon">{fa-sort-numeric-asc}</string>
-	<string name="sort_by_date_desc_icon">{fa-sort-numeric-desc}</string>
-	<string name="sort_by_priority_asc_icon">{fa-sort-amount-asc}</string>
-	<string name="sort_by_priority_desc_icon">{fa-sort-amount-desc}</string>
 	
     <!-- Subject Tabs -->
     <string name="subject_tab_to_do">To Do</string>
@@ -86,6 +80,11 @@
     <string name="to">To: </string>
     <string name="day">Day: </string>
     <string name="new_class">New Class</string>
+    <string name="classtype">Class Type: </string>
+    <string name="theory">Theory </string>
+    <string name="laboratory">Laboratory </string>
+    <string name="practice">Practice </string>
+    <string name="problems">Problems </string>
 
     <!-- Color Picker -->
     <string name="pick_color_button">Pick color</string>

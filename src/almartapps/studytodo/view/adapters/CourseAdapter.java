@@ -1,5 +1,6 @@
 package almartapps.studytodo.view.adapters;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import almartapps.studytodo.R;
@@ -36,8 +37,11 @@ public class CourseAdapter extends ArrayAdapter<Course> {
 		
 		Course course = getItem(position);
 		name.setText(course.getName());
-		start.setText(course.getStartDate().toString());
-		end.setText(course.getEndDate().toString());
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+		String startDate = sdf.format(course.getStartDate());
+		String emdDate = sdf.format(course.getEndDate());
+		start.setText(startDate);
+		end.setText(emdDate);
 		return rowView;
 	}
 }

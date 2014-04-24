@@ -16,6 +16,27 @@
             android:orientation="horizontal" >
 
             <TextView
+                android:id="@+id/TextView03"
+                style="@style/FormLabel.TextRight"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/classtype" />
+
+            <Spinner
+                android:id="@+id/classtype_spinner"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/FormRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
                 android:id="@+id/TextView02"
                 style="@style/FormLabel.TextRight"
                 android:layout_width="0dip"

@@ -6,10 +6,19 @@
         <item>@string/priority_medium</item>
         <item>@string/priority_low</item>
     </string-array>
+    
+    <string-array name="classtype_spinner_array">
+        <item>@string/theory</item>
+        <item>@string/laboratory</item>
+        <item>@string/practice</item>
+        <item>@string/problems</item>
+    </string-array>
+    
     <string-array name="today_view_pager_titles">
         <item>@string/today_classes_title</item>
         <item>@string/today_tasks_title</item>
     </string-array>
+    
     <string-array name="timetable_view_pager_titles">
         <item>@string/monday</item>
         <item>@string/tuesday</item>
@@ -19,6 +28,7 @@
         <item>@string/saturday</item>
         <item>@string/sunday</item>
     </string-array>
+    
     <string-array name="nav_drawer_titles">
         <item>@string/today</item>
         <item>@string/tasks</item>
@@ -33,11 +43,4 @@
         <item>@string/sort_by_priority_desc</item>
     </string-array>
     
-    <string-array name="sort_by_menu_icons">
-        <item>@string/sort_by_date_asc_icon</item>
-        <item>@string/sort_by_date_desc_icon</item>
-        <item>@string/sort_by_priority_asc_icon</item>
-        <item>@string/sort_by_priority_desc_icon</item>
-    </string-array>
-
 </resources>

@@ -3,7 +3,7 @@ package almartapps.studytodo.view.fragments.dialogs;
 import java.util.Calendar;
 import java.util.Locale;
 
-import almartapps.studytodo.view.activities.CreateClassActivity;
+import almartapps.studytodo.view.activities.CreateScheduledClassActivity;
 import almartapps.studytodo.view.activities.CreateTaskActivity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -20,7 +20,7 @@ public class HourPickerDialog extends DialogFragment {
 	        int hour = c.get(Calendar.HOUR_OF_DAY);
 	        int minute = c.get(Calendar.MINUTE);
 		
-	        return new TimePickerDialog(getActivity(), (CreateClassActivity)getActivity(), hour, minute,
+	        return new TimePickerDialog(getActivity(), (CreateScheduledClassActivity)getActivity(), hour, minute,
 	                DateFormat.is24HourFormat(getActivity()));
 	}
 	
