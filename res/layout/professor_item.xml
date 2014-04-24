@@ -1,36 +1,111 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="15dp" >
-
-    <TextView
-        android:id="@+id/professor_name_textview"
+    android:padding="5dp" >
+	
+    <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-     <TextView
-        android:id="@+id/professor_email_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:background="@drawable/shadow_blue"
+        android:padding="5dp" >
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@android:color/white" >
+            
+            <IconTextView
+                android:id="@+id/professor_user_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="{fa-user}"
+                android:textColor="@color/clear_blue"
+                android:textSize="30sp"
+                android:padding="15dp" />
+            
+            <RelativeLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_toRightOf="@id/professor_user_icon" >
+		    
+	            <TextView
+			        android:id="@+id/professor_name_textview"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="Jordi Petit"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:padding="10dp" />
+			    
+			     <TextView
+			        android:id="@+id/professor_email_textview"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_below="@id/professor_name_textview"
+			        android:text="jordi.petit@lsi.upc.edu"
+			        android:textColor="@color/dark_blue"
+			        android:textAppearance="?android:attr/textAppearanceSmall"
+			        android:paddingLeft="10dp" />
+				
+			     <LinearLayout
+			         android:id="@+id/professor_phone_layout"
+			         android:layout_width="wrap_content"
+			         android:layout_height="wrap_content"
+			         android:orientation="horizontal"
+			         android:layout_below="@id/professor_email_textview"
+			         android:paddingLeft="10dp"
+			         android:paddingBottom="5dp" >
+			         
+			         <IconTextView
+			            android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="{fa-phone}"
+	                    android:textColor="@color/grey"
+	                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+			         
+			         <TextView
+				        android:id="@+id/professor_phone_textview"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="934365868"
+				        android:textColor="@color/grey"
+				        android:textAppearance="?android:attr/textAppearanceSmall"
+				        android:padding="5dp" />
+			         
+			     </LinearLayout>
+			    
+			    <LinearLayout 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+			        android:layout_alignParentRight="true"
+			        android:layout_below="@id/professor_email_textview"
+			        android:paddingLeft="10dp"
+			        android:paddingBottom="5dp">
+			        
+			        <IconTextView
+			            android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="{fa-map-marker}"
+	                    android:textColor="@color/grey"
+	                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+			        
+			        <TextView
+				        android:id="@+id/professor_office_textview"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:text="Omega-106"
+				        android:textColor="@color/grey"
+				        android:textAppearance="?android:attr/textAppearanceSmall"
+				        android:padding="5dp" />
+			        
+			    </LinearLayout>
+			     
+	        </RelativeLayout>
+            
+        </RelativeLayout>
+        
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/professor_office_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/professor_phone_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-</LinearLayout>
+</RelativeLayout>
