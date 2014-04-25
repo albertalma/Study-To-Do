@@ -30,12 +30,12 @@ import android.widget.ListView;
 public class TodayTasksFragment extends ListFragment {
 
 	private static final String TAG = "view.fragments.TodayTasksFragment";
-	
+
 	private Context context;
-	
+
 	private List<Task> tasks;
-	private Map<Long,Subject> subjectsMap;
-	
+	private Map<Long, Subject> subjectsMap;
+
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
@@ -49,19 +49,21 @@ public class TodayTasksFragment extends ListFragment {
 		args.putLong("taskID", task.getId());
 		fragment.setArguments(args);
 		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().addToBackStack("tasksFragment")
-				.replace(R.id.content_frame, fragment).commit();
+		fragmentManager.beginTransaction().addToBackStack("todaytasksFragment")
+				.replace(R.id.content_frame, fragment)
+				.addToBackStack(null)
+				.commit();
 		/*
 		 * fragmentManager.beginTransaction() .commit();
 		 */
 	}
-	
-	
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.show_list, container, false);
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -69,30 +71,31 @@ public class TodayTasksFragment extends ListFragment {
 		new FetchTodayTasksTask(new OnPostExecuteCallback() {
 			@Override
 			public void onPostExecute() {
-				ListAdapter adapter = new TaskAdapter(context, tasks, subjectsMap);
+				ListAdapter adapter = new TaskAdapter(context, tasks,
+						subjectsMap);
 				setListAdapter(adapter);
 			}
 		}).execute();
 	}
-		
+
 	private class FetchTodayTasksTask extends AsyncTask<Void, Void, Boolean> {
 
 		private String exceptionMessage;
 		private OnPostExecuteCallback callback;
-		
+
 		public FetchTodayTasksTask(OnPostExecuteCallback callback) {
 			this.callback = callback;
 		}
-		
+
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
-			//get DAOs
+			// get DAOs
 			SubjectDAO subjectDao = new SubjectDAOsqlite(context);
 			TaskDAO taskDao = new TaskDAOsqlite(context);
-			
+
 			Calendar calendar = Calendar.getInstance();
 			List<Subject> subjectsList = null;
-			//fetch data
+			// fetch data
 			try {
 				subjectsList = subjectDao.getAll();
 				tasks = taskDao.getTasks(calendar.getTime());
@@ -100,24 +103,23 @@ public class TodayTasksFragment extends ListFragment {
 				exceptionMessage = e.getMessage();
 				return true;
 			}
-			
-			//build subjects map
+
+			// build subjects map
 			subjectsMap = new HashMap<Long, Subject>();
 			for (Subject subject : subjectsList) {
 				subjectsMap.put(subject.getId(), subject);
 			}
-			
+
 			return false;
 		}
 
 		protected void onPostExecute(Boolean exceptionRaised) {
 			if (exceptionRaised) {
 				Log.e(TAG, exceptionMessage);
-			}
-			else {
+			} else {
 				callback.onPostExecute();
 			}
 		}
 	}
-	    
+
 }

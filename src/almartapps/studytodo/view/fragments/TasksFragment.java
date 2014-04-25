@@ -1,5 +1,6 @@
 package almartapps.studytodo.view.fragments;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -94,6 +97,9 @@ public class TasksFragment extends ListFragment {
     @Override
     public void onResume() {
     	super.onResume();
+    	ActionBarActivity activity = (ActionBarActivity) getActivity();
+    	ActionBar actionBar = activity.getSupportActionBar();
+    	actionBar.setTitle(R.string.tasks);
     	new GetAllTasksTask().execute();
     }
     
@@ -128,6 +134,12 @@ public class TasksFragment extends ListFragment {
 	}
     
     public void setView() {
+    	List<Task> toDoTasks = new ArrayList<Task>();
+		for (Task t : tasks) {
+			if (!t.isCompleted())
+				toDoTasks.add(t);
+		}
+		tasks = toDoTasks;
 		TaskAdapter taskAdapter = new TaskAdapter(context, tasks, subjects);
 		setListAdapter(taskAdapter);
 	}

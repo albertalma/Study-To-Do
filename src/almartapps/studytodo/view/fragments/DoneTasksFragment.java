@@ -53,7 +53,7 @@ public class DoneTasksFragment extends ListFragment {
 		args.putLong("taskID", task.getId());
 		fragment.setArguments(args);
 		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().addToBackStack("tasksFragment")
+		fragmentManager.beginTransaction().addToBackStack("donetasksFragment")
 				.replace(R.id.content_frame, fragment).commit();
 		/*
 		 * fragmentManager.beginTransaction() .commit();

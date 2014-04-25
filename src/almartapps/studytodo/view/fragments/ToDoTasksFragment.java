@@ -52,7 +52,7 @@ public class ToDoTasksFragment extends ListFragment {
 		args.putLong("taskID", task.getId());
 		fragment.setArguments(args);
 		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().addToBackStack("tasksFragment")
+		fragmentManager.beginTransaction().addToBackStack("todotasksFragment")
 				.replace(R.id.content_frame, fragment).commit();
 		/*
 		 * fragmentManager.beginTransaction() .commit();

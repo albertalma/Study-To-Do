@@ -105,6 +105,7 @@
     <string name="completed_icon_yes">{fa-check}</string>
     <string name="completed_icon_no">{fa-times}</string>
     <string name="percent_mark"> %</string>
+    <string name="enter_grade">Enter your grade:</string>
 	<string name="no_task_description">This task has no description</string>
     
 </resources>
